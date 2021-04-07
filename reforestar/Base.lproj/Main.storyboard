@@ -76,6 +76,21 @@
             </objects>
             <point key="canvasLocation" x="989.85507246376824" y="900.66964285714278"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="ePZ-QV-rpz">
+            <objects>
+                <viewController id="ySB-1P-jwS" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="41m-1n-UkB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="J3N-W1-9yv"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vF9-ii-knw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="990" y="1624"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="BBH-Pe-jr1">
             <objects>
@@ -100,7 +115,7 @@
         <!--Maps-->
         <scene sceneID="dnu-JA-Ns7">
             <objects>
-                <viewController id="qmT-vs-1GC" sceneMemberID="viewController">
+                <viewController id="qmT-vs-1GC" customClass="MapsViewController" customModule="reforestar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gJ7-Eu-mmo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -116,7 +131,7 @@
         <!--Projects-->
         <scene sceneID="OMJ-0w-AJh">
             <objects>
-                <viewController id="bsr-Qv-KGl" sceneMemberID="viewController">
+                <viewController id="bsr-Qv-KGl" customClass="ProjectsViewController" customModule="reforestar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sv4-CT-2Mj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -16,6 +16,8 @@
 		0FC6A56B261E24E1002B9B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FC6A56A261E24E1002B9B73 /* Assets.xcassets */; };
 		0FC6A56E261E24E1002B9B73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FC6A56C261E24E1002B9B73 /* LaunchScreen.storyboard */; };
 		0FC6A579261E2A52002B9B73 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A578261E2A52002B9B73 /* UserProfileViewController.swift */; };
+		0FF72176261E71AE00E0DA68 /* ProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */; };
+		0FF72179261E71CC00E0DA68 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF72178261E71CC00E0DA68 /* MapsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		0FC6A56D261E24E1002B9B73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0FC6A56F261E24E1002B9B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FC6A578261E2A52002B9B73 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewController.swift; sourceTree = "<group>"; };
+		0FF72178261E71CC00E0DA68 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 				0FC6A578261E2A52002B9B73 /* UserProfileViewController.swift */,
 				0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */,
 				0F91F599261E547F00B5F918 /* CatalogViewController.swift */,
+				0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */,
+				0FF72178261E71CC00E0DA68 /* MapsViewController.swift */,
 			);
 			path = reforestar;
 			sourceTree = "<group>";
@@ -149,9 +155,11 @@
 				0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */,
 				0FC6A564261E24DE002B9B73 /* ViewController.swift in Sources */,
 				0FC6A579261E2A52002B9B73 /* UserProfileViewController.swift in Sources */,
+				0FF72179261E71CC00E0DA68 /* MapsViewController.swift in Sources */,
 				0FC6A562261E24DE002B9B73 /* AppDelegate.swift in Sources */,
 				0F91F597261E3CED00B5F918 /* ConfigurationViewController.swift in Sources */,
 				0FC6A566261E24DE002B9B73 /* Experience.rcproject in Sources */,
+				0FF72176261E71AE00E0DA68 /* ProjectsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
