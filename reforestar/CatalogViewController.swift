@@ -17,6 +17,7 @@ class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -27,8 +28,10 @@ class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
-        tableViewCell.textLabel?.text = myData[indexPath.row]
+        let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
+        //tableViewCell.textLabel?.text = myData[indexPath.row]
+        tableViewCell.nameLabelForCell.text = myData[indexPath.row];
+        
         
         return tableViewCell;
     }

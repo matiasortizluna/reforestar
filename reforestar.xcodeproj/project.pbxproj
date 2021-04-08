@@ -18,6 +18,8 @@
 		0FC6A579261E2A52002B9B73 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A578261E2A52002B9B73 /* UserProfileViewController.swift */; };
 		0FF72176261E71AE00E0DA68 /* ProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */; };
 		0FF72179261E71CC00E0DA68 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF72178261E71CC00E0DA68 /* MapsViewController.swift */; };
+		0FF72181261E73F200E0DA68 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7217F261E73F200E0DA68 /* TableViewCell.swift */; };
+		0FF72182261E73F200E0DA68 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FF72180261E73F200E0DA68 /* TableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		0FC6A578261E2A52002B9B73 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewController.swift; sourceTree = "<group>"; };
 		0FF72178261E71CC00E0DA68 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
+		0FF7217F261E73F200E0DA68 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		0FF72180261E73F200E0DA68 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 				0F91F599261E547F00B5F918 /* CatalogViewController.swift */,
 				0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */,
 				0FF72178261E71CC00E0DA68 /* MapsViewController.swift */,
+				0FF7217F261E73F200E0DA68 /* TableViewCell.swift */,
+				0FF72180261E73F200E0DA68 /* TableViewCell.xib */,
 			);
 			path = reforestar;
 			sourceTree = "<group>";
@@ -140,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FC6A56E261E24E1002B9B73 /* LaunchScreen.storyboard in Resources */,
+				0FF72182261E73F200E0DA68 /* TableViewCell.xib in Resources */,
 				0FC6A56B261E24E1002B9B73 /* Assets.xcassets in Resources */,
 				0FC6A569261E24DE002B9B73 /* Main.storyboard in Resources */,
 			);
@@ -155,6 +162,7 @@
 				0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */,
 				0FC6A564261E24DE002B9B73 /* ViewController.swift in Sources */,
 				0FC6A579261E2A52002B9B73 /* UserProfileViewController.swift in Sources */,
+				0FF72181261E73F200E0DA68 /* TableViewCell.swift in Sources */,
 				0FF72179261E71CC00E0DA68 /* MapsViewController.swift in Sources */,
 				0FC6A562261E24DE002B9B73 /* AppDelegate.swift in Sources */,
 				0F91F597261E3CED00B5F918 /* ConfigurationViewController.swift in Sources */,
