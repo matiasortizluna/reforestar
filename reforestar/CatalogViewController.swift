@@ -9,9 +9,10 @@ import UIKit
 
 class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     
-    let myData = ["Primeiro","Segundo","Terceiro"]
+    let myData = ["Primeiro","Segundo","Terceiro","Quarto","Quinto","Sexto","Septimo","Octavo","Noveno"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +21,10 @@ class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDa
         tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
         tableView.delegate = self
         tableView.dataSource = self
+        
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+                self.navigationController?.navigationItem.largeTitleDisplayMode = .always
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,6 +41,9 @@ class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDa
         return tableViewCell;
     }
     
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        self.segmentedControl.isHidden=false;
+    }
 
     /*
     // MARK: - Navigation
