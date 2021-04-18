@@ -68,6 +68,12 @@
                     <view key="view" contentMode="scaleToFill" id="gJ7-Eu-mmo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LMp-rA-wNc">
+                                <rect key="frame" x="-18" y="140" width="446" height="673"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="7zK-IL-YhH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -75,7 +81,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Sf-H9-ObN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1575" y="901"/>
+            <point key="canvasLocation" x="-1575.3623188405797" y="900.66964285714278"/>
         </scene>
         <!--Projects-->
         <scene sceneID="OMJ-0w-AJh">
@@ -86,7 +92,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2yg-2v-gdL">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <searchBar key="tableHeaderView" contentMode="redraw" showsCancelButton="YES" id="oyf-h2-Dme">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -116,7 +122,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UVs-FP-RtK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-580" y="911"/>
+            <point key="canvasLocation" x="-713" y="901"/>
         </scene>
         <!--User Profile-->
         <scene sceneID="lsA-hz-6CT">
@@ -167,7 +173,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m7i-a5-hOR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2678" y="1658"/>
+            <point key="canvasLocation" x="1874" y="1624"/>
         </scene>
         <!--User Profile-->
         <scene sceneID="Yz5-Tb-tta">
@@ -251,7 +257,7 @@
         <!--Catalog-->
         <scene sceneID="X5s-7G-fqR">
             <objects>
-                <viewController id="Tz0-sb-iFF" sceneMemberID="viewController">
+                <viewController id="Tz0-sb-iFF" customClass="CatalogViewController" customModule="reforestar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HeU-6Q-ePF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -260,7 +266,7 @@
                                 <rect key="frame" x="20" y="140" width="374" height="32"/>
                                 <segments>
                                     <segment title="Trees"/>
-                                    <segment title="Second"/>
+                                    <segment title="Animals"/>
                                 </segments>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="toU-bE-XQn">
@@ -287,6 +293,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Catalog" largeTitleDisplayMode="always" id="1cu-VU-94p"/>
+                    <connections>
+                        <outlet property="segmentedControl" destination="mKt-Vf-Prn" id="62n-1G-dEZ"/>
+                        <outlet property="tableView" destination="toU-bE-XQn" id="xqL-Y9-nyR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ooP-wn-nOy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

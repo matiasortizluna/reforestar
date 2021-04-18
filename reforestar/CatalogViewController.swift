@@ -1,10 +1,3 @@
-//
-//  CatalogViewController.swift
-//  reforestar
-//
-//  Created by Matias Ariel Ortiz Luna on 07/04/2021.
-//
-
 import UIKit
 
 class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
@@ -22,7 +15,6 @@ class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDa
         tableView.delegate = self
         tableView.dataSource = self
         
-        
         self.navigationController?.navigationBar.prefersLargeTitles = true
                 self.navigationController?.navigationItem.largeTitleDisplayMode = .always
     }
@@ -37,22 +29,11 @@ class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDa
         //tableViewCell.textLabel?.text = myData[indexPath.row]
         tableViewCell.nameLabelForCell.text = myData[indexPath.row];
         
-        
         return tableViewCell;
     }
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         self.segmentedControl.isHidden=false;
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
