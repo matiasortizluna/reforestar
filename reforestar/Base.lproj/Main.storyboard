@@ -69,13 +69,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LMp-rA-wNc">
-                                <rect key="frame" x="-17" y="197" width="446" height="616"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LMp-rA-wNc">
+                                <rect key="frame" x="0.0" y="197" width="414" height="616"/>
                             </mapView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lTF-aJ-NEM">
-                                <rect key="frame" x="-1" y="148" width="414" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lTF-aJ-NEM">
+                                <rect key="frame" x="20" y="148" width="374" height="32"/>
                                 <segments>
                                     <segment title="Allowed Areas"/>
                                     <segment title="My Projects"/>
@@ -84,6 +82,16 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7zK-IL-YhH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="7zK-IL-YhH" firstAttribute="trailing" secondItem="lTF-aJ-NEM" secondAttribute="trailing" constant="20" id="1Ji-Md-0w9"/>
+                            <constraint firstItem="LMp-rA-wNc" firstAttribute="top" secondItem="lTF-aJ-NEM" secondAttribute="bottom" constant="18" id="3GM-CQ-HhK"/>
+                            <constraint firstItem="lTF-aJ-NEM" firstAttribute="top" secondItem="7zK-IL-YhH" secondAttribute="top" constant="8" id="4fg-9b-B6G"/>
+                            <constraint firstItem="lTF-aJ-NEM" firstAttribute="leading" secondItem="7zK-IL-YhH" secondAttribute="leading" constant="20" id="IN3-JJ-E11"/>
+                            <constraint firstItem="LMp-rA-wNc" firstAttribute="trailing" secondItem="7zK-IL-YhH" secondAttribute="trailing" id="TGa-Y6-fRg"/>
+                            <constraint firstItem="LMp-rA-wNc" firstAttribute="top" secondItem="lTF-aJ-NEM" secondAttribute="bottom" constant="18" id="Tq9-Sp-m9e"/>
+                            <constraint firstItem="LMp-rA-wNc" firstAttribute="leading" secondItem="7zK-IL-YhH" secondAttribute="leading" id="WAF-sG-yjc"/>
+                            <constraint firstItem="LMp-rA-wNc" firstAttribute="bottom" secondItem="7zK-IL-YhH" secondAttribute="bottom" id="psq-Rt-Ryq"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Maps" id="v7k-Xg-1Q0"/>
                     <connections>
@@ -283,11 +291,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="toU-bE-XQn">
                                 <rect key="frame" x="0.0" y="195" width="414" height="618"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <searchBar key="tableFooterView" contentMode="redraw" showsCancelButton="YES" id="bgK-q6-Bnn">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </searchBar>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Tc8-AS-ymJ"/>

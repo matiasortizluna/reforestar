@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F459E26262CE9F600A62D2B /* ChristmasTree.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0F459E25262CE9F600A62D2B /* ChristmasTree.usdz */; };
 		0F91F597261E3CED00B5F918 /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */; };
 		0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F599261E547F00B5F918 /* CatalogViewController.swift */; };
 		0FC6A562261E24DE002B9B73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A561261E24DE002B9B73 /* AppDelegate.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F459E25262CE9F600A62D2B /* ChristmasTree.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = ChristmasTree.usdz; sourceTree = "<group>"; };
 		0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
 		0F91F599261E547F00B5F918 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
 		0FC6A55E261E24DE002B9B73 /* reforestar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reforestar.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +53,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F459E23262CE9DB00A62D2B /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				0F459E24262CE9E500A62D2B /* 3dmodels */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		0F459E24262CE9E500A62D2B /* 3dmodels */ = {
+			isa = PBXGroup;
+			children = (
+				0F459E25262CE9F600A62D2B /* ChristmasTree.usdz */,
+			);
+			path = 3dmodels;
+			sourceTree = "<group>";
+		};
 		0FC6A555261E24DE002B9B73 = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +88,7 @@
 		0FC6A560261E24DE002B9B73 /* reforestar */ = {
 			isa = PBXGroup;
 			children = (
+				0F459E23262CE9DB00A62D2B /* assets */,
 				0FC6A561261E24DE002B9B73 /* AppDelegate.swift */,
 				0FC6A563261E24DE002B9B73 /* ViewController.swift */,
 				0FC6A565261E24DE002B9B73 /* Experience.rcproject */,
@@ -146,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FC6A56E261E24E1002B9B73 /* LaunchScreen.storyboard in Resources */,
+				0F459E26262CE9F600A62D2B /* ChristmasTree.usdz in Resources */,
 				0FF72182261E73F200E0DA68 /* TableViewCell.xib in Resources */,
 				0FC6A56B261E24E1002B9B73 /* Assets.xcassets in Resources */,
 				0FC6A569261E24DE002B9B73 /* Main.storyboard in Resources */,
