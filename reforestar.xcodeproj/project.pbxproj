@@ -12,6 +12,7 @@
 		0F459E26262CE9F600A62D2B /* ChristmasTree.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0F459E25262CE9F600A62D2B /* ChristmasTree.usdz */; };
 		0F91F597261E3CED00B5F918 /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */; };
 		0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F599261E547F00B5F918 /* CatalogViewController.swift */; };
+		0FAC6ED82637F6DF00D174B6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FAC6ED72637F6DF00D174B6 /* GoogleService-Info.plist */; };
 		0FC6A562261E24DE002B9B73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A561261E24DE002B9B73 /* AppDelegate.swift */; };
 		0FC6A564261E24DE002B9B73 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A563261E24DE002B9B73 /* ViewController.swift */; };
 		0FC6A566261E24DE002B9B73 /* Experience.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A565261E24DE002B9B73 /* Experience.rcproject */; };
@@ -35,6 +36,7 @@
 		0F459E25262CE9F600A62D2B /* ChristmasTree.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = ChristmasTree.usdz; sourceTree = "<group>"; };
 		0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
 		0F91F599261E547F00B5F918 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
+		0FAC6ED72637F6DF00D174B6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0FC6A55E261E24DE002B9B73 /* reforestar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reforestar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FC6A561261E24DE002B9B73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FC6A563261E24DE002B9B73 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				0FC6A563261E24DE002B9B73 /* ViewController.swift */,
 				0FC6A565261E24DE002B9B73 /* Experience.rcproject */,
 				0FC6A567261E24DE002B9B73 /* Main.storyboard */,
+				0FAC6ED72637F6DF00D174B6 /* GoogleService-Info.plist */,
 				0FC6A56A261E24E1002B9B73 /* Assets.xcassets */,
 				0FC6A56C261E24E1002B9B73 /* LaunchScreen.storyboard */,
 				0FC6A56F261E24E1002B9B73 /* Info.plist */,
@@ -189,6 +192,7 @@
 				0FD25BC1263790A300003897 /* tree1.obj in Resources */,
 				0FD25BC3263790A300003897 /* tree_bonus.obj in Resources */,
 				0FD25BC2263790A300003897 /* tree3.obj in Resources */,
+				0FAC6ED82637F6DF00D174B6 /* GoogleService-Info.plist in Resources */,
 				0FC6A56B261E24E1002B9B73 /* Assets.xcassets in Resources */,
 				0FC6A569261E24DE002B9B73 /* Main.storyboard in Resources */,
 			);
