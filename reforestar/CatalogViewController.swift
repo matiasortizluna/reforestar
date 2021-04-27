@@ -7,6 +7,8 @@ class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDa
     
     let myData = ["Primeiro","Segundo","Terceiro","Quarto","Quinto","Sexto","Septimo","Octavo","Noveno"]
     
+    var titleToSend = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,6 +36,19 @@ class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDa
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         self.segmentedControl.isHidden=false;
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.titleToSend = myData[indexPath.row]
+        performSegue(withIdentifier: "catalog_to_detail", sender: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier=="catalog_to_detail"){
+            let vc = segue.destination as! CatalogDetailViewController
+            vc.title = self.titleToSend
+            
+        }
     }
 
 }

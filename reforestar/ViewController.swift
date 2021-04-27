@@ -47,7 +47,7 @@ class ViewController: UIViewController {
         let results = arView.raycast(from: location, allowing: .estimatedPlane, alignment: .horizontal)
         
         if let firstResult = results.first{
-            let anchor = ARAnchor(name: "ChristmasTree", transform: firstResult.worldTransform);
+            let anchor = ARAnchor(name: "tree1.obj", transform: firstResult.worldTransform);
             arView.session.add(anchor: anchor);
         }else{
             print("Object placement failed - coudn't find surface")
@@ -64,7 +64,6 @@ class ViewController: UIViewController {
         
         entity.generateCollisionShapes(recursive: true)
         //arView.installGestures([.rotation,.translation], for: entity as! Entity & HasCollision)
-        
     }
     
 }
@@ -72,7 +71,7 @@ class ViewController: UIViewController {
 extension ViewController: ARSessionDelegate{
     func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
         for anchor in anchors{
-            if let anchorName = anchor.name, anchorName == "ChristmasTree"{
+            if let anchorName = anchor.name, anchorName == "tree1.obj"{
                 placeObject(named: anchorName, for: anchor)
             }
         }

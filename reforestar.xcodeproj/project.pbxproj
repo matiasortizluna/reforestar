@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F1F25F82637A91500694936 /* ProjectsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F25F72637A91500694936 /* ProjectsDetailViewController.swift */; };
+		0F1F25FB2637A92B00694936 /* CatalogDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F25FA2637A92B00694936 /* CatalogDetailViewController.swift */; };
 		0F459E26262CE9F600A62D2B /* ChristmasTree.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0F459E25262CE9F600A62D2B /* ChristmasTree.usdz */; };
 		0F91F597261E3CED00B5F918 /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */; };
 		0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F599261E547F00B5F918 /* CatalogViewController.swift */; };
@@ -17,6 +19,10 @@
 		0FC6A56B261E24E1002B9B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FC6A56A261E24E1002B9B73 /* Assets.xcassets */; };
 		0FC6A56E261E24E1002B9B73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FC6A56C261E24E1002B9B73 /* LaunchScreen.storyboard */; };
 		0FC6A579261E2A52002B9B73 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A578261E2A52002B9B73 /* UserProfileViewController.swift */; };
+		0FD25BC0263790A300003897 /* tree2.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0FD25BBC263790A300003897 /* tree2.obj */; };
+		0FD25BC1263790A300003897 /* tree1.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0FD25BBD263790A300003897 /* tree1.obj */; };
+		0FD25BC2263790A300003897 /* tree3.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0FD25BBE263790A300003897 /* tree3.obj */; };
+		0FD25BC3263790A300003897 /* tree_bonus.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0FD25BBF263790A300003897 /* tree_bonus.obj */; };
 		0FF72176261E71AE00E0DA68 /* ProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */; };
 		0FF72179261E71CC00E0DA68 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF72178261E71CC00E0DA68 /* MapsViewController.swift */; };
 		0FF72181261E73F200E0DA68 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7217F261E73F200E0DA68 /* TableViewCell.swift */; };
@@ -24,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F1F25F72637A91500694936 /* ProjectsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsDetailViewController.swift; sourceTree = "<group>"; };
+		0F1F25FA2637A92B00694936 /* CatalogDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogDetailViewController.swift; sourceTree = "<group>"; };
 		0F459E25262CE9F600A62D2B /* ChristmasTree.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = ChristmasTree.usdz; sourceTree = "<group>"; };
 		0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
 		0F91F599261E547F00B5F918 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +44,10 @@
 		0FC6A56D261E24E1002B9B73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0FC6A56F261E24E1002B9B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FC6A578261E2A52002B9B73 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		0FD25BBC263790A300003897 /* tree2.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree2.obj; sourceTree = "<group>"; };
+		0FD25BBD263790A300003897 /* tree1.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree1.obj; sourceTree = "<group>"; };
+		0FD25BBE263790A300003897 /* tree3.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree3.obj; sourceTree = "<group>"; };
+		0FD25BBF263790A300003897 /* tree_bonus.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree_bonus.obj; sourceTree = "<group>"; };
 		0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewController.swift; sourceTree = "<group>"; };
 		0FF72178261E71CC00E0DA68 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		0FF7217F261E73F200E0DA68 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -64,6 +76,10 @@
 		0F459E24262CE9E500A62D2B /* 3dmodels */ = {
 			isa = PBXGroup;
 			children = (
+				0FD25BBF263790A300003897 /* tree_bonus.obj */,
+				0FD25BBD263790A300003897 /* tree1.obj */,
+				0FD25BBC263790A300003897 /* tree2.obj */,
+				0FD25BBE263790A300003897 /* tree3.obj */,
 				0F459E25262CE9F600A62D2B /* ChristmasTree.usdz */,
 			);
 			path = 3dmodels;
@@ -103,6 +119,8 @@
 				0FF72178261E71CC00E0DA68 /* MapsViewController.swift */,
 				0FF7217F261E73F200E0DA68 /* TableViewCell.swift */,
 				0FF72180261E73F200E0DA68 /* TableViewCell.xib */,
+				0F1F25F72637A91500694936 /* ProjectsDetailViewController.swift */,
+				0F1F25FA2637A92B00694936 /* CatalogDetailViewController.swift */,
 			);
 			path = reforestar;
 			sourceTree = "<group>";
@@ -166,7 +184,11 @@
 			files = (
 				0FC6A56E261E24E1002B9B73 /* LaunchScreen.storyboard in Resources */,
 				0F459E26262CE9F600A62D2B /* ChristmasTree.usdz in Resources */,
+				0FD25BC0263790A300003897 /* tree2.obj in Resources */,
 				0FF72182261E73F200E0DA68 /* TableViewCell.xib in Resources */,
+				0FD25BC1263790A300003897 /* tree1.obj in Resources */,
+				0FD25BC3263790A300003897 /* tree_bonus.obj in Resources */,
+				0FD25BC2263790A300003897 /* tree3.obj in Resources */,
 				0FC6A56B261E24E1002B9B73 /* Assets.xcassets in Resources */,
 				0FC6A569261E24DE002B9B73 /* Main.storyboard in Resources */,
 			);
@@ -183,11 +205,13 @@
 				0FC6A564261E24DE002B9B73 /* ViewController.swift in Sources */,
 				0FC6A579261E2A52002B9B73 /* UserProfileViewController.swift in Sources */,
 				0FF72181261E73F200E0DA68 /* TableViewCell.swift in Sources */,
+				0F1F25FB2637A92B00694936 /* CatalogDetailViewController.swift in Sources */,
 				0FF72179261E71CC00E0DA68 /* MapsViewController.swift in Sources */,
 				0FC6A562261E24DE002B9B73 /* AppDelegate.swift in Sources */,
 				0F91F597261E3CED00B5F918 /* ConfigurationViewController.swift in Sources */,
 				0FC6A566261E24DE002B9B73 /* Experience.rcproject in Sources */,
 				0FF72176261E71AE00E0DA68 /* ProjectsViewController.swift in Sources */,
+				0F1F25F82637A91500694936 /* ProjectsDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

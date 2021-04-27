@@ -14,6 +14,7 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tableView: UITableView!
     let myData = ["Primeiro","Segundo","Terceiro","Quarto","Quinto","Sexto","Septimo","Octavo","Noveno"]
     var filteredData: [String]!
+    var titleToSend = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +72,24 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
         self.searchBar.endEditing(true)
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("you tapped me")
+        self.titleToSend = filteredData[indexPath.row]
+        performSegue(withIdentifier: "project_to_detail", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "project_to_detail" {
+            
+            var vc = segue.destination as! ProjectsDetailViewController
+            //vc.titleReceived=self.titleToSend
+            vc.title=self.titleToSend
+        }
+    }
+    
+    
+}
+
     
 
     /*
@@ -82,5 +101,3 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
         // Pass the selected object to the new view controller.
     }
     */
-
-}
