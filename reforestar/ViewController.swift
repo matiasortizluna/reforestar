@@ -8,10 +8,14 @@
 import UIKit
 import RealityKit
 import ARKit
+import Firebase
 
 class ViewController: UIViewController {
     
     @IBOutlet var arView: ARView!
+    
+    var ref: DatabaseReference!
+    //private let database = Firebase.Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/")
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -21,7 +25,18 @@ class ViewController: UIViewController {
         setupARView()
         arView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(recognizer:))))
         
+        //To delete anything with that key
+        //database.child("Commentary").setValue(nil);
         
+        ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
+        
+        let object: [String: Any] = [
+            "name": "Matias" as NSObject,
+            "age": "14" as NSObject
+        ]
+        self.ref.child("MArcoOrtiz").setValue(nil)
+        //self.ref.child("MArcoOrtiz").setValue(object)
+        //re.child("MarcoOrtiz").setValue(object)
         
     }
 

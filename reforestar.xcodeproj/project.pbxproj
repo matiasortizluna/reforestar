@@ -12,7 +12,6 @@
 		0F459E26262CE9F600A62D2B /* ChristmasTree.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0F459E25262CE9F600A62D2B /* ChristmasTree.usdz */; };
 		0F91F597261E3CED00B5F918 /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */; };
 		0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F599261E547F00B5F918 /* CatalogViewController.swift */; };
-		0FAC6ED82637F6DF00D174B6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FAC6ED72637F6DF00D174B6 /* GoogleService-Info.plist */; };
 		0FC6A562261E24DE002B9B73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A561261E24DE002B9B73 /* AppDelegate.swift */; };
 		0FC6A564261E24DE002B9B73 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A563261E24DE002B9B73 /* ViewController.swift */; };
 		0FC6A566261E24DE002B9B73 /* Experience.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A565261E24DE002B9B73 /* Experience.rcproject */; };
@@ -24,10 +23,12 @@
 		0FD25BC1263790A300003897 /* tree1.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0FD25BBD263790A300003897 /* tree1.obj */; };
 		0FD25BC2263790A300003897 /* tree3.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0FD25BBE263790A300003897 /* tree3.obj */; };
 		0FD25BC3263790A300003897 /* tree_bonus.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0FD25BBF263790A300003897 /* tree_bonus.obj */; };
+		0FD75D9B2640381A00EBDFA4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FD75D9A2640381A00EBDFA4 /* GoogleService-Info.plist */; };
 		0FF72176261E71AE00E0DA68 /* ProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */; };
 		0FF72179261E71CC00E0DA68 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF72178261E71CC00E0DA68 /* MapsViewController.swift */; };
 		0FF72181261E73F200E0DA68 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7217F261E73F200E0DA68 /* TableViewCell.swift */; };
 		0FF72182261E73F200E0DA68 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FF72180261E73F200E0DA68 /* TableViewCell.xib */; };
+		9DDB14CCF519597997F85551 /* libPods-reforestar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F691D850D17135829B06696 /* libPods-reforestar.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +37,6 @@
 		0F459E25262CE9F600A62D2B /* ChristmasTree.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = ChristmasTree.usdz; sourceTree = "<group>"; };
 		0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
 		0F91F599261E547F00B5F918 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
-		0FAC6ED72637F6DF00D174B6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0FC6A55E261E24DE002B9B73 /* reforestar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reforestar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FC6A561261E24DE002B9B73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FC6A563261E24DE002B9B73 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,10 +50,14 @@
 		0FD25BBD263790A300003897 /* tree1.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree1.obj; sourceTree = "<group>"; };
 		0FD25BBE263790A300003897 /* tree3.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree3.obj; sourceTree = "<group>"; };
 		0FD25BBF263790A300003897 /* tree_bonus.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree_bonus.obj; sourceTree = "<group>"; };
+		0FD75D9A2640381A00EBDFA4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewController.swift; sourceTree = "<group>"; };
 		0FF72178261E71CC00E0DA68 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		0FF7217F261E73F200E0DA68 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		0FF72180261E73F200E0DA68 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		64C921DECC052D8A633F291D /* Pods-reforestar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reforestar.debug.xcconfig"; path = "Target Support Files/Pods-reforestar/Pods-reforestar.debug.xcconfig"; sourceTree = "<group>"; };
+		8F691D850D17135829B06696 /* libPods-reforestar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-reforestar.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8258569B618CF09CD8AF058 /* Pods-reforestar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reforestar.release.xcconfig"; path = "Target Support Files/Pods-reforestar/Pods-reforestar.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DDB14CCF519597997F85551 /* libPods-reforestar.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +97,8 @@
 			children = (
 				0FC6A560261E24DE002B9B73 /* reforestar */,
 				0FC6A55F261E24DE002B9B73 /* Products */,
+				71F9436F12AC57AF01001993 /* Pods */,
+				53DAB12A7117CE740D2D227F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,7 +118,7 @@
 				0FC6A563261E24DE002B9B73 /* ViewController.swift */,
 				0FC6A565261E24DE002B9B73 /* Experience.rcproject */,
 				0FC6A567261E24DE002B9B73 /* Main.storyboard */,
-				0FAC6ED72637F6DF00D174B6 /* GoogleService-Info.plist */,
+				0FD75D9A2640381A00EBDFA4 /* GoogleService-Info.plist */,
 				0FC6A56A261E24E1002B9B73 /* Assets.xcassets */,
 				0FC6A56C261E24E1002B9B73 /* LaunchScreen.storyboard */,
 				0FC6A56F261E24E1002B9B73 /* Info.plist */,
@@ -128,6 +135,23 @@
 			path = reforestar;
 			sourceTree = "<group>";
 		};
+		53DAB12A7117CE740D2D227F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8F691D850D17135829B06696 /* libPods-reforestar.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		71F9436F12AC57AF01001993 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				64C921DECC052D8A633F291D /* Pods-reforestar.debug.xcconfig */,
+				F8258569B618CF09CD8AF058 /* Pods-reforestar.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,6 +159,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0FC6A572261E24E1002B9B73 /* Build configuration list for PBXNativeTarget "reforestar" */;
 			buildPhases = (
+				7CDC2FC09B64271BD3D53E0C /* [CP] Check Pods Manifest.lock */,
 				0FC6A55A261E24DE002B9B73 /* Sources */,
 				0FC6A55B261E24DE002B9B73 /* Frameworks */,
 				0FC6A55C261E24DE002B9B73 /* Resources */,
@@ -192,13 +217,38 @@
 				0FD25BC1263790A300003897 /* tree1.obj in Resources */,
 				0FD25BC3263790A300003897 /* tree_bonus.obj in Resources */,
 				0FD25BC2263790A300003897 /* tree3.obj in Resources */,
-				0FAC6ED82637F6DF00D174B6 /* GoogleService-Info.plist in Resources */,
+				0FD75D9B2640381A00EBDFA4 /* GoogleService-Info.plist in Resources */,
 				0FC6A56B261E24E1002B9B73 /* Assets.xcassets in Resources */,
 				0FC6A569261E24DE002B9B73 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7CDC2FC09B64271BD3D53E0C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-reforestar-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0FC6A55A261E24DE002B9B73 /* Sources */ = {
@@ -359,6 +409,7 @@
 		};
 		0FC6A573261E24E1002B9B73 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 64C921DECC052D8A633F291D /* Pods-reforestar.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -379,6 +430,7 @@
 		};
 		0FC6A574261E24E1002B9B73 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8258569B618CF09CD8AF058 /* Pods-reforestar.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
