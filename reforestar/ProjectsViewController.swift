@@ -88,6 +88,12 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    func getProjects(){
+        
+    }
+    
+    //getProjects by user
+    
     
 }
 

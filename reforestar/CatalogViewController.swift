@@ -1,13 +1,33 @@
 import UIKit
+import Firebase
 
 class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     
-    let myData = ["Primeiro","Segundo","Terceiro","Quarto","Quinto","Sexto","Septimo","Octavo","Noveno"]
+    var myData = ["Primeiro","Segundo","Terceiro","Quarto","Quinto","Sexto","Septimo","Octavo","Noveno"]
+    
+    //var myData: [AnyObject] = []
     
     var titleToSend = ""
+    
+    func getCatalogInfo(){
+        let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
+        
+        let catalog = ref.child("trees").observe(.value, with: {snapshot in
+            guard let information = snapshot.value as? [AnyObject] else {
+                print("ERRORORSROASOROR")
+                return
+            }
+            print("This is infomation \(information)")
+            for info in information {
+                //print (info)
+            }
+            
+            
+        })
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +39,8 @@ class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDa
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
                 self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+        
+        self.getCatalogInfo()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,4 +73,5 @@ class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDa
         }
     }
 
+    
 }
