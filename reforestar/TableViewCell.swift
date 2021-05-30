@@ -10,16 +10,13 @@ import UIKit
 class TableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabelForCell: UILabel!
-    @IBOutlet weak var sizeLabelForCell: UILabel!
-    @IBOutlet weak var areaLabelForCell: UILabel!
-    @IBOutlet weak var treesLabelForCell: UILabel!
-    @IBOutlet weak var animalsLabelForCell: UILabel!
-    @IBOutlet weak var sizeValueLabelForCell: UILabel!
-    @IBOutlet weak var areaValueLabelForCell: UILabel!
-    @IBOutlet weak var treesValueLabelForCell: UILabel!
-    @IBOutlet weak var animalsValueLabelForCell: UILabel!
-    
     @IBOutlet weak var imageForCell: UIImageView!
+    
+    @IBOutlet weak var sizeValueLabel: UILabel!
+    
+    @IBOutlet weak var treesValueLabel: UILabel!
+    
+    @IBOutlet weak var statusLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

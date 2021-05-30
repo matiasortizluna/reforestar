@@ -6,10 +6,16 @@
 //
 
 import UIKit
+import MapKit
 
 class ProjectsDetailViewController: UIViewController {
 
     var titleReceived = ""
+    
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var label1: UILabel!
+    @IBOutlet weak var label2: UILabel!
+    @IBOutlet weak var label3: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
