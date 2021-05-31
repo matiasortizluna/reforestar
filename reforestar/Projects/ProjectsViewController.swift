@@ -58,6 +58,7 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
         let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
         tableViewCell.nameLabelForCell.text = filteredData[indexPath.row];
         
+        //Fill information of the 
         if(self.projectsTitles.contains(filteredData[indexPath.row])){
             let project_found = self.getProject(name: filteredData[indexPath.row])
             tableViewCell.treesValueLabel.text = project_found["trees"]
