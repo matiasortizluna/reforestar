@@ -13,12 +13,10 @@ class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         
-        
-        treesCatalog=Help().readCatalogInfo()
-        
         print(treesCatalog)
         
         // Do any additional setup after loading the view.
+        //
         tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
         tableView.delegate = self
         tableView.dataSource = self
@@ -57,7 +55,6 @@ class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDa
         if (segue.identifier=="catalog_to_detail"){
             let vc = segue.destination as! CatalogDetailViewController
             vc.title = self.titleToSend
-            
         }
     }
 
