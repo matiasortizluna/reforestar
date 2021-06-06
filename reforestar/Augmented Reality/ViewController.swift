@@ -12,21 +12,28 @@ import SwiftUI
 
 class ViewController: UIViewController {
     
-    @IBOutlet var arView: ARView!
+    var arView = ARView(frame: .zero)
     
-    @IBOutlet weak var theContainer: UIView!
-
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLoad() {
+        setupConstraints()
         
-        //arView.session.delegate = self;
+        super.viewDidLoad()
         
-        //setupARView()
-        //arView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(recognizer:))))
+        arView.session.delegate = self;
         
+        setupARView()
+        arView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(recognizer:))))
         
     }
+    
+    func setupConstraints(){
+        self.arView.translatesAutoresizingMaskIntoConstraints = false
+        self.arView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        self.arView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        self.arView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        self.arView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+    }
+
 
     func setupARView(){
         
@@ -45,7 +52,7 @@ class ViewController: UIViewController {
         let results = arView.raycast(from: location, allowing: .estimatedPlane, alignment: .horizontal)
         
         if let firstResult = results.first{
-            let anchor = ARAnchor(name: "tree1.obj", transform: firstResult.worldTransform);
+            let anchor = ARAnchor(name: "pinus_pinaster.usdz", transform: firstResult.worldTransform);
             arView.session.add(anchor: anchor);
         }else{
             print("Object placement failed - coudn't find surface")
@@ -55,13 +62,12 @@ class ViewController: UIViewController {
     func placeObject(named entityName: String, for anchor: ARAnchor){
         let entity = try! ModelEntity.load(named: entityName)
         
-        
         let anchorEntity = AnchorEntity(anchor: anchor)
         anchorEntity.addChild(entity);
         arView.scene.addAnchor(anchorEntity);
         
         entity.generateCollisionShapes(recursive: true)
-        //arView.installGestures([.rotation,.translation], for: entity as! Entity & HasCollision)
+        arView.installGestures([.rotation,.translation], for: entity as! Entity & HasCollision)
     }
     
 }
@@ -69,7 +75,7 @@ class ViewController: UIViewController {
 extension ViewController: ARSessionDelegate{
     func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
         for anchor in anchors{
-            if let anchorName = anchor.name, anchorName == "tree1.obj"{
+            if let anchorName = anchor.name, anchorName == "pinus_pinaster.usdz"{
                 placeObject(named: anchorName, for: anchor)
             }
         }

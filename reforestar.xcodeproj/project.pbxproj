@@ -10,12 +10,13 @@
 		0F1F25F82637A91500694936 /* ProjectsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F25F72637A91500694936 /* ProjectsDetailViewController.swift */; };
 		0F1F25FB2637A92B00694936 /* CatalogDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F25FA2637A92B00694936 /* CatalogDetailViewController.swift */; };
 		0F356310265A82FA00A15D2B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F35630F265A82FA00A15D2B /* GoogleService-Info.plist */; };
+		0F3CDFD226662E80009A643D /* quercus_suber.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0F3CDFD126662E80009A643D /* quercus_suber.usdz */; };
 		0F459E26262CE9F600A62D2B /* ChristmasTree.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0F459E25262CE9F600A62D2B /* ChristmasTree.usdz */; };
-		0F7A94C9265CC7CD000902E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A94C7265CC7CD000902E7 /* ContentView.swift */; };
-		0F7A94CA265CC7CD000902E7 /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A94C8265CC7CD000902E7 /* ControlView.swift */; };
 		0F7A94CC265CCC6F000902E7 /* AugmentedRealityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A94CB265CCC6F000902E7 /* AugmentedRealityViewController.swift */; };
 		0F91F597261E3CED00B5F918 /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */; };
 		0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F599261E547F00B5F918 /* CatalogViewController.swift */; };
+		0FC4B9382665F5D500E87DAC /* PlacementSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC4B9372665F5D500E87DAC /* PlacementSettings.swift */; };
+		0FC4B93A2665FB0A00E87DAC /* PlacementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC4B9392665FB0A00E87DAC /* PlacementView.swift */; };
 		0FC6A562261E24DE002B9B73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A561261E24DE002B9B73 /* AppDelegate.swift */; };
 		0FC6A564261E24DE002B9B73 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A563261E24DE002B9B73 /* ViewController.swift */; };
 		0FC6A566261E24DE002B9B73 /* Experience.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A565261E24DE002B9B73 /* Experience.rcproject */; };
@@ -23,6 +24,14 @@
 		0FC6A56B261E24E1002B9B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FC6A56A261E24E1002B9B73 /* Assets.xcassets */; };
 		0FC6A56E261E24E1002B9B73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FC6A56C261E24E1002B9B73 /* LaunchScreen.storyboard */; };
 		0FC6A579261E2A52002B9B73 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A578261E2A52002B9B73 /* UserProfileViewController.swift */; };
+		0FCBACB52665CD370076B6D3 /* pinus_pinaster.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FCBACB02665CD370076B6D3 /* pinus_pinaster.usdz */; };
+		0FCBACB62665CD370076B6D3 /* eucalyptus.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FCBACB12665CD370076B6D3 /* eucalyptus.usdz */; };
+		0FCBACB72665CD370076B6D3 /* pinus_pinea.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FCBACB22665CD370076B6D3 /* pinus_pinea.usdz */; };
+		0FCBACBC2665CEFD0076B6D3 /* TreesCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCBACB82665CEFC0076B6D3 /* TreesCatalog.swift */; };
+		0FCBACBD2665CEFD0076B6D3 /* TreesCatalogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCBACB92665CEFC0076B6D3 /* TreesCatalogModel.swift */; };
+		0FCBACBE2665CEFD0076B6D3 /* InterfaceLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCBACBA2665CEFC0076B6D3 /* InterfaceLayout.swift */; };
+		0FCBACBF2665CEFD0076B6D3 /* RightBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCBACBB2665CEFD0076B6D3 /* RightBar.swift */; };
+		0FCBACC72665CFD30076B6D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCBACC62665CFD30076B6D3 /* ContentView.swift */; };
 		0FD25BC0263790A300003897 /* tree2.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0FD25BBC263790A300003897 /* tree2.obj */; };
 		0FD25BC1263790A300003897 /* tree1.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0FD25BBD263790A300003897 /* tree1.obj */; };
 		0FD25BC2263790A300003897 /* tree3.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0FD25BBE263790A300003897 /* tree3.obj */; };
@@ -38,12 +47,13 @@
 		0F1F25F72637A91500694936 /* ProjectsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsDetailViewController.swift; sourceTree = "<group>"; };
 		0F1F25FA2637A92B00694936 /* CatalogDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogDetailViewController.swift; sourceTree = "<group>"; };
 		0F35630F265A82FA00A15D2B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0F3CDFD126662E80009A643D /* quercus_suber.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = quercus_suber.usdz; path = ../../../../3DModels/quercus_suber.usdz; sourceTree = "<group>"; };
 		0F459E25262CE9F600A62D2B /* ChristmasTree.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = ChristmasTree.usdz; sourceTree = "<group>"; };
-		0F7A94C7265CC7CD000902E7 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		0F7A94C8265CC7CD000902E7 /* ControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
 		0F7A94CB265CCC6F000902E7 /* AugmentedRealityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityViewController.swift; sourceTree = "<group>"; };
 		0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
 		0F91F599261E547F00B5F918 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
+		0FC4B9372665F5D500E87DAC /* PlacementSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlacementSettings.swift; path = ../../../../../Desktop/PlacementSettings.swift; sourceTree = "<group>"; };
+		0FC4B9392665FB0A00E87DAC /* PlacementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementView.swift; sourceTree = "<group>"; };
 		0FC6A55E261E24DE002B9B73 /* reforestar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reforestar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FC6A561261E24DE002B9B73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FC6A563261E24DE002B9B73 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,6 +63,14 @@
 		0FC6A56D261E24E1002B9B73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0FC6A56F261E24E1002B9B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FC6A578261E2A52002B9B73 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		0FCBACB02665CD370076B6D3 /* pinus_pinaster.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pinus_pinaster.usdz; sourceTree = "<group>"; };
+		0FCBACB12665CD370076B6D3 /* eucalyptus.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = eucalyptus.usdz; sourceTree = "<group>"; };
+		0FCBACB22665CD370076B6D3 /* pinus_pinea.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pinus_pinea.usdz; sourceTree = "<group>"; };
+		0FCBACB82665CEFC0076B6D3 /* TreesCatalog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreesCatalog.swift; sourceTree = "<group>"; };
+		0FCBACB92665CEFC0076B6D3 /* TreesCatalogModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreesCatalogModel.swift; sourceTree = "<group>"; };
+		0FCBACBA2665CEFC0076B6D3 /* InterfaceLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceLayout.swift; sourceTree = "<group>"; };
+		0FCBACBB2665CEFD0076B6D3 /* RightBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightBar.swift; sourceTree = "<group>"; };
+		0FCBACC62665CFD30076B6D3 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0FD25BBC263790A300003897 /* tree2.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree2.obj; sourceTree = "<group>"; };
 		0FD25BBD263790A300003897 /* tree1.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree1.obj; sourceTree = "<group>"; };
 		0FD25BBE263790A300003897 /* tree3.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree3.obj; sourceTree = "<group>"; };
@@ -116,11 +134,16 @@
 		0F04866E265BF1D90083AC26 /* Augmented Reality */ = {
 			isa = PBXGroup;
 			children = (
-				0F7A94C7265CC7CD000902E7 /* ContentView.swift */,
-				0F7A94C8265CC7CD000902E7 /* ControlView.swift */,
+				0FCBACBA2665CEFC0076B6D3 /* InterfaceLayout.swift */,
+				0FCBACBB2665CEFD0076B6D3 /* RightBar.swift */,
+				0FCBACC62665CFD30076B6D3 /* ContentView.swift */,
+				0FCBACB82665CEFC0076B6D3 /* TreesCatalog.swift */,
+				0FCBACB92665CEFC0076B6D3 /* TreesCatalogModel.swift */,
 				0F7A94CB265CCC6F000902E7 /* AugmentedRealityViewController.swift */,
 				0FC6A565261E24DE002B9B73 /* Experience.rcproject */,
 				0FC6A563261E24DE002B9B73 /* ViewController.swift */,
+				0FC4B9372665F5D500E87DAC /* PlacementSettings.swift */,
+				0FC4B9392665FB0A00E87DAC /* PlacementView.swift */,
 			);
 			path = "Augmented Reality";
 			sourceTree = "<group>";
@@ -128,6 +151,10 @@
 		0F459E23262CE9DB00A62D2B /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				0FCBACB12665CD370076B6D3 /* eucalyptus.usdz */,
+				0FCBACB02665CD370076B6D3 /* pinus_pinaster.usdz */,
+				0FCBACB22665CD370076B6D3 /* pinus_pinea.usdz */,
+				0F3CDFD126662E80009A643D /* quercus_suber.usdz */,
 				0F459E24262CE9E500A62D2B /* 3dmodels */,
 			);
 			path = assets;
@@ -264,10 +291,14 @@
 				0FD25BC0263790A300003897 /* tree2.obj in Resources */,
 				0FF72182261E73F200E0DA68 /* TableViewCell.xib in Resources */,
 				0FD25BC1263790A300003897 /* tree1.obj in Resources */,
+				0FCBACB72665CD370076B6D3 /* pinus_pinea.usdz in Resources */,
 				0FD25BC3263790A300003897 /* tree_bonus.obj in Resources */,
 				0FD25BC2263790A300003897 /* tree3.obj in Resources */,
 				0F356310265A82FA00A15D2B /* GoogleService-Info.plist in Resources */,
+				0F3CDFD226662E80009A643D /* quercus_suber.usdz in Resources */,
+				0FCBACB62665CD370076B6D3 /* eucalyptus.usdz in Resources */,
 				0FC6A56B261E24E1002B9B73 /* Assets.xcassets in Resources */,
+				0FCBACB52665CD370076B6D3 /* pinus_pinaster.usdz in Resources */,
 				0FC6A569261E24DE002B9B73 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -305,18 +336,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */,
+				0FCBACBD2665CEFD0076B6D3 /* TreesCatalogModel.swift in Sources */,
+				0FCBACBF2665CEFD0076B6D3 /* RightBar.swift in Sources */,
+				0FCBACBE2665CEFD0076B6D3 /* InterfaceLayout.swift in Sources */,
 				0FC6A564261E24DE002B9B73 /* ViewController.swift in Sources */,
 				0FC6A579261E2A52002B9B73 /* UserProfileViewController.swift in Sources */,
 				0F7A94CC265CCC6F000902E7 /* AugmentedRealityViewController.swift in Sources */,
+				0FCBACC72665CFD30076B6D3 /* ContentView.swift in Sources */,
 				0FF72181261E73F200E0DA68 /* TableViewCell.swift in Sources */,
 				0F1F25FB2637A92B00694936 /* CatalogDetailViewController.swift in Sources */,
 				0FF72179261E71CC00E0DA68 /* MapsViewController.swift in Sources */,
 				0FC6A562261E24DE002B9B73 /* AppDelegate.swift in Sources */,
+				0FC4B9382665F5D500E87DAC /* PlacementSettings.swift in Sources */,
 				0F91F597261E3CED00B5F918 /* ConfigurationViewController.swift in Sources */,
 				0FC6A566261E24DE002B9B73 /* Experience.rcproject in Sources */,
-				0F7A94C9265CC7CD000902E7 /* ContentView.swift in Sources */,
 				0FF72176261E71AE00E0DA68 /* ProjectsViewController.swift in Sources */,
-				0F7A94CA265CC7CD000902E7 /* ControlView.swift in Sources */,
+				0FC4B93A2665FB0A00E87DAC /* PlacementView.swift in Sources */,
+				0FCBACBC2665CEFD0076B6D3 /* TreesCatalog.swift in Sources */,
 				0F1F25F82637A91500694936 /* ProjectsDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
