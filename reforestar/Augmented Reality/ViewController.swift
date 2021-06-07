@@ -81,11 +81,23 @@ class ViewController: UIViewController {
         let location = recognizer.location(in: arView)
         let results = arView.raycast(from: location, allowing: .estimatedPlane, alignment: .horizontal)
   
-        
+        /*
         let coordinate = CLLocationCoordinate2D(latitude: 39.73954841, longitude: -8.80565608)
         let geoAnchor = ARGeoAnchor(name: "pinus_pinaster.usdz", coordinate: coordinate)
-        print("Coordenadas: \(geoAnchor.coordinate)")
-        arView.session.add(anchor: geoAnchor);
+        print("Coordenadas: \(geoAnchor.coordinate.latitude)")
+        self.arView.session.add(anchor: geoAnchor);
+        */
+        
+        
+        let point = SIMD3<Float>([0, 1, -2])
+        
+        arView.session.getGeoLocation(forPoint: point) {
+            (coordinate, altitude, error) in
+            let geoAnchor = ARGeoAnchor(name: "pinus_pinaster.usdz", coordinate: coordinate, altitude:
+                altitude)
+            print("Coordenadas: \(geoAnchor.coordinate.latitude)")
+            self.arView.session.add(anchor: geoAnchor);
+        }
         
         
         /*
