@@ -60,9 +60,7 @@ struct ARViewContainer: UIViewRepresentable {
         arView.session.run(configuration)
         
         self.placementSettings.sceneObserver = arView.scene.subscribe(to: SceneEvents.Update.self, {(event) in
-         
                 self.updateScene(for: arView)}
-                                                                      
         )
 
         return arView;
@@ -71,7 +69,7 @@ struct ARViewContainer: UIViewRepresentable {
     func updateUIView(_ uiView: UIViewType, context: Context) {
     }
     
-    private func updateScene(for arView: ARView){
+    public func updateScene(for arView: ARView){
         if let confirmedModel = self.placementSettings.confirmedModel, let modelEntity = confirmedModel.modelEntity{
             self.place(modelEntity, in: arView)
             self.placementSettings.confirmedModel=nil
@@ -88,9 +86,9 @@ struct ARViewContainer: UIViewRepresentable {
         let anchorEntity = AnchorEntity(plane: .any)
         anchorEntity.addChild(clonedEntity)
         
-        print(anchorEntity.anchor?.position)
+        print(anchorEntity.anchor?.position as Any)
         arView.scene.addAnchor(anchorEntity)
-        print(anchorEntity.anchor?.position)
+        print(anchorEntity.anchor?.position as Any)
     }
     
 }
@@ -111,7 +109,7 @@ extension ARView{
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         
         guard let touchInView = sender?.location(in: self) else {
-            print("Failed on location")
+            print("Failed on touch")
             return
         }
         
@@ -119,6 +117,8 @@ extension ARView{
         print(results)
         
         if let firstResult = results.first{
+            //print(firstResult.worldTransform.translation)
+            //let anchor = ARGeoAnchor(name: "pinus_pinaster.usdz", coordinate: firstResult.worldTransform.translation.x);
             let anchor = ARAnchor(name: "pinus_pinaster.usdz", transform: firstResult.worldTransform);
             self.session.add(anchor: anchor);
         }else{

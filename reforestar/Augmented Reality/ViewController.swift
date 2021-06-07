@@ -22,7 +22,28 @@ class ViewController: UIViewController {
         arView.session.delegate = self;
         
         setupARView()
+        
+        restartSession()
+        
         arView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(recognizer:))))
+        
+    }
+    
+    func restartSession() {
+        // Check geo-tracking location-based availability.
+        ARGeoTrackingConfiguration.checkAvailability { (available, error) in
+            if !available {
+                let errorDescription = error?.localizedDescription ?? ""
+                let recommendation = "Please try again in an area where geotracking is supported."
+                let restartSession = UIAlertAction(title: "Restart Session", style: .default) { (_) in
+                    self.restartSession()
+                }
+                //self.alertUser(withTitle: "Geotracking unavailable",
+        //                       message: "\(errorDescription)\n\(recommendation)",
+          //                     actions: [restartSession])
+            }
+        }
+        
         
     }
     
@@ -39,8 +60,17 @@ class ViewController: UIViewController {
         
         arView.automaticallyConfigureSession = false;
         let configuration = ARWorldTrackingConfiguration();
-        configuration.planeDetection = [.horizontal,.vertical];
+        configuration.planeDetection = [.horizontal];
         configuration.environmentTexturing = .automatic;
+        
+        // Re-run the ARKit session.
+        //let geoTrackingConfig = ARGeoTrackingConfiguration()
+        //geoTrackingConfig.planeDetection = [.horizontal]
+        
+        //arView.session.run(geoTrackingConfig)
+        
+        arView.scene.anchors.removeAll()
+        
         arView.session.run(configuration)
         
     }
@@ -50,13 +80,23 @@ class ViewController: UIViewController {
         
         let location = recognizer.location(in: arView)
         let results = arView.raycast(from: location, allowing: .estimatedPlane, alignment: .horizontal)
+  
         
+        let coordinate = CLLocationCoordinate2D(latitude: 39.73954841, longitude: -8.80565608)
+        let geoAnchor = ARGeoAnchor(name: "pinus_pinaster.usdz", coordinate: coordinate)
+        print("Coordenadas: \(geoAnchor.coordinate)")
+        arView.session.add(anchor: geoAnchor);
+        
+        
+        /*
         if let firstResult = results.first{
             let anchor = ARAnchor(name: "pinus_pinaster.usdz", transform: firstResult.worldTransform);
             arView.session.add(anchor: anchor);
         }else{
             print("Object placement failed - coudn't find surface")
         }
+ */
+ 
     }
     
     func placeObject(named entityName: String, for anchor: ARAnchor){
