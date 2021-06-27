@@ -123,14 +123,13 @@ extension ARView{
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
-        
         guard let touchInView = sender?.location(in: self) else {
             print("Failed on touch")
             return
         }
         
         let results = self.raycast(from: touchInView, allowing: .estimatedPlane, alignment: .horizontal)
-        if let firstResult = results.first{
+        if let firstResult = results.last{
             let anchor = ARAnchor(name: "quercus_suber.usdz", transform: firstResult.worldTransform);
             print(anchor.name)
             print("First \(anchor.transform)")

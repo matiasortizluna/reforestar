@@ -14,6 +14,7 @@ struct PlacementView: View{
             Spacer()
             Spacer()
             Circle().background(Color.blue).frame(width: 50, height: 50)
+                .foregroundColor(Color.secondary)
             Spacer()
             HStack(alignment: .center){
                 PlacementButton(systemIconName: "xmark.circle.fill", action: {
