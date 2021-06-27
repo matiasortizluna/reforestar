@@ -9,26 +9,25 @@ import SwiftUI
 
 struct PlacementView: View{
     @EnvironmentObject var placementSettings: PlacementSettings
-    
     var body: some View{
-        Spacer()
-        HStack(alignment: .bottom){
+        VStack(alignment: .center){
             Spacer()
-            PlacementButton(systemIconName: "xmark.circle.fill", action: {
-                print("Cancel")
-                self.placementSettings.selectedModel = nil
-            })
             Spacer()
-            PlacementButton(systemIconName: "checkmark.circle.fill", action: {
-                print("Confirm")
-                self.placementSettings.confirmedModel = self.placementSettings.selectedModel
-                self.placementSettings.selectedModel = nil
-            })
+            Circle().background(Color.blue).frame(width: 50, height: 50)
             Spacer()
+            HStack(alignment: .center){
+                PlacementButton(systemIconName: "xmark.circle.fill", action: {
+                    print("Cancel")
+                    self.placementSettings.selectedModel = nil
+                })
+                PlacementButton(systemIconName: "checkmark.circle.fill", action: {
+                    print("Confirm")
+                    self.placementSettings.confirmedModel = self.placementSettings.selectedModel
+                    self.placementSettings.selectedModel = nil
+                })
+            }
         }
-        
     }
-    
 }
 
 struct PlacementButton: View {

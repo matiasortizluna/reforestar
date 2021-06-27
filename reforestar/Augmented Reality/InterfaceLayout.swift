@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import MapKit
+
 
 struct InterfaceLayout: View {
     //Variables of Height Tree Slider
@@ -17,18 +19,19 @@ struct InterfaceLayout: View {
     @State private var showTabBar : Bool = false
     
     var body: some View{
-        VStack{
+    
+        
+        VStack(alignment: .trailing){
+            Spacer()
             if(showTabBar){
-
                 RightBar(heightValue: $heightValue, minimumValue: $minimumValue, maximumValue: $maximumValue)
-
             }
             
             ShowBarButton(optionToToggle: $showTabBar, action: {
-                print("Control Visibility Toogle Button")
                 self.showTabBar.toggle()
+                
+                
             }, icon_string1: "gearshape", icon_string2: "book")
-        
         }
     }
 }
@@ -42,7 +45,6 @@ struct ShowBarButton: View{
     let icon_string2: String
     
     var body: some View{
-        Spacer()
         HStack{
             ZStack{
                 Color.black.opacity(0.25)
@@ -69,7 +71,7 @@ struct ShowBarButton: View{
 struct DefaultButton: View {
     let icon: String
     let action: ()->Void
-        
+    
     var body: some View{
         Button(action: {
             self.action()
@@ -78,10 +80,8 @@ struct DefaultButton: View {
                 .font(.system(size: 30))
                 .foregroundColor(Color.green)
                 .buttonStyle(PlainButtonStyle())
-                
+            
         }
         .frame(width: 50, height: 50)
     }
 }
-
-

@@ -13,34 +13,50 @@ import UIKit
 struct ContentView: View {
     @StateObject var placementSettings = PlacementSettings()
     
-    @State var heightValue : Double = 0.0
+    @State var heightValue : Double = 1.0
     @State var minimumValue : Double = 1.0
     @State var maximumValue : Double = 10.0
     
+    @ObservedObject public var locationManager  = LocationManager()
+    
     var body: some View {
-        ZStack(alignment: .trailing){
-            
+        let coordinate = self.locationManager.coordinates != nil ? self.locationManager.coordinates!.coordinate : CLLocationCoordinate2D()
+        
+        ZStack(){
             //Interface AR
             ARViewContainer()
-            //ARViewWrapper()
-            if(self.placementSettings.selectedModel == nil){
-                //Interface AR
-                InterfaceLayout(heightValue: $heightValue, minimumValue: $minimumValue, maximumValue: $maximumValue)
-            }else{
+            
+            VStack(alignment: .center){
+                Text("\(coordinate.latitude) : \(coordinate.longitude)")
+                    .foregroundColor(Color.white)
+                    .background(Color.green.opacity(0.25))
+                    .padding()
+                    .cornerRadius(20)
                 Spacer()
-                PlacementView()
             }
             
-        }.environmentObject(placementSettings)
+            
+            HStack(alignment: .bottom){
+                //ARViewWrapper()
+                if(self.placementSettings.selectedModel == nil){
+                    //Interface AR
+                    Spacer()
+                    InterfaceLayout(heightValue: $heightValue, minimumValue: $minimumValue, maximumValue: $maximumValue)
+                }else{
+                    PlacementView()
+                }
+            }.environmentObject(placementSettings)
+        }
     }
 }
+
 
 struct ARViewWrapper: UIViewControllerRepresentable{
     
     func makeUIViewController(context: Context) -> UIViewController {
         return ViewController()
     }
-        
+    
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
         
     }
@@ -59,12 +75,15 @@ struct ARViewContainer: UIViewRepresentable {
         configuration.planeDetection = [.horizontal];
         arView.session.run(configuration)
         
-        self.placementSettings.sceneObserver = arView.scene.subscribe(to: SceneEvents.Update.self, {(event) in
-                self.updateScene(for: arView)}
-        )
-
+        arView.setupGestures()
+        /*
+         self.placementSettings.sceneObserver = arView.scene.subscribe(to: SceneEvents.Update.self, {(event) in
+         self.updateScene(for: arView)}
+         )*/
+        
         return arView;
     }
+    
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
     }
@@ -77,7 +96,6 @@ struct ARViewContainer: UIViewRepresentable {
     }
     
     private func place(_ modelEntity: ModelEntity, in arView: ARView){
-        
         let clonedEntity = modelEntity.clone(recursive: true)
         
         clonedEntity.generateCollisionShapes(recursive: true)
@@ -85,10 +103,7 @@ struct ARViewContainer: UIViewRepresentable {
         
         let anchorEntity = AnchorEntity(plane: .any)
         anchorEntity.addChild(clonedEntity)
-        
-        print(anchorEntity.anchor?.position as Any)
         arView.scene.addAnchor(anchorEntity)
-        print(anchorEntity.anchor?.position as Any)
     }
     
 }
@@ -102,8 +117,9 @@ struct ContentView_Previews: PreviewProvider {
 extension ARView{
     
     func setupGestures() {
+        self.session.delegate = self
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-                self.addGestureRecognizer(tap)
+        self.addGestureRecognizer(tap)
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
@@ -114,37 +130,63 @@ extension ARView{
         }
         
         let results = self.raycast(from: touchInView, allowing: .estimatedPlane, alignment: .horizontal)
-        print(results)
-        
         if let firstResult = results.first{
-            //print(firstResult.worldTransform.translation)
-            //let anchor = ARGeoAnchor(name: "pinus_pinaster.usdz", coordinate: firstResult.worldTransform.translation.x);
-            let anchor = ARAnchor(name: "pinus_pinaster.usdz", transform: firstResult.worldTransform);
+            let anchor = ARAnchor(name: "quercus_suber.usdz", transform: firstResult.worldTransform);
+            print(anchor.name)
+            print("First \(anchor.transform)")
             self.session.add(anchor: anchor);
+            print("Second \(anchor.transform)")
         }else{
             print("Object placement failed - coudn't find surface")
         }
         
+        
+        /*
+         let coordinate = CLLocationCoordinate2D(latitude: 39.73954841, longitude: -8.80565608)
+         let geoAnchor = ARGeoAnchor(name: "quercus_suber.usdz", coordinate: coordinate)
+         print("Coordenadas: \(geoAnchor.coordinate.latitude)")
+         self.session.add(anchor: geoAnchor);
+         */
+        
+        /*
+         let point = SIMD3<Float>([0, 1, -2])
+         self.session.getGeoLocation(forPoint: point) {
+         (coordinate, altitude, error) in
+         let geoAnchor = ARGeoAnchor(name: "quercus_suber.usdz", coordinate: coordinate, altitude:
+         altitude)
+         print("Coordenadas: \(geoAnchor.coordinate.latitude)")
+         self.session.add(anchor: geoAnchor);
+         }
+         */
+        
+    }
+    
+}
+
+extension ARView: ARSessionDelegate{
+    
+    public func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+        print("REached session")
+        for anchor in anchors{
+            if let anchorName = anchor.name, anchorName == "quercus_suber.usdz"{
+                placeObject(named: anchorName, for: anchor)
+            }
+        }
     }
     
     func placeObject(named entityName: String, for anchor: ARAnchor){
         let entity = try! ModelEntity.load(named: entityName)
         
         let anchorEntity = AnchorEntity(anchor: anchor)
+        print("anchor entity \(anchorEntity.name)")
         anchorEntity.addChild(entity);
-        self.scene.addAnchor(anchorEntity);
-        
+        print("Third \(anchor.transform)")
+        self.session.add(anchor: anchor)
+        print("Forth \(anchor.transform)")
+        self.scene.anchors.append(anchorEntity)
+        print("Fifth \(anchor.transform)")
+        //self.scene.addAnchor(anchorEntity)
         entity.generateCollisionShapes(recursive: true)
-        self.installGestures([.rotation,.translation], for: entity as! Entity & HasCollision)
-        
+        //self.installGestures([.rotation,.translation], for: entity as! Entity & HasCollision)
     }
-    
-    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
-        for anchor in anchors{
-            if let anchorName = anchor.name, anchorName == "pinus_pinaster.usdz"{
-                placeObject(named: anchorName, for: anchor)
-            }
-        }
-    }
-    
 }

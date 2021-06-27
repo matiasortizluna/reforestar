@@ -10,11 +10,11 @@ import RealityKit
 import ARKit
 import SwiftUI
 
-class ViewController: UIViewController {
+public class ViewController: UIViewController {
     
-    var arView = ARView(frame: .zero)
+    public var arView = ARView(frame: .zero)
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         setupConstraints()
         
         super.viewDidLoad()
@@ -75,12 +75,12 @@ class ViewController: UIViewController {
         
     }
     
-    @objc
-    func handleTap(recognizer: UITapGestureRecognizer){
+    @objc public func handleTap(recognizer: UITapGestureRecognizer){
         
         let location = recognizer.location(in: arView)
         let results = arView.raycast(from: location, allowing: .estimatedPlane, alignment: .horizontal)
-  
+        results.first?.worldTransform.transpose
+        
         /*
         let coordinate = CLLocationCoordinate2D(latitude: 39.73954841, longitude: -8.80565608)
         let geoAnchor = ARGeoAnchor(name: "pinus_pinaster.usdz", coordinate: coordinate)
@@ -125,7 +125,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: ARSessionDelegate{
-    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+    public func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
         for anchor in anchors{
             if let anchorName = anchor.name, anchorName == "pinus_pinaster.usdz"{
                 placeObject(named: anchorName, for: anchor)
