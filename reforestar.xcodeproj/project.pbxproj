@@ -141,7 +141,10 @@
 				0FCBACB82665CEFC0076B6D3 /* TreesCatalog.swift */,
 				0FC6A565261E24DE002B9B73 /* Experience.rcproject */,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 273822f (First Version of Algorithm)
 				0FCBACB92665CEFC0076B6D3 /* TreesCatalogModel.swift */,
 				0F53D702266D258700C66FC2 /* PlacementSettings.swift */,
 				0FC4B9392665FB0A00E87DAC /* PlacementView.swift */,
@@ -349,7 +352,10 @@
 			files = (
 				0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 273822f (First Version of Algorithm)
 				0FE2C076266E4C3D00B3EF08 /* ViewController.swift in Sources */,
 				0F53D703266D258700C66FC2 /* PlacementSettings.swift in Sources */,
 				0FCBACBD2665CEFD0076B6D3 /* TreesCatalogModel.swift in Sources */,

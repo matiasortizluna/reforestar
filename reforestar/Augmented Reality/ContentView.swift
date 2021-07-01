@@ -12,7 +12,10 @@ import UIKit
 
 struct ContentView: View {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 273822f (First Version of Algorithm)
     @StateObject var placementSettings = PlacementSettings()
 >>>>>>> parent of 273822f (First Version of Algorithm)
     
@@ -41,6 +44,7 @@ struct ContentView: View {
             
             HStack(alignment: .bottom){
 <<<<<<< HEAD
+<<<<<<< HEAD
                 
                 //Interface AR
                 Spacer()
@@ -49,6 +53,8 @@ struct ContentView: View {
             }
         }
 =======
+=======
+>>>>>>> parent of 273822f (First Version of Algorithm)
                 //ARViewWrapper()
                 if(self.placementSettings.selectedModel == nil){
                     //Interface AR
@@ -67,6 +73,7 @@ struct ARViewWrapper: UIViewControllerRepresentable{
     
     func makeUIViewController(context: Context) -> UIViewController {
         return ViewController()
+<<<<<<< HEAD
     }
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
@@ -74,6 +81,14 @@ struct ARViewWrapper: UIViewControllerRepresentable{
 >>>>>>> parent of 273822f (First Version of Algorithm)
     }
     
+=======
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        
+    }
+    
+>>>>>>> parent of 273822f (First Version of Algorithm)
 }
 
 struct ARViewContainer: UIViewRepresentable {
@@ -88,7 +103,10 @@ struct ARViewContainer: UIViewRepresentable {
         arView.session.run(configuration)
         
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 273822f (First Version of Algorithm)
         arView.setupGestures()
         /*
          self.placementSettings.sceneObserver = arView.scene.subscribe(to: SceneEvents.Update.self, {(event) in
@@ -104,9 +122,12 @@ struct ARViewContainer: UIViewRepresentable {
     }
     
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 
 =======
+=======
+>>>>>>> parent of 273822f (First Version of Algorithm)
     public func updateScene(for arView: ARView){
         if let confirmedModel = self.placementSettings.confirmedModel, let modelEntity = confirmedModel.modelEntity{
             self.place(modelEntity, in: arView)
@@ -133,6 +154,9 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
+<<<<<<< HEAD
+>>>>>>> parent of 273822f (First Version of Algorithm)
+=======
 >>>>>>> parent of 273822f (First Version of Algorithm)
 extension ARView{
     
@@ -148,6 +172,7 @@ extension ARView{
             return
         }
         
+<<<<<<< HEAD
 <<<<<<< HEAD
         if let firstResult = results.first{
             
@@ -165,6 +190,8 @@ extension ARView{
             }
             
 =======
+=======
+>>>>>>> parent of 273822f (First Version of Algorithm)
         let results = self.raycast(from: touchInView, allowing: .estimatedPlane, alignment: .horizontal)
         if let firstResult = results.last{
             let anchor = ARAnchor(name: "quercus_suber.usdz", transform: firstResult.worldTransform);
@@ -172,11 +199,15 @@ extension ARView{
             print("First \(anchor.transform)")
             self.session.add(anchor: anchor);
             print("Second \(anchor.transform)")
+<<<<<<< HEAD
+>>>>>>> parent of 273822f (First Version of Algorithm)
+=======
 >>>>>>> parent of 273822f (First Version of Algorithm)
         }else{
             print("Object placement failed - coudn't find surface")
         }
         
+<<<<<<< HEAD
 <<<<<<< HEAD
         let anchorEntity = AnchorEntity(anchor: anchor)
         anchorEntity.addChild(entity);
@@ -188,6 +219,9 @@ extension ARView{
         self.session.add(anchor: anchor)
 =======
         
+=======
+        
+>>>>>>> parent of 273822f (First Version of Algorithm)
         /*
          let coordinate = CLLocationCoordinate2D(latitude: 39.73954841, longitude: -8.80565608)
          let geoAnchor = ARGeoAnchor(name: "quercus_suber.usdz", coordinate: coordinate)
@@ -205,6 +239,9 @@ extension ARView{
          self.session.add(anchor: geoAnchor);
          }
          */
+<<<<<<< HEAD
+>>>>>>> parent of 273822f (First Version of Algorithm)
+=======
 >>>>>>> parent of 273822f (First Version of Algorithm)
         
     }
