@@ -142,7 +142,10 @@
 				0FC6A565261E24DE002B9B73 /* Experience.rcproject */,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 273822f (First Version of Algorithm)
 =======
 >>>>>>> parent of 273822f (First Version of Algorithm)
 				0FCBACB92665CEFC0076B6D3 /* TreesCatalogModel.swift */,
@@ -353,7 +356,10 @@
 				0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 273822f (First Version of Algorithm)
 =======
 >>>>>>> parent of 273822f (First Version of Algorithm)
 				0FE2C076266E4C3D00B3EF08 /* ViewController.swift in Sources */,

@@ -13,7 +13,10 @@ import UIKit
 struct ContentView: View {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 273822f (First Version of Algorithm)
 =======
 >>>>>>> parent of 273822f (First Version of Algorithm)
     @StateObject var placementSettings = PlacementSettings()
@@ -45,6 +48,7 @@ struct ContentView: View {
             HStack(alignment: .bottom){
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 
                 //Interface AR
                 Spacer()
@@ -53,6 +57,8 @@ struct ContentView: View {
             }
         }
 =======
+=======
+>>>>>>> parent of 273822f (First Version of Algorithm)
 =======
 >>>>>>> parent of 273822f (First Version of Algorithm)
                 //ARViewWrapper()
@@ -74,10 +80,14 @@ struct ARViewWrapper: UIViewControllerRepresentable{
     func makeUIViewController(context: Context) -> UIViewController {
         return ViewController()
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 273822f (First Version of Algorithm)
     }
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
         
+<<<<<<< HEAD
 >>>>>>> parent of 273822f (First Version of Algorithm)
     }
     
@@ -86,6 +96,10 @@ struct ARViewWrapper: UIViewControllerRepresentable{
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
         
+    }
+    
+>>>>>>> parent of 273822f (First Version of Algorithm)
+=======
     }
     
 >>>>>>> parent of 273822f (First Version of Algorithm)
@@ -104,7 +118,10 @@ struct ARViewContainer: UIViewRepresentable {
         
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 273822f (First Version of Algorithm)
 =======
 >>>>>>> parent of 273822f (First Version of Algorithm)
         arView.setupGestures()
@@ -123,9 +140,12 @@ struct ARViewContainer: UIViewRepresentable {
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 
 =======
+=======
+>>>>>>> parent of 273822f (First Version of Algorithm)
 =======
 >>>>>>> parent of 273822f (First Version of Algorithm)
     public func updateScene(for arView: ARView){
@@ -155,6 +175,9 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 273822f (First Version of Algorithm)
+=======
 >>>>>>> parent of 273822f (First Version of Algorithm)
 =======
 >>>>>>> parent of 273822f (First Version of Algorithm)
@@ -172,6 +195,7 @@ extension ARView{
             return
         }
         
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         if let firstResult = results.first{
@@ -192,6 +216,8 @@ extension ARView{
 =======
 =======
 >>>>>>> parent of 273822f (First Version of Algorithm)
+=======
+>>>>>>> parent of 273822f (First Version of Algorithm)
         let results = self.raycast(from: touchInView, allowing: .estimatedPlane, alignment: .horizontal)
         if let firstResult = results.last{
             let anchor = ARAnchor(name: "quercus_suber.usdz", transform: firstResult.worldTransform);
@@ -200,6 +226,9 @@ extension ARView{
             self.session.add(anchor: anchor);
             print("Second \(anchor.transform)")
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 273822f (First Version of Algorithm)
+=======
 >>>>>>> parent of 273822f (First Version of Algorithm)
 =======
 >>>>>>> parent of 273822f (First Version of Algorithm)
@@ -207,6 +236,7 @@ extension ARView{
             print("Object placement failed - coudn't find surface")
         }
         
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         let anchorEntity = AnchorEntity(anchor: anchor)
@@ -219,6 +249,9 @@ extension ARView{
         self.session.add(anchor: anchor)
 =======
         
+=======
+        
+>>>>>>> parent of 273822f (First Version of Algorithm)
 =======
         
 >>>>>>> parent of 273822f (First Version of Algorithm)
@@ -240,6 +273,9 @@ extension ARView{
          }
          */
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 273822f (First Version of Algorithm)
+=======
 >>>>>>> parent of 273822f (First Version of Algorithm)
 =======
 >>>>>>> parent of 273822f (First Version of Algorithm)
