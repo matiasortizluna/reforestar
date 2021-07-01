@@ -46,10 +46,10 @@ struct TreeCatalogModels{
     var all: [TreesCatalogModel] = []
     
     init() {
-        let pinus_pinea = TreesCatalogModel(latin_name: "pinus_pinea", common_name: "pinus_pinea_common",scaleCompensation: 3/100)
-        let pinus_pinaster = TreesCatalogModel(latin_name: "pinus_pinaster", common_name: "pinus_pinaster_common",scaleCompensation: 3/100)
-        let eucalyptus = TreesCatalogModel(latin_name: "eucalyptus", common_name: "eucalyptus_common",scaleCompensation: 3/100)
-        let quercus_suber = TreesCatalogModel(latin_name: "quercus_suber", common_name: "quercus_suber_common",scaleCompensation: 3/100)
+        let pinus_pinea = TreesCatalogModel(latin_name: "pinus_pinea", common_name: "pinus_pinea_common",scaleCompensation: 1/100)
+        let pinus_pinaster = TreesCatalogModel(latin_name: "pinus_pinaster", common_name: "pinus_pinaster_common",scaleCompensation: 1/100)
+        let eucalyptus = TreesCatalogModel(latin_name: "eucalyptus", common_name: "eucalyptus_common",scaleCompensation: 1/100)
+        let quercus_suber = TreesCatalogModel(latin_name: "quercus_suber", common_name: "quercus_suber_common",scaleCompensation: 1/100)
         
         self.all += [pinus_pinea,pinus_pinaster,eucalyptus,quercus_suber]
     }

@@ -11,6 +11,7 @@ import ARKit
 import UIKit
 
 struct ContentView: View {
+    
     @StateObject var placementSettings = PlacementSettings()
     
     @State var heightValue : Double = 1.0
@@ -35,9 +36,7 @@ struct ContentView: View {
                 Spacer()
             }
             
-            
             HStack(alignment: .bottom){
-                //ARViewWrapper()
                 if(self.placementSettings.selectedModel == nil){
                     //Interface AR
                     Spacer()
@@ -45,52 +44,40 @@ struct ContentView: View {
                 }else{
                     PlacementView()
                 }
-            }.environmentObject(placementSettings)
-        }
+            }
+        }.environmentObject(placementSettings)
     }
-}
-
-
-struct ARViewWrapper: UIViewControllerRepresentable{
-    
-    func makeUIViewController(context: Context) -> UIViewController {
-        return ViewController()
-    }
-    
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        
-    }
-    
 }
 
 struct ARViewContainer: UIViewRepresentable {
     @EnvironmentObject var placementSettings:PlacementSettings
     
-    func makeUIView(context: Context) -> some UIView {
+    func makeUIView(context: Context) -> ARView {
         
         let arView  = ARView(frame: .zero)
         
-        arView.automaticallyConfigureSession = false;
-        let configuration = ARWorldTrackingConfiguration();
-        configuration.planeDetection = [.horizontal];
-        arView.session.run(configuration)
-        
+        arView.setupARView()
         arView.setupGestures()
+        
         /*
-         self.placementSettings.sceneObserver = arView.scene.subscribe(to: SceneEvents.Update.self, {(event) in
-         self.updateScene(for: arView)}
-         )*/
+        self.placementSettings.sceneObserver = arView.scene.subscribe(to: SceneEvents.Update.self, {(event) in
+                                                                        self.updateScene(for: arView)}
+        )*/
+        
         
         return arView;
     }
     
     
-    func updateUIView(_ uiView: UIViewType, context: Context) {
+    func updateUIView(_ uiView: ARView
+                      , context: Context) {
     }
     
-    public func updateScene(for arView: ARView){
+    private func updateScene(for arView: ARView){
         if let confirmedModel = self.placementSettings.confirmedModel, let modelEntity = confirmedModel.modelEntity{
-            self.place(modelEntity, in: arView)
+            for _ in (1...3) {
+                self.place(modelEntity, in: arView)
+            }
             self.placementSettings.confirmedModel=nil
         }
     }
@@ -113,63 +100,45 @@ struct ContentView_Previews: PreviewProvider {
         ContentView().environmentObject(PlacementSettings())
     }
 }
-
+ 
 extension ARView{
     
-    func setupGestures() {
+    func setupARView(){
         self.session.delegate = self
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-        self.addGestureRecognizer(tap)
+        
+        self.automaticallyConfigureSession = false;
+        let configuration = ARWorldTrackingConfiguration();
+        configuration.planeDetection = [.horizontal,.vertical];
+        configuration.environmentTexturing = .automatic;
+        self.session.run(configuration)
     }
     
-    @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
-        guard let touchInView = sender?.location(in: self) else {
-            print("Failed on touch")
-            return
-        }
-        
+    func setupGestures() {
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(recognizer:))))
+    }
+    
+    @objc
+    func handleTap(recognizer: UITapGestureRecognizer){
+        let touchInView = recognizer.location(in: self)
         let results = self.raycast(from: touchInView, allowing: .estimatedPlane, alignment: .horizontal)
-        if let firstResult = results.last{
-            let anchor = ARAnchor(name: "quercus_suber.usdz", transform: firstResult.worldTransform);
-            print(anchor.name)
-            print("First \(anchor.transform)")
-            self.session.add(anchor: anchor);
-            print("Second \(anchor.transform)")
+        
+        if let firstResult = results.first{
+            
+            var positions = ReforestationSettings().getPositionsThreeDimension(from: firstResult.worldTransform, for: 20)
+            
+            for index in 0...(positions.count-1) {
+            
+                positions[index] = ReforestationSettings().scaleObject(old_matrix: positions[index])
+
+                //positions[index] = ReforestationSettings().rotateObject(old_matrix: positions[index])
+
+                var anchor = ARAnchor(name: "quercus_suber", transform: positions[index]);
+                self.session.add(anchor: anchor);
+
+            }
+
         }else{
             print("Object placement failed - coudn't find surface")
-        }
-        
-        
-        /*
-         let coordinate = CLLocationCoordinate2D(latitude: 39.73954841, longitude: -8.80565608)
-         let geoAnchor = ARGeoAnchor(name: "quercus_suber.usdz", coordinate: coordinate)
-         print("Coordenadas: \(geoAnchor.coordinate.latitude)")
-         self.session.add(anchor: geoAnchor);
-         */
-        
-        /*
-         let point = SIMD3<Float>([0, 1, -2])
-         self.session.getGeoLocation(forPoint: point) {
-         (coordinate, altitude, error) in
-         let geoAnchor = ARGeoAnchor(name: "quercus_suber.usdz", coordinate: coordinate, altitude:
-         altitude)
-         print("Coordenadas: \(geoAnchor.coordinate.latitude)")
-         self.session.add(anchor: geoAnchor);
-         }
-         */
-        
-    }
-    
-}
-
-extension ARView: ARSessionDelegate{
-    
-    public func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
-        print("REached session")
-        for anchor in anchors{
-            if let anchorName = anchor.name, anchorName == "quercus_suber.usdz"{
-                placeObject(named: anchorName, for: anchor)
-            }
         }
     }
     
@@ -177,15 +146,28 @@ extension ARView: ARSessionDelegate{
         let entity = try! ModelEntity.load(named: entityName)
         
         let anchorEntity = AnchorEntity(anchor: anchor)
-        print("anchor entity \(anchorEntity.name)")
         anchorEntity.addChild(entity);
-        print("Third \(anchor.transform)")
-        self.session.add(anchor: anchor)
-        print("Forth \(anchor.transform)")
-        self.scene.anchors.append(anchorEntity)
-        print("Fifth \(anchor.transform)")
+        
         //self.scene.addAnchor(anchorEntity)
+        
+        
+        self.scene.anchors.append(anchorEntity)
+        self.session.add(anchor: anchor)
+        
         entity.generateCollisionShapes(recursive: true)
         //self.installGestures([.rotation,.translation], for: entity as! Entity & HasCollision)
     }
+    
+}
+
+extension ARView: ARSessionDelegate{
+    
+    public func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+        for anchor in anchors{
+            if let anchorName = anchor.name, anchorName == "quercus_suber"{
+                placeObject(named: anchorName, for: anchor)
+            }
+        }
+    }
+    
 }

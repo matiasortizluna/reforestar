@@ -24,10 +24,11 @@ class PlacementSettings: ObservableObject{
                 print("Clearing Information")
                 return
             }
-            print("Settin confirmedmodel to \(newValue?.latin_name)")
+            print("Settin confirmedmodel to \(model.latin_name)")
         }
     }
     
+    //this property retins the can
     var sceneObserver : Cancellable?
     
 }
