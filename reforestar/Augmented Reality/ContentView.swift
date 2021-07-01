@@ -12,8 +12,6 @@ import UIKit
 
 struct ContentView: View {
     
-    @StateObject var placementSettings = PlacementSettings()
-    
     @State var heightValue : Double = 1.0
     @State var minimumValue : Double = 1.0
     @State var maximumValue : Double = 10.0
@@ -37,20 +35,17 @@ struct ContentView: View {
             }
             
             HStack(alignment: .bottom){
-                if(self.placementSettings.selectedModel == nil){
-                    //Interface AR
-                    Spacer()
-                    InterfaceLayout(heightValue: $heightValue, minimumValue: $minimumValue, maximumValue: $maximumValue)
-                }else{
-                    PlacementView()
-                }
+                
+                //Interface AR
+                Spacer()
+                InterfaceLayout(heightValue: $heightValue, minimumValue: $minimumValue, maximumValue: $maximumValue)
+                
             }
-        }.environmentObject(placementSettings)
+        }
     }
 }
 
 struct ARViewContainer: UIViewRepresentable {
-    @EnvironmentObject var placementSettings:PlacementSettings
     
     func makeUIView(context: Context) -> ARView {
         
@@ -58,12 +53,6 @@ struct ARViewContainer: UIViewRepresentable {
         
         arView.setupARView()
         arView.setupGestures()
-        
-        /*
-        self.placementSettings.sceneObserver = arView.scene.subscribe(to: SceneEvents.Update.self, {(event) in
-                                                                        self.updateScene(for: arView)}
-        )*/
-        
         
         return arView;
     }
@@ -73,34 +62,8 @@ struct ARViewContainer: UIViewRepresentable {
                       , context: Context) {
     }
     
-    private func updateScene(for arView: ARView){
-        if let confirmedModel = self.placementSettings.confirmedModel, let modelEntity = confirmedModel.modelEntity{
-            for _ in (1...3) {
-                self.place(modelEntity, in: arView)
-            }
-            self.placementSettings.confirmedModel=nil
-        }
-    }
-    
-    private func place(_ modelEntity: ModelEntity, in arView: ARView){
-        let clonedEntity = modelEntity.clone(recursive: true)
-        
-        clonedEntity.generateCollisionShapes(recursive: true)
-        arView.installGestures(.all, for: clonedEntity)
-        
-        let anchorEntity = AnchorEntity(plane: .any)
-        anchorEntity.addChild(clonedEntity)
-        arView.scene.addAnchor(anchorEntity)
-    }
-    
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView().environmentObject(PlacementSettings())
-    }
-}
- 
 extension ARView{
     
     func setupARView(){
@@ -127,16 +90,16 @@ extension ARView{
             var positions = ReforestationSettings().getPositionsThreeDimension(from: firstResult.worldTransform, for: 20)
             
             for index in 0...(positions.count-1) {
-            
+                
                 positions[index] = ReforestationSettings().scaleObject(old_matrix: positions[index])
-
+                
                 //positions[index] = ReforestationSettings().rotateObject(old_matrix: positions[index])
-
+                
                 var anchor = ARAnchor(name: "quercus_suber", transform: positions[index]);
                 self.session.add(anchor: anchor);
-
+                
             }
-
+            
         }else{
             print("Object placement failed - coudn't find surface")
         }
@@ -147,9 +110,9 @@ extension ARView{
         
         let anchorEntity = AnchorEntity(anchor: anchor)
         anchorEntity.addChild(entity);
+        //anchorEntity.scale *= (1/100)
         
         //self.scene.addAnchor(anchorEntity)
-        
         
         self.scene.anchors.append(anchorEntity)
         self.session.add(anchor: anchor)

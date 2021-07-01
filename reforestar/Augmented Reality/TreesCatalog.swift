@@ -8,13 +8,14 @@
 import SwiftUI
 struct TreesCatalog: View {
     @Binding var showTreeCatalog : Bool
+    @Binding var treesModels : TreesCatalogModel()
     
     var body: some View{
         NavigationView{
             
             ScrollView(.vertical, showsIndicators: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, content: {
                 //All Trees
-                VerticalGrid(showTreeCatalog: $showTreeCatalog)
+                VerticalGrid(showTreeCatalog: $showTreeCatalog, treesModels: <#TreesCatalogModel#>)
 
             })
             .navigationTitle(Text("Tree's Catalog")).navigationBarTitleDisplayMode(.large)
@@ -29,11 +30,10 @@ struct TreesCatalog: View {
 }
 
 struct VerticalGrid: View{
-    @EnvironmentObject var placementSettings:PlacementSettings
     
     @Binding var showTreeCatalog : Bool
     private let gridItemLayout = [GridItem(.fixed(150))]
-    let treesModels = TreeCatalogModels()
+    @Binding var treesModels : TreesCatalogModel()
     
     var body: some View{
         VStack(alignment: .center){
@@ -41,18 +41,13 @@ struct VerticalGrid: View{
                 
                 ForEach(self.treesModels.getAll(), id: \.latin_name) { tree in
                     ItemButton(latin_name: tree.latin_name, common_name: tree.common_name, action: {
-                        tree.asyncLoadModelEntity()
-                        self.placementSettings.selectedModel=tree 
                         print("Selected \(tree.latin_name)")
-                        self.showTreeCatalog.toggle()
                     })
                 }
             })
             .padding(.horizontal,22)
             .padding(.vertical,10)
         }
-        
-        
     }
 }
 
