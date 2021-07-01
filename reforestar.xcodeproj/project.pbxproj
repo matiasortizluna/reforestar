@@ -13,7 +13,6 @@
 		0F3CDFD226662E80009A643D /* quercus_suber.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0F3CDFD126662E80009A643D /* quercus_suber.usdz */; };
 		0F459E26262CE9F600A62D2B /* ChristmasTree.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0F459E25262CE9F600A62D2B /* ChristmasTree.usdz */; };
 		0F7A94CC265CCC6F000902E7 /* AugmentedRealityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A94CB265CCC6F000902E7 /* AugmentedRealityViewController.swift */; };
-		0F8B9F45268A99BB00299623 /* ReforestationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8B9F44268A99BB00299623 /* ReforestationSettings.swift */; };
 		0F91F597261E3CED00B5F918 /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */; };
 		0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F599261E547F00B5F918 /* CatalogViewController.swift */; };
 		0FA91540268E6D7D007B015F /* TreesCatalogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9153F268E6D7D007B015F /* TreesCatalogModel.swift */; };
@@ -35,6 +34,7 @@
 		0FD25BC2263790A300003897 /* tree3.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0FD25BBE263790A300003897 /* tree3.obj */; };
 		0FD25BC3263790A300003897 /* tree_bonus.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0FD25BBF263790A300003897 /* tree_bonus.obj */; };
 		0FD36F962687C99A0078C716 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD36F952687C99A0078C716 /* LocationManager.swift */; };
+		0FE2C076266E4C3D00B3EF08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE2C075266E4C3D00B3EF08 /* ViewController.swift */; };
 		0FF72176261E71AE00E0DA68 /* ProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */; };
 		0FF72179261E71CC00E0DA68 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF72178261E71CC00E0DA68 /* MapsViewController.swift */; };
 		0FF72181261E73F200E0DA68 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7217F261E73F200E0DA68 /* TableViewCell.swift */; };
@@ -49,7 +49,6 @@
 		0F3CDFD126662E80009A643D /* quercus_suber.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = quercus_suber.usdz; path = ../../../../3DModels/quercus_suber.usdz; sourceTree = "<group>"; };
 		0F459E25262CE9F600A62D2B /* ChristmasTree.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = ChristmasTree.usdz; sourceTree = "<group>"; };
 		0F7A94CB265CCC6F000902E7 /* AugmentedRealityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityViewController.swift; sourceTree = "<group>"; };
-		0F8B9F44268A99BB00299623 /* ReforestationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReforestationSettings.swift; sourceTree = "<group>"; };
 		0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
 		0F91F599261E547F00B5F918 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
 		0FA9153F268E6D7D007B015F /* TreesCatalogModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreesCatalogModel.swift; sourceTree = "<group>"; };
@@ -73,6 +72,7 @@
 		0FD25BBE263790A300003897 /* tree3.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree3.obj; sourceTree = "<group>"; };
 		0FD25BBF263790A300003897 /* tree_bonus.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree_bonus.obj; sourceTree = "<group>"; };
 		0FD36F952687C99A0078C716 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		0FE2C075266E4C3D00B3EF08 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewController.swift; sourceTree = "<group>"; };
 		0FF72178261E71CC00E0DA68 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		0FF7217F261E73F200E0DA68 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -134,11 +134,18 @@
 			children = (
 				0FA9153F268E6D7D007B015F /* TreesCatalogModel.swift */,
 				0FCBACC62665CFD30076B6D3 /* ContentView.swift */,
+				0FE2C075266E4C3D00B3EF08 /* ViewController.swift */,
 				0F7A94CB265CCC6F000902E7 /* AugmentedRealityViewController.swift */,
 				0FCBACBA2665CEFC0076B6D3 /* InterfaceLayout.swift */,
 				0FCBACBB2665CEFD0076B6D3 /* RightBar.swift */,
 				0FCBACB82665CEFC0076B6D3 /* TreesCatalog.swift */,
 				0FC6A565261E24DE002B9B73 /* Experience.rcproject */,
+<<<<<<< HEAD
+=======
+				0FCBACB92665CEFC0076B6D3 /* TreesCatalogModel.swift */,
+				0F53D702266D258700C66FC2 /* PlacementSettings.swift */,
+				0FC4B9392665FB0A00E87DAC /* PlacementView.swift */,
+>>>>>>> parent of 273822f (First Version of Algorithm)
 			);
 			path = "Augmented Reality";
 			sourceTree = "<group>";
@@ -341,6 +348,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */,
+<<<<<<< HEAD
+=======
+				0FE2C076266E4C3D00B3EF08 /* ViewController.swift in Sources */,
+				0F53D703266D258700C66FC2 /* PlacementSettings.swift in Sources */,
+				0FCBACBD2665CEFD0076B6D3 /* TreesCatalogModel.swift in Sources */,
+>>>>>>> parent of 273822f (First Version of Algorithm)
 				0FCBACBF2665CEFD0076B6D3 /* RightBar.swift in Sources */,
 				0FCBACBE2665CEFD0076B6D3 /* InterfaceLayout.swift in Sources */,
 				0FC6A579261E2A52002B9B73 /* UserProfileViewController.swift in Sources */,
@@ -351,7 +364,6 @@
 				0FF72179261E71CC00E0DA68 /* MapsViewController.swift in Sources */,
 				0FA91540268E6D7D007B015F /* TreesCatalogModel.swift in Sources */,
 				0FD36F962687C99A0078C716 /* LocationManager.swift in Sources */,
-				0F8B9F45268A99BB00299623 /* ReforestationSettings.swift in Sources */,
 				0FC6A562261E24DE002B9B73 /* AppDelegate.swift in Sources */,
 				0F91F597261E3CED00B5F918 /* ConfigurationViewController.swift in Sources */,
 				0FC6A566261E24DE002B9B73 /* Experience.rcproject in Sources */,
