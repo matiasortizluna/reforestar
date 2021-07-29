@@ -209,7 +209,7 @@ public class CustomARView: ARView{
         if let firstResult = results.first{
         
             //At this point, the touch in the screen was recognized by the AR tecnhology to be considered a real surface.
-            
+            //Hello
             //Now, we'll call this method to create all the positions needed.
                 //It is send, the initial position of the first touch in the screen.
                 //It is also send, the number of trees that the user selected.
