@@ -195,7 +195,9 @@ public class CustomARView: ARView{
         return validation_code
     }
     
+    
     func setupGestures() {
+        //tap gesture for placing trees
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(recognizer:))))
     }
     
