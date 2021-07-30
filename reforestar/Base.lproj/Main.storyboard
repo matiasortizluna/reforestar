@@ -12,7 +12,7 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" userLabel="ARView" customClass="AugmentedRealityViewController" customModule="reforestar" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Reforestation" image="camera" catalog="system" selectedImage="camera.fill" id="SgA-gO-UHJ">
+                    <tabBarItem key="tabBarItem" title="ReforestAR" image="leaf" catalog="system" selectedImage="leaf.fill" id="SgA-gO-UHJ">
                         <color key="badgeColor" name="Color1"/>
                     </tabBarItem>
                 </viewController>
@@ -420,11 +420,11 @@
             </objects>
             <point key="canvasLocation" x="990" y="134"/>
         </scene>
-        <!--Maps-->
+        <!--Areas-->
         <scene sceneID="j9u-JT-uUW">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vKn-E8-CHd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Maps" image="map" catalog="system" selectedImage="map.fill" id="Q6S-6r-JQm"/>
+                    <tabBarItem key="tabBarItem" title="Areas" image="map" catalog="system" selectedImage="map.fill" id="Q6S-6r-JQm"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="bYa-BK-Don">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
@@ -495,10 +495,10 @@
     <resources>
         <image name="book" catalog="system" width="128" height="102"/>
         <image name="book.fill" catalog="system" width="128" height="102"/>
-        <image name="camera" catalog="system" width="128" height="94"/>
-        <image name="camera.fill" catalog="system" width="128" height="94"/>
         <image name="folder" catalog="system" width="128" height="97"/>
         <image name="folder.fill" catalog="system" width="128" height="97"/>
+        <image name="leaf" catalog="system" width="128" height="109"/>
+        <image name="leaf.fill" catalog="system" width="128" height="106"/>
         <image name="map" catalog="system" width="128" height="110"/>
         <image name="map.fill" catalog="system" width="128" height="110"/>
         <image name="person" catalog="system" width="128" height="117"/>

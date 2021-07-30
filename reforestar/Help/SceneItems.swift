@@ -74,8 +74,11 @@ final class CurrentScene {
     private var scale_compensation : Double = 1.0
     private var last_anchor : ARAnchor? = nil
     private var selected_project : String? = nil
-    private var projects : [String] = [""]
+    private var projects : [String] = ["------"]
     public var scene_anchors : [ARAnchor] = []
+    
+    @ObservedObject public var locationManager  = LocationManager()
+    var coordinate : CLLocationCoordinate2D = CLLocationCoordinate2D()
     
     public func getSceneAnchors() -> [ARAnchor]{
         return self.scene_anchors
@@ -89,11 +92,16 @@ final class CurrentScene {
     
     private init(){
         
+        self.coordinate = self.locationManager.coordinates != nil ? self.locationManager.coordinates!.coordinate : CLLocationCoordinate2D()
+        
         fetchAllProjects()
         sleep(1)
         
     }
     
+    func getLocation() -> CLLocationCoordinate2D {
+        return self.coordinate
+    }
     
     func setSelectedModelName(name: String){
         self.selected_model_name = name
@@ -173,14 +181,13 @@ final class CurrentScene {
             for project in projects_retrieved{
                 self.projects.append(project.value["name"] as! String)
             }
-            self.projects.remove(at: 0)
         })
         
         self.setSelectedProject(project: projects.last!)
     }
     
     func getAllProjects() -> [String] {
-        return self.projects ?? [""]
+        return self.projects ?? ["------"]
     }
     
     
