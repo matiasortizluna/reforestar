@@ -152,12 +152,12 @@ public class CustomARView: ARView{
             
             //Se houver dados ....
             /*
-            let anchors_saved : [ARAnchor]
-            
-            for anchor in anchors_saved {
-                let anchor = ARAnchor(name: self.anchor.name, transform: self.anchor.positions);
-                self.session.add(anchor: anchor);
-            }
+             let anchors_saved : [ARAnchor]
+             
+             for anchor in anchors_saved {
+             let anchor = ARAnchor(name: self.anchor.name, transform: self.anchor.positions);
+             self.session.add(anchor: anchor);
+             }
              
              //just if user has this location on his position
              */
@@ -166,7 +166,7 @@ public class CustomARView: ARView{
             validation_code = 1
             
         })
-
+        
         return validation_code
     }
     
@@ -176,22 +176,31 @@ public class CustomARView: ARView{
         
         let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
         
-        let project_database = ref.child("projects").child(self.currentSceneManager.getSelectedProject()).observe(.value, with: {snapshot in
-            guard let projects_information_retrieved = snapshot.value as? Dictionary<String, Dictionary<String, Any>> else {
-                return
+        if(self.currentSceneManager.getSelectedProject() != "------"){
+            var index = 0
+            if(self.currentSceneManager.getPositions().count>0){
+                for position in self.currentSceneManager.getPositions() {
+                    //let result = ref.child("projects").child(self.currentSceneManager.getSelectedProject()).child("trees").setValue(["\(index)" : ["matrix" : ["1" :  position.columns.0.getValueStringed()]]])
+                    print("Result: \(position.columns.0.getValueStringed())")
+                    index+=1
+                }
+                print(index)
+            }else{
+                print("There is no elements to be saved to project \(self.currentSceneManager.getSelectedProject())")
             }
             
-            //Se conseguir salvar dados ....
-            
-            //Salvar uma lista de anchoras, importante ter .name e .positions
-            //salvar tambem localização do utilizador
-            
-            
-            //Se não conseguir salvar dados ....
-            validation_code = 1
-            
-        })
-
+        }else{
+            print("Can't be saved because no project has been selected")
+        }
+        
+        //Se conseguir salvar dados ....
+        
+        //Salvar uma lista de anchoras, importante ter .name e .positions
+        //salvar tambem localização do utilizador
+        
+        //Se não conseguir salvar dados ....
+        validation_code = 1
+        
         return validation_code
     }
     
@@ -209,19 +218,19 @@ public class CustomARView: ARView{
         
         //Ignore this first part, you just need to know that, this recognize the touch in the screen
         if let firstResult = results.first{
-        
+            
             //At this point, the touch in the screen was recognized by the AR tecnhology to be considered a real surface.
             //Hello
             //Now, we'll call this method to create all the positions needed.
-                //It is send, the initial position of the first touch in the screen.
-                //It is also send, the number of trees that the user selected.
-                //It is also send, the scale desired by the user.
-                //It is also send, the anchors already existing in the scene.
+            //It is send, the initial position of the first touch in the screen.
+            //It is also send, the number of trees that the user selected.
+            //It is also send, the scale desired by the user.
+            //It is also send, the anchors already existing in the scene.
             var positions = self.reforestationSettingsManager.getPositionsThreeDimension(from: firstResult.worldTransform, for: self.currentSceneManager.getNumberOfTrees(),known_positions: self.currentSceneManager.getPositions(), scale_compensation: Float(self.currentSceneManager.getScaleCompensation()))
-        
+            
             //If the array has more than 1 item, it means it created sucessfully new positions, at least 1.
             if(positions.count>0){
-            
+                
                 //Iterate the array of the positions to compare. Because the first position is 0, the last has to be, the amount of elements - 1
                 for index in 0...(positions.count-1) {
                     
@@ -277,9 +286,16 @@ extension CustomARView: ARSessionDelegate{
             }else{
                 print("Error placing: \(anchor.name) model")
             }
-        
+            
         }
         
     }
 }
 
+extension SIMD4 {
+    
+    func getValueStringed()->String{
+        return String("\(self.x);\(self.y);\(self.z);\(self.w)")
+    }
+    
+}
