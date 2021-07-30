@@ -22,6 +22,8 @@ struct ARContentView: View {
         ZStack(){
             
             //AR Custom Class.
+            
+            //          XXXXXXXXXXXXXXXX        //
             ARViewContainer()
             
             //AR Custom User Interface
@@ -79,8 +81,10 @@ public class CustomARView: ARView{
     
     func setupARView(){
         
+        //          XXXXXXXXXXXXXXXX        //
         self.session.delegate = self
         
+        //          XXXXXXXXXXXXXXXX        //
         self.automaticallyConfigureSession = false;
         
         let configuration = ARWorldTrackingConfiguration();
@@ -135,7 +139,6 @@ public class CustomARView: ARView{
                 self.loadProject(project: self.currentSceneManager.getSelectedProject())
             }
         
-        
         self.session.run(configuration)
         
     }
@@ -151,16 +154,17 @@ public class CustomARView: ARView{
             }
             
             //Se houver dados ....
+            let anchors_saved : [ARAnchor]
+            
             /*
-             let anchors_saved : [ARAnchor]
-             
-             for anchor in anchors_saved {
-             let anchor = ARAnchor(name: self.anchor.name, transform: self.anchor.positions);
-             self.session.add(anchor: anchor);
-             }
-             
-             //just if user has this location on his position
-             */
+            for anchor in anchors_saved {
+                let anchor = ARAnchor(name: anchor.name, transform: anchor.positions);
+                self.session.add(anchor: anchor);
+            }
+            */
+            
+            //just if user has this location on his position
+            
             
             //Se não houver dados ....
             validation_code = 1
@@ -174,17 +178,20 @@ public class CustomARView: ARView{
         
         var validation_code : Int = 0
         
-        let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
+        let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference().ref.child("projects").child(self.currentSceneManager.getSelectedProject()).child("trees")
         
         if(self.currentSceneManager.getSelectedProject() != "------"){
             var index = 0
             if(self.currentSceneManager.getPositions().count>0){
-                for position in self.currentSceneManager.getPositions() {
-                    //let result = ref.child("projects").child(self.currentSceneManager.getSelectedProject()).child("trees").setValue(["\(index)" : ["matrix" : ["1" :  position.columns.0.getValueStringed()]]])
-                    print("Result: \(position.columns.0.getValueStringed())")
+                for anchor in self.currentSceneManager.getSceneAnchors() {
+                    let result_name: Void = ref.setValue(["\(index)" : ["name" : anchor.name]])
+                    let result1: Void = ref.setValue(["\(index)" : ["first" : anchor.transform.columns.0.getValueStringed()]])
+                    let result2: Void = ref.setValue(["\(index)" : ["second" : anchor.transform.columns.1.getValueStringed()]])
+                    let result3: Void = ref.setValue(["\(index)" : ["third" : anchor.transform.columns.2.getValueStringed()]])
+                    let result4: Void = ref.setValue(["\(index)" : ["forth" : anchor.transform.columns.3.getValueStringed()]])
+                    print("Results:\nName: \(result_name)\nFirst: \(result1)\nSecond: \(result2)\nThird: \(result3)\nForth: \(result4)")
                     index+=1
                 }
-                print(index)
             }else{
                 print("There is no elements to be saved to project \(self.currentSceneManager.getSelectedProject())")
             }
@@ -216,7 +223,6 @@ public class CustomARView: ARView{
         let touchInView = recognizer.location(in: self)
         let results = self.raycast(from: touchInView, allowing: .estimatedPlane, alignment: .horizontal)
         
-        //Ignore this first part, you just need to know that, this recognize the touch in the screen
         if let firstResult = results.first{
             
             //At this point, the touch in the screen was recognized by the AR tecnhology to be considered a real surface.
@@ -256,6 +262,7 @@ public class CustomARView: ARView{
             print("Object placement failed - coudn't find surface")
         }
         
+        
     }
     
     func placeObject(named entityName: String, for anchor: ARAnchor){
@@ -273,6 +280,7 @@ public class CustomARView: ARView{
         NotificationCenter.default.post(name: notification_numberOfAnchors, object: nil)
         
         entity.generateCollisionShapes(recursive: true)
+        
     }
     
 }

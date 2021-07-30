@@ -26,46 +26,74 @@ struct CustomARUserInterface : View {
     @State private var showTreeCatalog : Bool = false
     
     var body: some View{
-        
-        VStack(alignment: .center){
-            
-            HStack(alignment: .top){
-                
+        HStack(){
+            VStack(alignment: .leading){
                 NumberOfTreesOnSceneLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
                 Spacer()
-                //CurrentCoordinatesLabel(background_color: .dark_green, height: self.$height, width: self.$width)
-                Spacer()
-                
+                UndoButton(height_button: self.$height_button, width_button: self.$width_button)
             }
-            
             Spacer()
-            
-            HStack(){
+            VStack(alignment: .center){
+                CurrentCoordinatesLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
                 Spacer()
-                Text(self.userFeedbackManager.message)
+                if(userFeedbackManager.show_message){
+                    UserFeedbackMessage(height_button: self.$height_button, width_button: self.$width_button)
+                }
                 Spacer()
-                
+                SelectedModelButtonLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button, showTreeCatalog: self.$showTreeCatalog)
+            }
+            Spacer()
+            VStack(alignment: .trailing){
+                NumberOfTreesOnSceneLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
+                Spacer()
                 if(showTabBar){
                     RightBar(height_screen: self.$height_screen, width_screen: self.$width_screen, height_button: self.$height_button, width_button: self.$width_button, showTreeCatalog: self.$showTreeCatalog)
                 }
-            }
-            
-            Spacer()
-            
-            HStack(){
-                UndoButton(height_button: self.$height_button, width_button: self.$width_button)
-                Spacer()
-                SelectedModelButtonLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button, showTreeCatalog: self.$showTreeCatalog)
                 Spacer()
                 ShowBarButton(optionToToggle: $showTabBar, height_button: self.$height_button, width_button: self.$width_button, action: {
                     self.showTabBar.toggle()
-                    self.userFeedbackManager.message="ShowBarButton pressed"
                 }, icon_string1: "chevron.right.square.fill", icon_string2: "chevron.backward.square", button_title: "Menu")
-                
             }
             
         }
-        
+    }
+}
+
+struct UserFeedbackMessage : View {
+    
+    @Binding var height_button : CGFloat
+    @Binding var width_button : CGFloat
+    
+    @EnvironmentObject var userFeedbackManager : UserFeedback
+    
+    var body: some View{
+        VStack(alignment: .center){
+            VStack{
+                HStack(alignment: .center){
+                    Image(systemName: userFeedbackManager.icon_string)
+                        .font(.system(size: self.width_button*0.45))
+                        .foregroundColor(userFeedbackManager.title_color)
+                        .buttonStyle(PlainButtonStyle())
+                    Text(userFeedbackManager.title_string)
+                        .font(.system(size: self.width_button*0.25))
+                        .foregroundColor(userFeedbackManager.title_color)
+                        .bold()
+                }
+                HStack(alignment: .center){
+                    Text(userFeedbackManager.text_string)
+                        .font(.system(size: self.width_button*0.25))
+                        .foregroundColor(userFeedbackManager.text_color)
+                        .bold()
+                }
+            }
+            .padding(5.0)
+        }
+        .frame(width: self.width_button*6.0, height: self.height_button*1.2, alignment: .center)
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(userFeedbackManager.title_color, lineWidth: 5)
+                .background(Color.light_beish)
+        )
     }
 }
 
@@ -80,7 +108,7 @@ struct NumberOfTreesOnSceneLabel : View {
     
     var body: some View{
         
-        VStack(alignment: .center){
+        ZStack(alignment: .leading){
             HStack(alignment: .center){
                 Text("Nº of Trees on \nCurrent Scene")
                     .font(.system(size: self.width_button*0.2))
@@ -90,9 +118,10 @@ struct NumberOfTreesOnSceneLabel : View {
                     .font(.system(size: self.width_button*0.3))
                     .bold()
                     .foregroundColor(.light_green)
-            }.padding(3.0)
+            }
+            .padding(3.0)
+            .frame(width: self.width_button*2.0, height: self.height_button*0.8, alignment: .center)
         }
-        .frame(width: self.width_button*2.0, height: self.height_button*0.8, alignment: .center)
         .background(self.background_color)
         .cornerRadius(15.0)
         .padding(.top, 15.0)
@@ -106,30 +135,51 @@ struct CurrentCoordinatesLabel : View {
     
     let background_color: Color
     
-    @Binding var height : CGFloat
-    @Binding var width : CGFloat
+    @Binding var height_button : CGFloat
+    @Binding var width_button : CGFloat
     
     @ObservedObject public var locationManager  = LocationManager()
+    var currentSceneManager = CurrentScene.sharedInstance
     
     var body: some View{
         let coordinate = self.locationManager.coordinates != nil ? self.locationManager.coordinates!.coordinate : CLLocationCoordinate2D()
         
-        VStack(alignment: .center){
-            HStack(alignment: .center){
-                Text("Latitude | Longitude")
-                    .font(.system(size: self.height*0.3))
+        HStack(alignment: .top){
+            VStack(alignment: .center){
+                Image(systemName: "mappin.and.ellipse")
+                    .font(.system(size: self.width_button*0.45))
                     .foregroundColor(.light_beish)
+                    .buttonStyle(PlainButtonStyle())
             }
-            HStack(alignment: .center){
-                Text("\(coordinate.latitude) | \(coordinate.longitude)")
-                    .font(.system(size: self.height*0.35))
-                    .bold()
-                    .foregroundColor(.light_green)
+            .padding(1.5)
+            VStack(alignment: .center){
+                HStack(alignment: .center){
+                    Text("Current Latitude & Longitude")
+                        .font(.system(size: self.width_button*0.2))
+                        .foregroundColor(.light_beish)
+                        .bold()
+                }
+                HStack(alignment: .center){
+                    Text("\(coordinate.latitude)")
+                        .font(.system(size: self.width_button*0.25))
+                        .foregroundColor(.light_green)
+                        .bold()
+                    Text("|")
+                        .font(.system(size: self.width_button*0.3))
+                        .foregroundColor(.light_green)
+                        .bold()
+                    Text("\(coordinate.longitude)")
+                        .font(.system(size: self.width_button*0.25))
+                        .foregroundColor(.light_green)
+                        .bold()
+                }
             }
+            .padding(1.5)
         }
-        .frame(width: self.width*1.4, height: self.height, alignment: .center)
+        .frame(width: self.width_button*4, height: self.height_button*0.8, alignment: .center)
         .background(self.background_color)
         .cornerRadius(15.0)
+        .padding(.top, 15.0)
     }
 }
 
@@ -145,8 +195,7 @@ struct SelectedModelButtonLabel : View {
     @Binding var showTreeCatalog : Bool
     
     var body: some View{
-        
-        VStack(alignment: .center){
+        HStack(alignment: .bottom){
             Button( action: {
                 self.showTreeCatalog.toggle()
             }, label: {
@@ -174,11 +223,10 @@ struct SelectedModelButtonLabel : View {
             .frame(width: self.width_button*3.0, height: self.height_button*0.8, alignment: .center)
             .background(self.background_color)
             .cornerRadius(15.0)
-            .padding(.bottom, 13.5)
+            .padding(.bottom, 20.0)
             .sheet(isPresented: $showTreeCatalog, content: {
                 //Browse View
                 NavigationView{
-                    
                     ScrollView(.vertical, showsIndicators: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, content: {
                         //All Trees
                         VerticalGrid(showTreeCatalog: $showTreeCatalog)
@@ -192,7 +240,6 @@ struct SelectedModelButtonLabel : View {
                 }
             })
         }
-        
     }
 }
 
@@ -200,35 +247,49 @@ struct UndoButton : View {
     
     @Binding var height_button : CGFloat
     @Binding var width_button : CGFloat
-    
-    var currentSceneManager = CurrentScene.sharedInstance
+    @State var optionToToggle : Bool = false
     
     let notification_name = Notification.Name("last_item_anchor")
     
-    @State var optionToToggle : Bool = false
+    var currentSceneManager = CurrentScene.sharedInstance
+    @EnvironmentObject var userFeedbackManager : UserFeedback
     
     var body: some View {
-        
-        ZStack{
-            DefaultButtonWithText(icon:  optionToToggle ? "arrowshape.turn.up.left.fill" : "arrowshape.turn.up.left" , icon_color: .light_beish, action: {
-                print("Undo Button pressed")
-                self.optionToToggle.toggle()
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400), execute: {
+        VStack{
+            ZStack{
+                DefaultButtonWithText(icon:  optionToToggle ? "arrowshape.turn.up.left.fill" : "arrowshape.turn.up.left" , icon_color: .light_beish, action: {
+                    
                     self.optionToToggle.toggle()
-                })
-                NotificationCenter.default.post(name: self.notification_name, object: nil)
-                
-            }, button_title: "Undo", height_button: self.$height_button, width_button: self.$width_button)
-        }
-        .frame(width: self.width_button, height: self.height_button, alignment: .center)
-        .background(Color.dark_green)
-        .cornerRadius(20.0)
-        .padding(.bottom, 15.0)
-        .padding(.leading, 15.0)
-    }
-    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400), execute: {
+                        self.optionToToggle.toggle()
+                    })
+                    
+                    setupUserMessage(userFeedbackManager: userFeedbackManager, icon_string: "xmark.circle", text_color: .black, text_string: "Last placed tree has been deleted! :)", title_color: .green, title_string: "Success")
+                    
+                    NotificationCenter.default.post(name: self.notification_name, object: nil)
+                    
+                }, button_title: "Undo", height_button: self.$height_button, width_button: self.$width_button)
+            }
+            .frame(width: self.width_button, height: self.height_button, alignment: .center)
+            .background(Color.dark_green)
+            .cornerRadius(20.0)
+            .padding(.bottom, 15.0)
+            .padding(.leading, 15.0)
+        }}
 }
 
+func setupUserMessage(userFeedbackManager : UserFeedback, icon_string: String, text_color: Color, text_string: String, title_color: Color, title_string: String) -> Void {
+    userFeedbackManager.icon_string = icon_string
+    userFeedbackManager.text_color = text_color
+    userFeedbackManager.text_string = text_string
+    userFeedbackManager.title_color = title_color
+    userFeedbackManager.title_string = title_string
+    userFeedbackManager.show_message = true
+    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+        userFeedbackManager.show_message = false
+    })
+    
+}
 
 //Show Right Bar Button
 struct ShowBarButton: View{
@@ -243,7 +304,7 @@ struct ShowBarButton: View{
     let button_title: String
     
     var body: some View{
-        HStack{
+        VStack{
             ZStack{
                 DefaultButtonWithText(icon: optionToToggle ? icon_string1 : icon_string2, icon_color: .light_beish, action: {
                     self.action()
@@ -501,24 +562,19 @@ struct RightBar : View {
     @Binding var showTreeCatalog : Bool
     @State private var showOptionsMenu : Bool = false
     
-    @EnvironmentObject var userFeedbackManager : UserFeedback
     @EnvironmentObject var selectedModelManager : SelectedModel
     
     var body: some View{
         
         VStack{
-            
             Spacer()
             if(self.selectedModelManager.selectedModelName=="quercus_suber"){
                 PickerSelect(height_screen: self.$height_screen, width_screen: self.$width_screen, height_button: self.$height_button, width_button: self.$width_button)
-            }else{
-                Text("").hidden()
             }
             
             HeightSlider(height_screen: self.$height_screen, width_screen: self.$width_screen, height_button: self.$height_button, width_button: self.$width_button)
             
             OptionsButton(height_button: self.$height_button, width_button: self.$width_button, showOptionsMenu: $showOptionsMenu, action: {
-                self.userFeedbackManager.message="OptionsButton pressed"
                 self.showOptionsMenu.toggle()
             }).popover(isPresented: $showOptionsMenu, arrowEdge: .trailing, content: {
                 OptionsMenu(showOptionsMenu: $showOptionsMenu, height_button: self.$height_button, width_button: self.$width_button)
@@ -552,6 +608,7 @@ struct PickerSelect: View{
                 .font(.system(size: self.width_button*0.25))
                 .bold()
         }
+        .padding(.bottom,-1.0)
         HStack{
             //Number of trees picker
             Picker("Trees", selection: $numberOfTrees){

@@ -59,8 +59,16 @@ class SelectedModel : ObservableObject {
 }
 
 class UserFeedback : ObservableObject {
+
+    @Published var text_color: Color = Color.black
+    @Published var text_string: String = ""
     
-    @Published  var message : String = "Message"
+    @Published var title_color: Color = Color.black
+    @Published var title_string: String = ""
+    
+    @Published var icon_string: String = ""
+    
+    @Published var show_message: Bool = false
     
     init(){
     }
@@ -72,35 +80,30 @@ final class CurrentScene {
     private var selected_model_name : String = "quercus_suber"
     private var number_of_trees : Int = 1
     private var scale_compensation : Double = 1.0
+
     private var last_anchor : ARAnchor? = nil
-    private var selected_project : String? = nil
-    private var projects : [String] = ["------"]
     public var scene_anchors : [ARAnchor] = []
+    public var coordinates : CLLocationCoordinate2D = CLLocationCoordinate2D()
+    private var selected_project : String? = nil
     
-    @ObservedObject public var locationManager  = LocationManager()
-    var coordinate : CLLocationCoordinate2D = CLLocationCoordinate2D()
-    
-    public func getSceneAnchors() -> [ARAnchor]{
-        return self.scene_anchors
-    }
+    private var projects : [String] = ["------"]
     
     static let sharedInstance: CurrentScene = {
         let instance = CurrentScene()
-        
         return instance
     }()
     
     private init(){
-        
-        self.coordinate = self.locationManager.coordinates != nil ? self.locationManager.coordinates!.coordinate : CLLocationCoordinate2D()
-        
         fetchAllProjects()
         sleep(1)
-        
     }
     
-    func getLocation() -> CLLocationCoordinate2D {
-        return self.coordinate
+    func setCoordinates(coordinates: CLLocationCoordinate2D){
+        self.coordinates = coordinates
+    }
+    
+    func getCoordinates()->CLLocationCoordinate2D {
+        return self.coordinates
     }
     
     func setSelectedModelName(name: String){
@@ -153,6 +156,10 @@ final class CurrentScene {
     
     public func setSceneAnchors(scene_anchors : [ARAnchor]){
         self.scene_anchors = scene_anchors
+    }
+    
+    public func getSceneAnchors() -> [ARAnchor]{
+        return self.scene_anchors
     }
     
     public func getPositions()->[simd_float4x4]{
