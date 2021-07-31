@@ -19,7 +19,7 @@ struct CustomARUserInterface : View {
     @State private var height_button = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(60.0) : CGFloat(72.0)
     @State private var width_button = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(57.0) : CGFloat(72.0)
     
-    @EnvironmentObject var selectedModelManager : SelectedModel
+    @EnvironmentObject var selectedModelManager : CurrentSessionSwiftUI
     @EnvironmentObject var userFeedbackManager : UserFeedback
     
     @State private var showTabBar : Bool = false
@@ -52,7 +52,7 @@ struct CustomARUserInterface : View {
             }
             Spacer()
             VStack(alignment: .trailing){
-                NumberOfTreesOnSceneLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
+                ReforestationPlanSwitch(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
                 Spacer()
                 if(showTabBar){
                     RightBar(height_screen: self.$height_screen, width_screen: self.$width_screen, height_button: self.$height_button, width_button: self.$width_button, showTreeCatalog: self.$showTreeCatalog)
@@ -69,6 +69,45 @@ struct CustomARUserInterface : View {
         }
     }
 }
+
+struct ReforestationPlanSwitch: View {
+    
+    let background_color: Color
+    
+    @Binding var height_button : CGFloat
+    @Binding var width_button : CGFloat
+    
+    @State private var reforestation_plan : Bool = CurrentSession.sharedInstance.getReforestationPlanOption()
+    var currentSessionManager = CurrentSession.sharedInstance
+    
+    let notification_reforestation_plan = Notification.Name("reforestationPlan")
+    
+    var body: some View{
+        ZStack(alignment: .trailing){
+            HStack(alignment: .center){
+                Text("Reforestation\nRules")
+                    .font(.system(size: self.width_button*0.8))
+                    .foregroundColor(.light_beish)
+                    .bold()
+                padding(.leading,2.0)
+                Toggle("", isOn: $reforestation_plan).toggleStyle(SwitchToggleStyle(tint: .light_green))
+                    .labelsHidden()
+                    .onChange(of: reforestation_plan, perform: { _ in
+                        //self.currentSessionManager.toogleReforestationPlanOption()
+                        NotificationCenter.default.post(name: notification_reforestation_plan, object: nil)
+                    })
+                    .padding(.trailing,2.0)
+            }
+            //.padding(3.0)
+            .frame(width: self.width_button*2.3, height: self.height_button*0.8, alignment: .center)
+        }
+        .background(self.background_color)
+        .cornerRadius(15.0)
+        .padding(.top, 15.0)
+        .padding(.trailing, 15.0)
+    }
+}
+
 struct UserFeedbackMessage : View {
     
     @Binding var height_button : CGFloat
@@ -114,7 +153,7 @@ struct NumberOfTreesOnSceneLabel : View {
     @Binding var height_button : CGFloat
     @Binding var width_button : CGFloat
     
-    @EnvironmentObject var selectedModelManager : SelectedModel
+    @EnvironmentObject var selectedModelManager : CurrentSessionSwiftUI
     
     var body: some View{
         
@@ -149,7 +188,7 @@ struct CurrentCoordinatesLabel : View {
     @Binding var width_button : CGFloat
     
     @ObservedObject public var locationManager  = LocationManager()
-    var currentSceneManager = CurrentScene.sharedInstance
+    var currentSceneManager = CurrentSession.sharedInstance
     
     var body: some View{
         let coordinate = self.locationManager.coordinates != nil ? self.locationManager.coordinates!.coordinate : CLLocationCoordinate2D()
@@ -200,7 +239,7 @@ struct SelectedModelButtonLabel : View {
     @Binding var height_button : CGFloat
     @Binding var width_button : CGFloat
     
-    @EnvironmentObject var selectedModelManager : SelectedModel
+    @EnvironmentObject var selectedModelManager : CurrentSessionSwiftUI
     
     @Binding var showTreeCatalog : Bool
     
@@ -261,7 +300,7 @@ struct UndoButton : View {
     
     let notification_name = Notification.Name("last_item_anchor")
     
-    var currentSceneManager = CurrentScene.sharedInstance
+    var currentSceneManager = CurrentSession.sharedInstance
     @EnvironmentObject var userFeedbackManager : UserFeedback
     
     var body: some View {
@@ -423,7 +462,7 @@ struct OptionsMenu: View {
     let notification_load_progress = Notification.Name("notification_load_progress")
     
     @State private var selectedProject : String = "Default"
-    var currentSceneManager = CurrentScene.sharedInstance
+    var currentSceneManager = CurrentSession.sharedInstance
     
     var body: some View{
         
@@ -533,7 +572,7 @@ struct RightBar : View {
     @Binding var showTreeCatalog : Bool
     @State private var showOptionsMenu : Bool = false
     
-    @EnvironmentObject var selectedModelManager : SelectedModel
+    @EnvironmentObject var selectedModelManager : CurrentSessionSwiftUI
     
     var body: some View{
         
@@ -569,8 +608,8 @@ struct PickerSelect: View{
     @Binding var height_button : CGFloat
     @Binding var width_button : CGFloat
     
-    @State private var numberOfTrees : Int = CurrentScene.sharedInstance.getNumberOfTrees()
-    var currentSceneManager = CurrentScene.sharedInstance
+    @State private var numberOfTrees : Int = CurrentSession.sharedInstance.getNumberOfTrees()
+    var currentSceneManager = CurrentSession.sharedInstance
     
     var body: some View{
         HStack{
@@ -610,11 +649,11 @@ struct HeightSlider: View{
     @Binding var height_button : CGFloat
     @Binding var width_button : CGFloat
     
-    @State private var current_scale : Double = CurrentScene.sharedInstance.getScaleCompensation()
+    @State private var current_scale : Double = CurrentSession.sharedInstance.getScaleCompensation()
     var min_scale : Double = 0.01
     var max_scale : Double = 5.01
     
-    var currentSceneManager = CurrentScene.sharedInstance
+    var currentSceneManager = CurrentSession.sharedInstance
     
     var body: some View{
         HStack{
@@ -682,8 +721,8 @@ struct VerticalGrid: View{
     private let gridItemLayout = [GridItem(.fixed(150))]
     let treesModels = TreeCatalogModels()
     
-    @EnvironmentObject var selectedModelManager : SelectedModel
-    var currentSceneManager = CurrentScene.sharedInstance
+    @EnvironmentObject var selectedModelManager : CurrentSessionSwiftUI
+    var currentSceneManager = CurrentSession.sharedInstance
     
     var body: some View{
         VStack(alignment: .center){

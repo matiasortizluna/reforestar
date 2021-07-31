@@ -11,93 +11,39 @@ import ARKit
 import Combine
 import Firebase
 
-class SelectedModel : ObservableObject {
-    
-    @Published var selectedModelName : String = "quercus_suber"
-    //@Published var numberOfTrees : Int = 1
-    //@Published var scaleCompensation : Double = 1.0
-    //private var last_anchor : ARAnchor? = nil
-    //@Published var selectedProject : String? = nil
-    //private var projects : [String] = [""]
-    @Published var scene_anchors : Int = 0
-    
-    let notification_numberOfAnchors = Notification.Name("numberOfAnchors")
-    var cancellable_numberOfAnchors: AnyCancellable?
-    
-    let notification_removeLastAnchor = Notification.Name("removeLastAnchor")
-    var cancellable_removeLastAnchor: AnyCancellable?
-    
-    let notification_removeAllAnchors = Notification.Name("removeAllAnchors")
-    var cancellable_removeAllAnchors: AnyCancellable?
-    
-    init(){
-        
-        self.cancellable_numberOfAnchors = NotificationCenter.default
-            .publisher(for: self.notification_numberOfAnchors)
-            .sink { value in
-                print("Notification received from a publisher! \(value) \n to add number of anchors on scene")
-                self.scene_anchors+=1
-            }
-        
-        self.cancellable_removeLastAnchor = NotificationCenter.default
-            .publisher(for: self.notification_removeLastAnchor)
-            .sink { value in
-                print("Notification received from a publisher! \(value) \n to rest 1 number of anchors on scene")
-                self.scene_anchors-=1
-            }
-        
-        self.cancellable_removeAllAnchors = NotificationCenter.default
-            .publisher(for: self.notification_removeAllAnchors)
-            .sink { value in
-                print("Notification received from a publisher! \(value) \n to delete all number of anchors on scene")
-                self.scene_anchors=0
-            }
-        
-        
-        
-    }
-}
-
-class UserFeedback : ObservableObject {
-
-    @Published var text_color: Color = Color.black
-    @Published var text_string: String = ""
-    
-    @Published var title_color: Color = Color.black
-    @Published var title_string: String = ""
-    
-    @Published var icon_string: String = ""
-    
-    @Published var back_color: Color = Color.black
-    
-    @Published var show_message: Bool = false
-    
-    init(){
-    }
-    
-}
-
-final class CurrentScene {
+final class CurrentSession {
     
     private var selected_model_name : String = "quercus_suber"
     private var number_of_trees : Int = 1
     private var scale_compensation : Double = 1.0
 
     private var last_anchor : ARAnchor? = nil
-    public var scene_anchors : [ARAnchor] = []
-    public var coordinates : CLLocationCoordinate2D = CLLocationCoordinate2D()
+    private var scene_anchors : [ARAnchor] = []
+    private var coordinates : CLLocationCoordinate2D = CLLocationCoordinate2D()
     private var selected_project : String? = nil
+    private var reforestation_plan : Bool = true
     
     private var projects : [String] = ["------"]
+    //private var areas : [String] = ["------"]
+    //private var catalog : [String] = ["------"]
+    //private var user : [String] = ["------"]
     
-    static let sharedInstance: CurrentScene = {
-        let instance = CurrentScene()
+    static let sharedInstance: CurrentSession = {
+        let instance = CurrentSession()
         return instance
     }()
     
     private init(){
         fetchAllProjects()
         sleep(1)
+    }
+    
+    func toogleReforestationPlanOption()->Void{
+        self.reforestation_plan.toggle()
+    }
+    
+    func getReforestationPlanOption()->Bool{
+        return self.reforestation_plan
     }
     
     func setCoordinates(coordinates: CLLocationCoordinate2D){
@@ -199,6 +145,71 @@ final class CurrentScene {
         return self.projects ?? ["------"]
     }
     
-    
 }
 
+
+
+class CurrentSessionSwiftUI : ObservableObject {
+    
+    @Published var selectedModelName : String = "quercus_suber"
+    //@Published var numberOfTrees : Int = 1
+    //@Published var scaleCompensation : Double = 1.0
+    //private var last_anchor : ARAnchor? = nil
+    //@Published var selectedProject : String? = nil
+    //private var projects : [String] = [""]
+    @Published var scene_anchors : Int = 0
+    @Published var reforestation_plan : Bool = true
+    
+    let notification_numberOfAnchors = Notification.Name("numberOfAnchors")
+    var cancellable_numberOfAnchors: AnyCancellable?
+    
+    let notification_removeLastAnchor = Notification.Name("removeLastAnchor")
+    var cancellable_removeLastAnchor: AnyCancellable?
+    
+    let notification_removeAllAnchors = Notification.Name("removeAllAnchors")
+    var cancellable_removeAllAnchors: AnyCancellable?
+    
+    init(){
+        
+        self.cancellable_numberOfAnchors = NotificationCenter.default
+            .publisher(for: self.notification_numberOfAnchors)
+            .sink { value in
+                print("Notification received from a publisher! \(value) \n to add number of anchors on scene")
+                self.scene_anchors+=1
+            }
+        
+        self.cancellable_removeLastAnchor = NotificationCenter.default
+            .publisher(for: self.notification_removeLastAnchor)
+            .sink { value in
+                print("Notification received from a publisher! \(value) \n to rest 1 number of anchors on scene")
+                self.scene_anchors-=1
+            }
+        
+        self.cancellable_removeAllAnchors = NotificationCenter.default
+            .publisher(for: self.notification_removeAllAnchors)
+            .sink { value in
+                print("Notification received from a publisher! \(value) \n to delete all number of anchors on scene")
+                self.scene_anchors=0
+            }
+
+    }
+}
+
+class UserFeedback : ObservableObject {
+
+    @Published var text_color: Color = Color.black
+    @Published var text_string: String = ""
+    
+    @Published var title_color: Color = Color.black
+    @Published var title_string: String = ""
+    
+    @Published var icon_string: String = ""
+    
+    @Published var back_color: Color = Color.black
+    
+    @Published var show_message: Bool = false
+    
+    init(){
+    }
+    
+}

@@ -14,7 +14,7 @@ import Firebase
 
 struct ARContentView: View {
     
-    @StateObject var selectedModelManager = SelectedModel()
+    @StateObject var selectedModelManager = CurrentSessionSwiftUI()
     @StateObject var userFeedbackManager = UserFeedback()
     
     var body: some View {
@@ -48,7 +48,7 @@ struct ARViewContainer: UIViewRepresentable {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ARContentView().environmentObject(SelectedModel()).environmentObject(UserFeedback())
+        ARContentView().environmentObject(CurrentSessionSwiftUI()).environmentObject(UserFeedback())
     }
 }
 
@@ -56,7 +56,7 @@ public class CustomARView: ARView{
     
     private var reforestationSettingsManager = ReforestationSettings();
     
-    var currentSceneManager = CurrentScene.sharedInstance
+    var currentSceneManager = CurrentSession.sharedInstance
     
     let notification_name = Notification.Name("last_item_anchor")
     var cancellable: AnyCancellable?
@@ -69,6 +69,10 @@ public class CustomARView: ARView{
     
     let notification_load_progress = Notification.Name("notification_load_progress")
     var cancellableLoadProgress: AnyCancellable?
+    
+    let notification_reforestation_plan = Notification.Name("reforestationPlan")
+    var cancellable_reforestation_plan: AnyCancellable?
+    
     
     func setupARView(){
     
@@ -129,6 +133,13 @@ public class CustomARView: ARView{
             .sink { value in
                 print("Notification received from a publisher! \(value)\nto Load The Progress from Project")
                 self.loadProject(project: self.currentSceneManager.getSelectedProject())
+            }
+        
+        self.cancellable_reforestation_plan = NotificationCenter.default
+            .publisher(for: self.notification_reforestation_plan)
+            .sink { value in
+                print("Notification received from a publisher! \(value) \n to change reforestation plan Settings")
+                self.currentSceneManager.toogleReforestationPlanOption()
             }
         
         self.session.run(configuration)
