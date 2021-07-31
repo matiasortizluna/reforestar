@@ -25,6 +25,13 @@ struct CustomARUserInterface : View {
     @State private var showTabBar : Bool = false
     @State private var showTreeCatalog : Bool = false
     
+    var cancellableMessage : AnyCancellable?
+    var cancellables = Set<AnyCancellable>()
+    
+    init() {
+        //setupUserMessage(userFeedbackManager: userFeedbackManager, icon_string: "checkmark.circle", text_color: .dark_green, text_string: "Last placed tree has been deleted! :)", title_color: .sucess, title_string: "Success", back_color: .white_gray)
+    }
+    
     var body: some View{
         HStack(){
             VStack(alignment: .leading){
@@ -38,6 +45,7 @@ struct CustomARUserInterface : View {
                 Spacer()
                 if(userFeedbackManager.show_message){
                     UserFeedbackMessage(height_button: self.$height_button, width_button: self.$width_button)
+                        .transition(AnyTransition.opacity.animation(.easeInOut(duration:0.5)))
                 }
                 Spacer()
                 SelectedModelButtonLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button, showTreeCatalog: self.$showTreeCatalog)
@@ -54,11 +62,13 @@ struct CustomARUserInterface : View {
                     self.showTabBar.toggle()
                 }, icon_string1: "chevron.right.square.fill", icon_string2: "chevron.backward.square", button_title: "Menu")
             }
-            
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("user_message"))) { _ in
+            print(">> in init")
+            print("Notification received from a publisher!")
         }
     }
 }
-
 struct UserFeedbackMessage : View {
     
     @Binding var height_button : CGFloat
@@ -67,7 +77,7 @@ struct UserFeedbackMessage : View {
     @EnvironmentObject var userFeedbackManager : UserFeedback
     
     var body: some View{
-        VStack(alignment: .center){
+        HStack{
             VStack{
                 HStack(alignment: .center){
                     Image(systemName: userFeedbackManager.icon_string)
@@ -79,21 +89,21 @@ struct UserFeedbackMessage : View {
                         .foregroundColor(userFeedbackManager.title_color)
                         .bold()
                 }
+                .padding(0.5)
                 HStack(alignment: .center){
                     Text(userFeedbackManager.text_string)
                         .font(.system(size: self.width_button*0.25))
                         .foregroundColor(userFeedbackManager.text_color)
                         .bold()
                 }
+                .padding(0.5)
             }
-            .padding(5.0)
+            .padding(1.0)
+            .frame(width: self.width_button*5.0, height: self.height_button*1.5, alignment: .center)
         }
-        .frame(width: self.width_button*6.0, height: self.height_button*1.2, alignment: .center)
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(userFeedbackManager.title_color, lineWidth: 5)
-                .background(Color.light_beish)
-        )
+        .background(userFeedbackManager.back_color)
+        .cornerRadius(15.0)
+        .overlay(RoundedRectangle(cornerRadius: 15.0).stroke(userFeedbackManager.title_color, lineWidth: 5))
     }
 }
 
@@ -264,8 +274,6 @@ struct UndoButton : View {
                         self.optionToToggle.toggle()
                     })
                     
-                    setupUserMessage(userFeedbackManager: userFeedbackManager, icon_string: "xmark.circle", text_color: .black, text_string: "Last placed tree has been deleted! :)", title_color: .green, title_string: "Success")
-                    
                     NotificationCenter.default.post(name: self.notification_name, object: nil)
                     
                 }, button_title: "Undo", height_button: self.$height_button, width_button: self.$width_button)
@@ -278,14 +286,15 @@ struct UndoButton : View {
         }}
 }
 
-func setupUserMessage(userFeedbackManager : UserFeedback, icon_string: String, text_color: Color, text_string: String, title_color: Color, title_string: String) -> Void {
+func setupUserMessage(userFeedbackManager : UserFeedback, icon_string: String, text_color: Color, text_string: String, title_color: Color, title_string: String, back_color: Color) -> Void {
     userFeedbackManager.icon_string = icon_string
     userFeedbackManager.text_color = text_color
     userFeedbackManager.text_string = text_string
     userFeedbackManager.title_color = title_color
     userFeedbackManager.title_string = title_string
+    userFeedbackManager.back_color = back_color
     userFeedbackManager.show_message = true
-    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
         userFeedbackManager.show_message = false
     })
     
@@ -506,44 +515,6 @@ struct OptionsMenu: View {
                     }
                 }
                 .padding(10.0)
-                
-                
-                /*
-                 Divider().font(.system(size: 3.0))
-                 
-                 HStack(alignment: .center){
-                 VStack{
-                 Text("Current Coordinates")
-                 .font(.system(size: self.height_button/4))
-                 .bold()
-                 .foregroundColor(.dark_green)
-                 HStack{
-                 VStack{
-                 Image(systemName: "mappin.and.ellipse")
-                 .font(.system(size: self.width_button/3))
-                 .foregroundColor(Color.light_beish)
-                 .buttonStyle(PlainButtonStyle())
-                 .padding(2.0)
-                 }
-                 .padding(2.0)
-                 VStack(alignment: .center){
-                 Text("\(self.currentSceneManager.getLocation().latitude) | \(self.currentSceneManager.getLocation().longitude)")
-                 .font(.system(size: self.height_button/4))
-                 .bold()
-                 .foregroundColor(.light_beish)
-                 .padding(2.0)
-                 }.padding(2.0)
-                 }
-                 .background(Color.dark_green)
-                 .cornerRadius(15.0)
-                 .padding(2.0)
-                 }
-                 .padding(5.0)
-                 .frame(width: self.width_button*3.5, height: self.height_button*0.8, alignment: .center)
-                 }
-                 .padding(10.0)
-                 
-                 */
                 
             }.padding(5.0)
         }

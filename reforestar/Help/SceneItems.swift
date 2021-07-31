@@ -68,6 +68,8 @@ class UserFeedback : ObservableObject {
     
     @Published var icon_string: String = ""
     
+    @Published var back_color: Color = Color.black
+    
     @Published var show_message: Bool = false
     
     init(){

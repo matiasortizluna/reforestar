@@ -18,19 +18,13 @@ struct ARContentView: View {
     @StateObject var userFeedbackManager = UserFeedback()
     
     var body: some View {
-        
         ZStack(){
-            
             //AR Custom Class.
-            
-            //          XXXXXXXXXXXXXXXX        //
             ARViewContainer()
-            
             //AR Custom User Interface
             CustomARUserInterface()
                 .environmentObject(selectedModelManager)
                 .environmentObject(userFeedbackManager)
-            
         }
     }
 }
@@ -52,14 +46,11 @@ struct ARViewContainer: UIViewRepresentable {
     }
 }
 
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ARContentView().environmentObject(SelectedModel()).environmentObject(UserFeedback())
     }
 }
-
-
 
 public class CustomARView: ARView{
     
@@ -80,11 +71,9 @@ public class CustomARView: ARView{
     var cancellableLoadProgress: AnyCancellable?
     
     func setupARView(){
-        
-        //          XXXXXXXXXXXXXXXX        //
+    
         self.session.delegate = self
         
-        //          XXXXXXXXXXXXXXXX        //
         self.automaticallyConfigureSession = false;
         
         let configuration = ARWorldTrackingConfiguration();
@@ -102,6 +91,9 @@ public class CustomARView: ARView{
                     
                     let notification_removeLastAnchor = Notification.Name("removeLastAnchor")
                     NotificationCenter.default.post(name: notification_removeLastAnchor, object: nil)
+                    
+                    let notification_messages = Notification.Name("user_message")
+                    NotificationCenter.default.post(name: notification_messages, object: nil)
                     
                 }else{
                     print("No items to delete")
