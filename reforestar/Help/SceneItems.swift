@@ -38,15 +38,15 @@ final class CurrentSession {
         sleep(1)
     }
     
-    func toogleReforestationPlanOption()->Void{
+    func toogleReforestationPlanOption()->Void {
         self.reforestation_plan.toggle()
     }
     
-    func getReforestationPlanOption()->Bool{
+    func getReforestationPlanOption()->Bool {
         return self.reforestation_plan
     }
     
-    func setCoordinates(coordinates: CLLocationCoordinate2D){
+    func setCoordinates(coordinates: CLLocationCoordinate2D) {
         self.coordinates = coordinates
     }
     
@@ -137,7 +137,6 @@ final class CurrentSession {
                 self.projects.append(project.value["name"] as! String)
             }
         })
-        
         self.setSelectedProject(project: projects.last!)
     }
     
@@ -158,7 +157,6 @@ class CurrentSessionSwiftUI : ObservableObject {
     //@Published var selectedProject : String? = nil
     //private var projects : [String] = [""]
     @Published var scene_anchors : Int = 0
-    @Published var reforestation_plan : Bool = true
     
     let notification_numberOfAnchors = Notification.Name("numberOfAnchors")
     var cancellable_numberOfAnchors: AnyCancellable?

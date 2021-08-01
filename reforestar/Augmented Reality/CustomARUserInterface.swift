@@ -13,11 +13,11 @@ import Combine
 struct CustomARUserInterface : View {
     
     //Variables of State for different Menus
-    @State private var height_screen = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(40.0) : CGFloat(50.0)
-    @State private var width_screen = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(125.0) : CGFloat(175.0)
+    @State private var height_screen = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(30.0) : CGFloat(50.0)
+    @State private var width_screen = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(70.0) : CGFloat(175.0)
     
-    @State private var height_button = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(60.0) : CGFloat(72.0)
-    @State private var width_button = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(57.0) : CGFloat(72.0)
+    @State private var height_button = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(55.0) : CGFloat(72.0)
+    @State private var width_button = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(55.0) : CGFloat(72.0)
     
     @EnvironmentObject var selectedModelManager : CurrentSessionSwiftUI
     @EnvironmentObject var userFeedbackManager : UserFeedback
@@ -33,7 +33,7 @@ struct CustomARUserInterface : View {
     }
     
     var body: some View{
-        HStack(){
+        HStack(alignment: .center){
             VStack(alignment: .leading){
                 NumberOfTreesOnSceneLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
                 Spacer()
@@ -55,9 +55,9 @@ struct CustomARUserInterface : View {
                 ReforestationPlanSwitch(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
                 Spacer()
                 if(showTabBar){
+                    Spacer()
                     RightBar(height_screen: self.$height_screen, width_screen: self.$width_screen, height_button: self.$height_button, width_button: self.$width_button, showTreeCatalog: self.$showTreeCatalog)
                 }
-                Spacer()
                 ShowBarButton(optionToToggle: $showTabBar, height_button: self.$height_button, width_button: self.$width_button, action: {
                     self.showTabBar.toggle()
                 }, icon_string1: "chevron.right.square.fill", icon_string2: "chevron.backward.square", button_title: "Menu")
@@ -86,19 +86,16 @@ struct ReforestationPlanSwitch: View {
         ZStack(alignment: .trailing){
             HStack(alignment: .center){
                 Text("Reforestation\nRules")
-                    .font(.system(size: self.width_button*0.8))
+                    .font(.system(size: self.width_button*0.2))
                     .foregroundColor(.light_beish)
                     .bold()
-                padding(.leading,2.0)
                 Toggle("", isOn: $reforestation_plan).toggleStyle(SwitchToggleStyle(tint: .light_green))
                     .labelsHidden()
                     .onChange(of: reforestation_plan, perform: { _ in
-                        //self.currentSessionManager.toogleReforestationPlanOption()
-                        NotificationCenter.default.post(name: notification_reforestation_plan, object: nil)
+                        self.currentSessionManager.toogleReforestationPlanOption()
                     })
-                    .padding(.trailing,2.0)
             }
-            //.padding(3.0)
+            .padding(3.0)
             .frame(width: self.width_button*2.3, height: self.height_button*0.8, alignment: .center)
         }
         .background(self.background_color)
@@ -577,7 +574,6 @@ struct RightBar : View {
     var body: some View{
         
         VStack{
-            Spacer()
             if(self.selectedModelManager.selectedModelName=="quercus_suber"){
                 PickerSelect(height_screen: self.$height_screen, width_screen: self.$width_screen, height_button: self.$height_button, width_button: self.$width_button)
             }
@@ -589,10 +585,8 @@ struct RightBar : View {
             }).popover(isPresented: $showOptionsMenu, arrowEdge: .trailing, content: {
                 OptionsMenu(showOptionsMenu: $showOptionsMenu, height_button: self.$height_button, width_button: self.$width_button)
             })
-            
-            
         }
-        .frame(minWidth: self.width_button, maxWidth: self.width_button, minHeight: 150, maxHeight: .infinity, alignment: .center)
+        .frame(minWidth: self.width_button, maxWidth: self.width_button, minHeight: 150, maxHeight: 650, alignment: .center)
         .background(Color.dark_green)
         .cornerRadius(20.0)
         .padding(.trailing, 15.0)

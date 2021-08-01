@@ -70,10 +70,6 @@ public class CustomARView: ARView{
     let notification_load_progress = Notification.Name("notification_load_progress")
     var cancellableLoadProgress: AnyCancellable?
     
-    let notification_reforestation_plan = Notification.Name("reforestationPlan")
-    var cancellable_reforestation_plan: AnyCancellable?
-    
-    
     func setupARView(){
     
         self.session.delegate = self
@@ -96,9 +92,6 @@ public class CustomARView: ARView{
                     let notification_removeLastAnchor = Notification.Name("removeLastAnchor")
                     NotificationCenter.default.post(name: notification_removeLastAnchor, object: nil)
                     
-                    let notification_messages = Notification.Name("user_message")
-                    NotificationCenter.default.post(name: notification_messages, object: nil)
-                    
                 }else{
                     print("No items to delete")
                 }
@@ -118,7 +111,6 @@ public class CustomARView: ARView{
                 }else{
                     print("No items to delete")
                 }
-                
             }
         
         self.cancellableSaveProgress = NotificationCenter.default
@@ -135,18 +127,12 @@ public class CustomARView: ARView{
                 self.loadProject(project: self.currentSceneManager.getSelectedProject())
             }
         
-        self.cancellable_reforestation_plan = NotificationCenter.default
-            .publisher(for: self.notification_reforestation_plan)
-            .sink { value in
-                print("Notification received from a publisher! \(value) \n to change reforestation plan Settings")
-                self.currentSceneManager.toogleReforestationPlanOption()
-            }
-        
         self.session.run(configuration)
-        
     }
     
     func loadProject(project: String) -> Int {
+        
+        print("NANSNAS \(self.currentSceneManager.getReforestationPlanOption())")
         var validation_code : Int = 0
         
         let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()

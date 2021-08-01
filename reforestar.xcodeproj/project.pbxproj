@@ -126,7 +126,6 @@
 		0F04866E265BF1D90083AC26 /* Augmented Reality */ = {
 			isa = PBXGroup;
 			children = (
-				0F98DC0026AF5AAC00D18D40 /* ARUserInterface */,
 				0F7A94CB265CCC6F000902E7 /* AugmentedRealityViewController.swift */,
 				0FCBACC62665CFD30076B6D3 /* ARContentView.swift */,
 				0FE1E015269D30BF00C3A5F4 /* CustomARUserInterface.swift */,
@@ -147,13 +146,6 @@
 				0F459E25262CE9F600A62D2B /* christmas.usdz */,
 			);
 			path = assets;
-			sourceTree = "<group>";
-		};
-		0F98DC0026AF5AAC00D18D40 /* ARUserInterface */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ARUserInterface;
 			sourceTree = "<group>";
 		};
 		0FC6A555261E24DE002B9B73 = {
