@@ -10,25 +10,20 @@ import Firebase
 
 class UserProfileViewController: UIViewController {
     
-    @IBOutlet weak var configuration_item: UIImageView!
-    
-    @IBOutlet weak var action_button: UIButton!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+        
+        
+        if(Auth.auth().currentUser == nil){
+            print("Do you want to log in ?")
+        }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        //self.perform()
-    }
     
-    @IBAction func didTapConfigurationItem(){
-        navigationController?.pushViewController(ConfigurationViewController(), animated: true)
-    }
-    
-    
+    /*
     @IBAction func didTapActionButton(_ sender: Any) {
         
         if(Auth.auth().currentUser == nil){
@@ -71,13 +66,6 @@ class UserProfileViewController: UIViewController {
         }
         
     }
+ */
     
-    
-    /*
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
 }
