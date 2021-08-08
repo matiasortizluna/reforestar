@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F0BEDC326BC7D8F004F2B1A /* UserProfileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEDC226BC7D8F004F2B1A /* UserProfileContentView.swift */; };
 		0F1F25F82637A91500694936 /* ProjectsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F25F72637A91500694936 /* ProjectsDetailViewController.swift */; };
 		0F1F25FB2637A92B00694936 /* CatalogDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F25FA2637A92B00694936 /* CatalogDetailViewController.swift */; };
 		0F356310265A82FA00A15D2B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F35630F265A82FA00A15D2B /* GoogleService-Info.plist */; };
@@ -40,6 +41,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F0BEDC226BC7D8F004F2B1A /* UserProfileContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileContentView.swift; sourceTree = "<group>"; };
 		0F1F25F72637A91500694936 /* ProjectsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsDetailViewController.swift; sourceTree = "<group>"; };
 		0F1F25FA2637A92B00694936 /* CatalogDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogDetailViewController.swift; sourceTree = "<group>"; };
 		0F35630F265A82FA00A15D2B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			children = (
 				0FC6A578261E2A52002B9B73 /* UserProfileViewController.swift */,
 				0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */,
+				0F0BEDC226BC7D8F004F2B1A /* UserProfileContentView.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				0FCBACC72665CFD30076B6D3 /* ARContentView.swift in Sources */,
 				0FF72181261E73F200E0DA68 /* TableViewCell.swift in Sources */,
 				0FE1E016269D30BF00C3A5F4 /* CustomARUserInterface.swift in Sources */,
+				0F0BEDC326BC7D8F004F2B1A /* UserProfileContentView.swift in Sources */,
 				0F1F25FB2637A92B00694936 /* CatalogDetailViewController.swift in Sources */,
 				0FF72179261E71CC00E0DA68 /* MapsViewController.swift in Sources */,
 				0FD36F962687C99A0078C716 /* LocationManager.swift in Sources */,

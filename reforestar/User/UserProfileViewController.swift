@@ -7,65 +7,35 @@
 
 import UIKit
 import Firebase
+import SwiftUI
 
 class UserProfileViewController: UIViewController {
+    
+    let userContentView = UIHostingController(rootView: UserProfileContentView())
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationItem.largeTitleDisplayMode = .always
-        
-        
+
         if(Auth.auth().currentUser == nil){
             print("Do you want to log in ?")
         }
+        
+        //Add AR view with customed AR interface
+        addChild(userContentView)
+        view.addSubview(userContentView.view)
+        setupConstraints()
+        userContentView
     }
     
-    
-    /*
-    @IBAction func didTapActionButton(_ sender: Any) {
-        
-        if(Auth.auth().currentUser == nil){
-            
-            Auth.auth().signIn(withEmail: "matiasarielortiz2001@gmail.com", password: "12345678") { [weak self] authResult, error in
-                guard let strongSelf = self else {
-                    print("Inside Strong Self 1")
-                    return
-                }
-                guard error == nil else {
-                    print("Error singing in. Creating account")
-                    
-                    Auth.auth().createUser(withEmail: "matiasariel2001@outlook.com", password: "12345678"){ [weak self] authResult, error in
-                        guard let strongSelf = self else {
-                            print("Inside Strong Self 2")
-                            return
-                        }
-                        guard error == nil else {
-                            print("Error creating account")
-                            return
-                        }
-                        print("User created sucessfully")
-                        return
-                    }
-    
-                    return
-                }
-                print("You have signed in")
-                return
-            }
-            
-        }else{
-            do {
-                try Auth.auth().signOut()
-                print("Signed out")
-            } catch  {
-                print("An error ocurred")
-            }
-            
-        }
-        
+    func setupConstraints(){
+        userContentView.view.translatesAutoresizingMaskIntoConstraints = false
+        userContentView.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        userContentView.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        userContentView.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        userContentView.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
- */
     
 }

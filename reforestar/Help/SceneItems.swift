@@ -11,6 +11,39 @@ import ARKit
 import Combine
 import Firebase
 
+class UserReforestAR {
+    private var uid: String
+    private var email: String?
+    private var displayName: String?
+    private var image : URL?
+
+    init(uid: String, displayName: String?, email: String?, image: URL?){
+        self.uid = uid
+        self.email = email
+        self.displayName = displayName
+        self.image = image
+    }
+    
+    func getUser() -> UserReforestAR {
+        return self
+    }
+    
+    func getEmail() -> String {
+        return self.email ?? ""
+    }
+    
+    func getDisplayName() -> String {
+        return self.displayName ?? ""
+    }
+    
+    /*
+    func getImage() -> Image {
+        return self.image ?? Image(systemName: "person")
+    }
+     */
+
+}
+
 final class CurrentSession {
     
     private var selected_model_name : String = "quercus_suber"
@@ -143,6 +176,8 @@ final class CurrentSession {
     func getAllProjects() -> [String] {
         return self.projects ?? ["------"]
     }
+
+
     
 }
 
@@ -158,6 +193,9 @@ class CurrentSessionSwiftUI : ObservableObject {
     //private var projects : [String] = [""]
     @Published var scene_anchors : Int = 0
     
+    @Published var loggedUserBool : Bool = false
+    @Published var loggedUser : UserReforestAR? = nil
+    
     let notification_numberOfAnchors = Notification.Name("numberOfAnchors")
     var cancellable_numberOfAnchors: AnyCancellable?
     
@@ -168,6 +206,8 @@ class CurrentSessionSwiftUI : ObservableObject {
     var cancellable_removeAllAnchors: AnyCancellable?
     
     init(){
+        
+        self.loggedUserBool = Auth.auth().currentUser == nil ? false : true
         
         self.cancellable_numberOfAnchors = NotificationCenter.default
             .publisher(for: self.notification_numberOfAnchors)
@@ -191,6 +231,7 @@ class CurrentSessionSwiftUI : ObservableObject {
             }
 
     }
+    
 }
 
 class UserFeedback : ObservableObject {
@@ -211,3 +252,4 @@ class UserFeedback : ObservableObject {
     }
     
 }
+
