@@ -19,7 +19,7 @@ extension Color {
     static let yellow_warning = Color("Color7")
     static let blue_info = Color("Color8")
     
-
+    
 }
 
 class Help {
@@ -29,7 +29,26 @@ class Help {
     
     public static let height_button = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(55.0) : CGFloat(72.0)
     public static let width_button = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(55.0) : CGFloat(72.0)
-        
+    
     public static let border_padding = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(5.0) : CGFloat(15.0)
 }
 
+extension String {
+    
+    func isGoodPassword() -> Bool {
+        return stringFulfillsRegex(regex: "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
+    }
+    
+    func isAnEmail() -> Bool {
+        return stringFulfillsRegex(regex: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
+    }
+    
+    private func stringFulfillsRegex(regex: String) -> Bool {
+        let texttest = NSPredicate(format: "SELF MATCHES %@", regex)
+        guard texttest.evaluate(with: self) else {
+            return false
+        }
+        return true
+    }
+    
+}

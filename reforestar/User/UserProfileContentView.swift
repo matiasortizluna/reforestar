@@ -37,7 +37,7 @@ struct UserProfileContentView : View {
                     Spacer()
                     VStack{
                         MailUsernameInformation()
-                        if(self.selectedModelManager.loggedUserBool){
+                        if(self.selectedModelManager.loggedUser != nil){
                             EditProfileButton()
                         }
                     }
@@ -68,7 +68,7 @@ struct ActionButtons : View {
     @EnvironmentObject var selectedModelManager : CurrentSessionSwiftUI
     
     var body: some View{
-        if(self.selectedModelManager.loggedUserBool == false){
+        if(self.selectedModelManager.loggedUser == nil){
             
             HStack(alignment: .center, spacing: 30.0){
                 RegisterAction()
@@ -91,6 +91,7 @@ struct LogInAction : View {
     
     @State var email: String = ""
     @State var password: String = ""
+    @State var form_message : String = ""
     
     @EnvironmentObject var selectedModelManager : CurrentSessionSwiftUI
     
@@ -101,29 +102,56 @@ struct LogInAction : View {
                     NavigationView{
                         VStack{
                             Form {
-                                Section(header: Text("User Information")) {
-                                    TextField("E-mail", text: $email)
-                                    TextField("Password", text: $password)
+                                if(form_message != ""){
+                                    Text(form_message)
+                                        .font(.system(size: Help.width_button*0.25))
+                                        .foregroundColor(Color.light_beish)
                                 }
-                                Section(content: {
-                                    Button(action: {
-                                        
-                                        Auth.auth().signIn(withEmail: "matiasariel2001@outlook.com", password: "12345678") { (result, error) in
-                                            if error != nil {
-                                                print("Error singing in")
-                                                print(error?.localizedDescription ?? "")
-                                            } else {
-                                                print("You have logged in")
-                                                print(result?.description)
-                                                self.selectedModelManager.loggedUserBool = true
-                                                //self.selectedModelManager.loggedUser = UserReforestAR(uid: Auth.auth().currentUser!.uid, displayName: Auth.auth().currentUser!.displayName, email: Auth.auth().currentUser!.email, image: Auth.auth().currentUser!.photoURL)
-                                                self.showForms.toggle()
-                                            }
+                                Section(header: Text("User Information")) {
+                                    
+                                    TextField("E-mail", text: $email, onEditingChanged: { (changed) in
+                                        if(self.email.isEmpty){
+                                            self.form_message = "Email is empty"
+                                        }else if(!self.email.isAnEmail()){
+                                            self.form_message = "This is not a valid email. Please check it again"
+                                        }else {
+                                            self.form_message = ""
                                         }
-                                        
-                                    },label: {
-                                        Text("Log In ")
                                     })
+                                    .autocapitalization(.none)
+                                    .keyboardType(.emailAddress)
+                                    
+                                    SecureField("Password", text: $password, onCommit: {
+                                        if(self.password.isEmpty){
+                                            self.form_message = "Password is empty"
+                                        }else if(!self.password.isGoodPassword()){
+                                            self.form_message = "This is not a valid password. Please check it again"
+                                        }else {
+                                            self.form_message = ""
+                                        }
+                                    })
+                                }
+                                
+                                Section(content: {
+                                    HStack(alignment: .center){
+                                        Button(action: {
+                                            Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+                                                if error != nil {
+                                                    form_message = "Error singing in. \(error!.localizedDescription)"
+                                                } else {
+                                                    form_message = "You have logged in. \(result!.description)"
+                                                    self.selectedModelManager.loggedUser = result?.user
+                                                    self.showForms.toggle()
+                                                }
+                                            }
+                                        },label: {
+                                            HStack(alignment: .center){
+                                                Text("Log In ")
+                                                Image(systemName: "checkmark.circle.fill")
+                                            }
+                                        })
+                                        .disabled(self.form_message != "")
+                                    }
                                 })
                             }
                         }
@@ -156,6 +184,8 @@ struct RegisterAction : View {
     
     @EnvironmentObject var selectedModelManager : CurrentSessionSwiftUI
     
+    @State var form_message : String = ""
+    
     var body: some View{
         
         RegisterButton(showForms: $showFormsRegister)
@@ -163,39 +193,86 @@ struct RegisterAction : View {
                 NavigationView{
                     VStack{
                         Form {
+                            if(form_message != ""){
+                                Text(form_message)
+                                    .font(.system(size: Help.width_button*0.25))
+                                    .foregroundColor(Color.light_beish)
+                            }
                             Section(header: Text("User's Display Name")) {
                                 TextField("Display Name", text: $display_name)
                             }
+                            
                             Section(header: Text("User's Email")) {
-                                TextField("E-mail", text: $email)
-                                TextField("Confirm E-mail", text: $confirm_email)
+                                ZStack{
+                                    TextField("E-mail", text: $email, onEditingChanged: { (changed) in
+                                        if(self.email.isEmpty){
+                                            self.form_message = "Email is empty"
+                                        }else if(!self.email.isAnEmail()){
+                                            self.form_message = "This is not a valid email. Please check it again"
+                                        }else {
+                                            self.form_message = ""
+                                        }
+                                    })
+                                }
+                                .autocapitalization(.none)
+                                .keyboardType(.emailAddress)
+                                
+                                TextField("Confirm E-mail", text: $confirm_email, onEditingChanged: { (changed) in
+                                    if(self.email != self.confirm_email){
+                                        self.form_message = "Both emails don't match. Please check it again"
+                                    }else {
+                                        self.form_message = ""
+                                    }
+                                })
+                                .autocapitalization(.none)
+                                .keyboardType(.emailAddress)
                             }
-                            Section(header: Text("User's Password")) {
-                                SecureField("Password", text: $password)
-                                SecureField("Confirm Password", text: $confirm_password)
+                            
+                            
+                            Section(header: Text("User's Password"), footer: Text("Password must have a minimum of 8 characters with at least 1 Alphabet and 1 Number")){
+                                SecureField("Password", text: $password, onCommit: {
+                                    if(self.password.isEmpty){
+                                        self.form_message = "Password is empty"
+                                    }else if(!self.password.isGoodPassword()){
+                                        self.form_message = "This is not a valid password. Please check it again"
+                                    }else {
+                                        self.form_message = ""
+                                    }
+                                })
+                                
+                                SecureField("Confirm Password", text: $confirm_password, onCommit: {
+                                    if(self.password != self.confirm_password){
+                                        self.form_message = "Both passwords don't match. Please check it again"
+                                    }else {
+                                        self.form_message = ""
+                                    }
+                                })
                             }
+                            
+                            
                             Section(header: Text("User's Profile Picture")) {
-                                TextField("E-mail", text: $email)
+                                TextField("Picture", text: $email)
                             }
+                            
                             Section(content: {
                                 Button(action: {
-                                    
-                                    Auth.auth().createUser(withEmail: "matiasariel2001@outlook.com", password: "12345678"){ (result, error) in
+                                    Auth.auth().createUser(withEmail: email, password: password){ (result, error) in
                                         if error != nil {
-                                            print("Error creating account")
-                                            print(error?.localizedDescription ?? "")
-                                            
+                                            form_message = "Error creating account. \(error!.localizedDescription)"
                                         } else {
-                                            print("User created sucessfully")
-                                            self.selectedModelManager.loggedUserBool = true
+                                            form_message = "User created sucessfully. \(result!.description)"
+                                            self.selectedModelManager.loggedUser = result?.user
                                             self.showFormsRegister.toggle()
                                         }
                                     }
-
                                 },label: {
-                                    Text("Register")
+                                    HStack(alignment: .center){
+                                        Text("Register")
+                                        Image(systemName: "checkmark.circle.fill")
+                                    }
                                 })
                             })
+                            .disabled(self.form_message != "" && self.password != self.confirm_password)
                         }
                     }
                     .navigationTitle(Text("Register")).navigationBarTitleDisplayMode(.large)
@@ -383,7 +460,7 @@ struct UserName : View {
     var body: some View {
         
         HStack{
-            Text(selectedModelManager.loggedUser == nil ?  "Random Name" : selectedModelManager.loggedUser!.getDisplayName())
+            Text((selectedModelManager.loggedUser?.displayName ?? "Random"))
                 .foregroundColor(Color.dark_green)
                 .font(.system(size: Help.width_button*0.5))
                 .shadow(radius: 10)
@@ -411,7 +488,7 @@ struct MailUsernameInformation : View {
                     .foregroundColor(.dark_green)
                     .bold()
                     .padding(0.5)
-                Text(selectedModelManager.loggedUser == nil ? "example@email.com" : selectedModelManager.loggedUser!.getEmail())
+                Text(selectedModelManager.loggedUser == nil ?  "example@email.com" : selectedModelManager.loggedUser!.email!)
                     .font(.system(size: Help.width_button*0.25))
                     .foregroundColor(.dark_green)
                     .padding(0.5)
@@ -450,7 +527,6 @@ struct EditProfileButton : View {
             
             Button(action: {
                 print("Edit Profile Pressed")
-                print(self.selectedModelManager.loggedUserBool)
             }){
                 HStack{
                     Image(systemName: "pencil")
@@ -486,8 +562,7 @@ struct LogOutButton : View {
                 do {
                     try Auth.auth().signOut()
                     //Success
-                    self.selectedModelManager.loggedUserBool = false
-                    //self.selectedModelManager.loggedUser = nil
+                    self.selectedModelManager.loggedUser = nil
                     
                 } catch  {
                     print("An error ocurred")
