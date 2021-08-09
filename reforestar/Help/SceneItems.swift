@@ -16,7 +16,7 @@ final class CurrentSession {
     private var selected_model_name : String = "quercus_suber"
     private var number_of_trees : Int = 1
     private var scale_compensation : Double = 1.0
-
+    
     private var last_anchor : ARAnchor? = nil
     private var scene_anchors : [ARAnchor] = []
     private var coordinates : CLLocationCoordinate2D = CLLocationCoordinate2D()
@@ -28,6 +28,8 @@ final class CurrentSession {
     //private var catalog : [String] = ["------"]
     //private var user : [String] = ["------"]
     
+    private var user : User? = nil
+    
     static let sharedInstance: CurrentSession = {
         let instance = CurrentSession()
         return instance
@@ -35,8 +37,68 @@ final class CurrentSession {
     
     private init(){
         fetchAllProjects()
+        self.user = Auth.auth().currentUser
         sleep(1)
     }
+    
+    func getDisplayName() -> String {
+        if(self.user != nil){
+            if(self.user?.displayName != nil && !(self.user?.displayName!.isEmpty)!){
+                return self.user!.displayName!
+            }
+        }
+        return "No Display Name"
+    }
+    
+    func getEmail() -> String {
+        return self.user != nil ? self.user!.email! : ""
+    }
+    
+    /*
+    func getImage() -> URL {
+        return self.user != nil ? self.user!.photoURL! : URL(string: "")!
+    }
+     */
+    
+    func setUser(user: User){
+        self.user = user
+    }
+    
+    func removeUser(){
+        self.user = nil
+    }
+    
+    func setNewPassword(new: String) {
+        self.user?.updatePassword(to: new, completion: { error in
+            if let error = error {
+              // An error happened.
+            } else {
+              // User re-authenticated.
+            }
+        })
+    }
+    
+    func setNewEmail(new: String){
+        self.user?.updateEmail(to: new, completion: { error in
+            if let error = error {
+              // An error happened.
+            } else {
+              // User re-authenticated.
+            }
+            
+        })
+    }
+    
+    func setNewDisplayName(new: String){
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = new
+        changeRequest?.commitChanges { error in
+            print("Error updating display name: \(error?.localizedDescription)")
+        }
+    }
+    
+    //Auth.auth().sendPasswordReset(withEmail: email) { error in
+    // ... }
     
     func toogleReforestationPlanOption()->Void {
         self.reforestation_plan.toggle()
@@ -155,7 +217,7 @@ class CurrentSessionSwiftUI : ObservableObject {
     //@Published var scaleCompensation : Double = 1.0
     //private var last_anchor : ARAnchor? = nil
     //@Published var selectedProject : String? = nil
-    //private var projects : [String] = [""]
+    private var projects : [String] = [""]
     @Published var scene_anchors : Int = 0
     
     @Published var loggedUser : User? = nil
@@ -193,13 +255,13 @@ class CurrentSessionSwiftUI : ObservableObject {
                 print("Notification received from a publisher! \(value) \n to delete all number of anchors on scene")
                 self.scene_anchors=0
             }
-
+        
     }
     
 }
 
 class UserFeedback : ObservableObject {
-
+    
     @Published var text_color: Color = Color.black
     @Published var text_string: String = ""
     

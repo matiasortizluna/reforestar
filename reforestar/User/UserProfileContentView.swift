@@ -38,7 +38,7 @@ struct UserProfileContentView : View {
                     VStack{
                         MailUsernameInformation()
                         if(self.selectedModelManager.loggedUser != nil){
-                            EditProfileButton()
+                            EditProfileAction()
                         }
                     }
                     Spacer()
@@ -59,6 +59,189 @@ struct UserProfileContentView : View {
         .environmentObject(selectedModelManager)
         .environmentObject(userFeedbackManager)
     }
+}
+
+struct EditProfileAction : View {
+    
+    @EnvironmentObject var selectedModelManager : CurrentSessionSwiftUI
+    
+    @State var showFormsEdit : Bool = false
+    @State var form_message : String = ""
+    
+    @State var old_email: String = CurrentSession.sharedInstance.getEmail()
+    @State var email: String = ""
+    @State var confirm_email: String = ""
+    
+    
+    @State var password: String = ""
+    @State var confirm_password: String = ""
+    
+    @State var old_display_name: String = CurrentSession.sharedInstance.getDisplayName()
+    @State var display_name: String = ""
+    
+    @State var image : Image = Image(systemName: "person")
+    
+    
+    var body: some View{
+        
+        EditProfileButton(showFormsEdit: self.$showFormsEdit)
+            .sheet(isPresented: self.$showFormsEdit, content: {
+                NavigationView{
+                    VStack{
+                        Form {
+                            if(form_message != ""){
+                                Text(form_message)
+                                    .font(.system(size: Help.width_button*0.25))
+                                    .foregroundColor(Color.light_beish)
+                            }
+                            Section(header: Text("User's Display Name"), footer: Text("Display Name must have at least 1 character including any letter lowercase or uppercase and numbers. Not any kind of special characters")) {
+                                HStack{
+                                    Text("Old Display Name")
+                                    Spacer()
+                                    Text(old_display_name)
+                                }
+                                TextField("New Display Name", text: $display_name, onEditingChanged: { (changed) in
+                                    if(!display_name.hasCharacters()){
+                                        self.form_message = "This is not a valid Display Name. Please check it again"
+                                    }else {
+                                        self.form_message = ""
+                                    }
+                                })
+                            }
+                            
+                            Section(header: Text("User's Email")) {
+                                
+                                HStack{
+                                    Text("Old Email Name")
+                                    Spacer()
+                                    Text(old_email)
+                                }
+                                
+                                TextField("New E-mail", text: $email, onEditingChanged: { (changed) in
+                                    if(!self.email.isEmpty && !self.email.isAnEmail()){
+                                        self.form_message = "This is not a valid email. Please check it again"
+                                    }else {
+                                        self.form_message = ""
+                                    }
+                                })
+                                
+                                .autocapitalization(.none)
+                                .keyboardType(.emailAddress)
+                                
+                                TextField("Confirm New E-mail", text: $confirm_email, onEditingChanged: { (changed) in
+                                    if(self.email != self.confirm_email){
+                                        self.form_message = "Both emails don't match. Please check it again"
+                                    }else {
+                                        self.form_message = ""
+                                    }
+                                })
+                                .autocapitalization(.none)
+                                .keyboardType(.emailAddress)
+                            }
+                            
+                            
+                            Section(header: Text("New User's Password"), footer: Text("Password must have a minimum of 8 characters with at least 1 Alphabet and 1 Number")){
+                                
+                                SecureField("New Password", text: $password, onCommit: {
+                                    if(!self.password.isEmpty && !self.password.isGoodPassword()){
+                                        self.form_message = "This is not a valid password. Please check it again"
+                                    }else {
+                                        self.form_message = ""
+                                    }
+                                })
+                                
+                                SecureField("Confirm New Password", text: $confirm_password, onCommit: {
+                                    if(self.password != self.confirm_password){
+                                        self.form_message = "Both passwords don't match. Please check it again"
+                                    }else  {
+                                        self.form_message = ""
+                                    }
+                                })
+                            }
+                            
+                            
+                            Section(header: Text("User's Profile Picture")) {
+                                TextField("Picture", text: $email)
+                            }
+                            
+                            Section(content: {
+                                Button(action: {
+                                    form_message = "Profile edited succesfully"
+                                    if(display_name != old_display_name){
+                                        CurrentSession.sharedInstance.setNewDisplayName(new: display_name)
+                                    }
+                                    if(self.old_email != self.confirm_email){
+                                        CurrentSession.sharedInstance.setNewEmail(new: confirm_email)
+                                    }
+                                    if(!self.confirm_password.isEmpty){
+                                        CurrentSession.sharedInstance.setNewPassword(new: confirm_password)
+                                    }
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                                        self.selectedModelManager.loggedUser = Auth.auth().currentUser
+                                        self.showFormsEdit.toggle()
+                                    })
+                                    
+                                },label: {
+                                    HStack(alignment: .center){
+                                        Text("Save Changes")
+                                        Image(systemName: "checkmark.circle.fill")
+                                    }
+                                })
+                            })
+                            .disabled(self.form_message != "" && self.password != self.confirm_password)
+                        }
+                    }
+                    .navigationTitle(Text("Edit Profile")).navigationBarTitleDisplayMode(.large)
+                    .navigationBarItems(trailing: Button(action: {
+                        self.showFormsEdit.toggle()
+                        
+                        display_name = ""
+                        email = ""
+                        confirm_email = ""
+                        password = ""
+                        confirm_password = ""
+                        
+                    }, label: {
+                        Text("Cancel").bold()
+                    }))
+                }
+            })
+        
+    }
+}
+
+
+struct EditProfileButton : View {
+    @Binding var showFormsEdit : Bool
+    var body: some View {
+        VStack(alignment: .center){
+            
+            Button(action: {
+                print("Edit Profile Pressed")
+                self.showFormsEdit.toggle()
+            }){
+                HStack{
+                    Image(systemName: "pencil")
+                        .font(.system(size: Help.width_button*0.4))
+                        .foregroundColor(.white_gray)
+                        .padding(0.5)
+                    Text("Edit Profile")
+                        .font(.system(size: Help.width_button*0.25))
+                        .foregroundColor(.white_gray)
+                        .bold()
+                        .padding(0.5)
+                }
+                .padding(10.0)
+            }
+            .buttonStyle(PlainButtonStyle())
+            .background(Color.dark_green)
+            .cornerRadius(15.0)
+            .shadow(radius: 5)
+            
+        }
+    }
+    
 }
 
 
@@ -139,8 +322,9 @@ struct LogInAction : View {
                                                 if error != nil {
                                                     form_message = "Error singing in. \(error!.localizedDescription)"
                                                 } else {
-                                                    form_message = "You have logged in. \(result!.description)"
                                                     self.selectedModelManager.loggedUser = result?.user
+                                                    CurrentSession.sharedInstance.setUser(user: result!.user)
+                                                    //form_message = "You have logged in. \(result!.description)"
                                                     self.showForms.toggle()
                                                 }
                                             }
@@ -158,6 +342,10 @@ struct LogInAction : View {
                         .navigationTitle(Text("Log In")).navigationBarTitleDisplayMode(.large)
                         .navigationBarItems(trailing: Button(action: {
                             self.showForms.toggle()
+                            
+                            email = ""
+                            password = ""
+
                         }, label: {
                             Text("Cancel").bold()
                         }))
@@ -198,8 +386,14 @@ struct RegisterAction : View {
                                     .font(.system(size: Help.width_button*0.25))
                                     .foregroundColor(Color.light_beish)
                             }
-                            Section(header: Text("User's Display Name")) {
-                                TextField("Display Name", text: $display_name)
+                            Section(header: Text("User's Display Name"), footer: Text("Display Name must have at least 1 character including any letter lowercase or uppercase and numbers. Not any kind of special characters")) {
+                                TextField("Display Name", text: $display_name, onEditingChanged: { (changed) in
+                                    if(!display_name.hasCharacters()){
+                                        self.form_message = "This is not a valid Display Name. Please check it again"
+                                    }else {
+                                        self.form_message = ""
+                                    }
+                                })
                             }
                             
                             Section(header: Text("User's Email")) {
@@ -260,9 +454,14 @@ struct RegisterAction : View {
                                         if error != nil {
                                             form_message = "Error creating account. \(error!.localizedDescription)"
                                         } else {
-                                            form_message = "User created sucessfully. \(result!.description)"
-                                            self.selectedModelManager.loggedUser = result?.user
-                                            self.showFormsRegister.toggle()
+                                            form_message = "User created sucessfully."
+                                            CurrentSession.sharedInstance.setNewDisplayName(new: display_name)
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                                                self.selectedModelManager.loggedUser = result?.user
+                                                CurrentSession.sharedInstance.setUser(user: result!.user)
+                                                self.showFormsRegister.toggle()
+                                            })
                                         }
                                     }
                                 },label: {
@@ -278,6 +477,13 @@ struct RegisterAction : View {
                     .navigationTitle(Text("Register")).navigationBarTitleDisplayMode(.large)
                     .navigationBarItems(trailing: Button(action: {
                         self.showFormsRegister.toggle()
+                        
+                        display_name = ""
+                        email = ""
+                        confirm_email = ""
+                        password = ""
+                        confirm_password = ""
+                        
                     }, label: {
                         Text("Cancel").bold()
                     }))
@@ -460,7 +666,7 @@ struct UserName : View {
     var body: some View {
         
         HStack{
-            Text((selectedModelManager.loggedUser?.displayName ?? "Random"))
+            Text((selectedModelManager.loggedUser?.displayName ?? "Random Name"))
                 .foregroundColor(Color.dark_green)
                 .font(.system(size: Help.width_button*0.5))
                 .shadow(radius: 10)
@@ -518,38 +724,6 @@ struct MailUsernameInformation : View {
     
 }
 
-struct EditProfileButton : View {
-    
-    @EnvironmentObject var selectedModelManager : CurrentSessionSwiftUI
-    
-    var body: some View {
-        VStack(alignment: .center){
-            
-            Button(action: {
-                print("Edit Profile Pressed")
-            }){
-                HStack{
-                    Image(systemName: "pencil")
-                        .font(.system(size: Help.width_button*0.4))
-                        .foregroundColor(.white_gray)
-                        .padding(0.5)
-                    Text("Edit Profile")
-                        .font(.system(size: Help.width_button*0.25))
-                        .foregroundColor(.white_gray)
-                        .bold()
-                        .padding(0.5)
-                }
-                .padding(10.0)
-            }
-            .buttonStyle(PlainButtonStyle())
-            .background(Color.dark_green)
-            .cornerRadius(15.0)
-            .shadow(radius: 5)
-        }
-    }
-    
-}
-
 
 struct LogOutButton : View {
     
@@ -563,7 +737,7 @@ struct LogOutButton : View {
                     try Auth.auth().signOut()
                     //Success
                     self.selectedModelManager.loggedUser = nil
-                    
+                    CurrentSession.sharedInstance.removeUser()
                 } catch  {
                     print("An error ocurred")
                     print("Error SwiftUI")

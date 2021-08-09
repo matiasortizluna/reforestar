@@ -43,6 +43,10 @@ extension String {
         return stringFulfillsRegex(regex: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
     }
     
+    func hasCharacters() -> Bool {
+        return stringFulfillsRegex(regex: "[A-Z0-9a-z]+")
+    }
+    
     private func stringFulfillsRegex(regex: String) -> Bool {
         let texttest = NSPredicate(format: "SELF MATCHES %@", regex)
         guard texttest.evaluate(with: self) else {
