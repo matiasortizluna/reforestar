@@ -55,9 +55,9 @@ final class CurrentSession {
     }
     
     /*
-    func getImage() -> URL {
-        return self.user != nil ? self.user!.photoURL! : URL(string: "")!
-    }
+     func getImage() -> URL {
+     return self.user != nil ? self.user!.photoURL! : URL(string: "")!
+     }
      */
     
     func setUser(user: User){
@@ -71,9 +71,9 @@ final class CurrentSession {
     func setNewPassword(new: String) {
         self.user?.updatePassword(to: new, completion: { error in
             if let error = error {
-              // An error happened.
+                // An error happened.
             } else {
-              // User re-authenticated.
+                // User re-authenticated.
             }
         })
     }
@@ -81,9 +81,9 @@ final class CurrentSession {
     func setNewEmail(new: String){
         self.user?.updateEmail(to: new, completion: { error in
             if let error = error {
-              // An error happened.
+                // An error happened.
             } else {
-              // User re-authenticated.
+                // User re-authenticated.
             }
             
         })
@@ -191,7 +191,7 @@ final class CurrentSession {
     func fetchAllProjects(){
         let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
         
-        let project_database = ref.child("projects").observe(.value, with: {snapshot in
+        let project_database = ref.child("projects/P1").observe(.value, with: {snapshot in
             guard let projects_retrieved = snapshot.value as? Dictionary<String, Dictionary<String, Any>> else {
                 return
             }
@@ -217,8 +217,12 @@ class CurrentSessionSwiftUI : ObservableObject {
     //@Published var scaleCompensation : Double = 1.0
     //private var last_anchor : ARAnchor? = nil
     //@Published var selectedProject : String? = nil
-    private var projects : [String] = [""]
+    @Published var projects : Dictionary<String, Dictionary<String, Any>> = [:]
     @Published var scene_anchors : Int = 0
+    
+    @Published var projects_of_user : Dictionary<String, String> = [:]
+    @Published var n_planted_trees_total : Int = 0
+    @Published var n_areas_total : Int = 0
     
     @Published var loggedUser : User? = nil
     
@@ -231,9 +235,13 @@ class CurrentSessionSwiftUI : ObservableObject {
     let notification_removeAllAnchors = Notification.Name("removeAllAnchors")
     var cancellable_removeAllAnchors: AnyCancellable?
     
+    let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
+    
     init(){
         
         self.loggedUser = Auth.auth().currentUser
+        
+        self.getProjectsNamesOfUser()
         
         self.cancellable_numberOfAnchors = NotificationCenter.default
             .publisher(for: self.notification_numberOfAnchors)
@@ -243,19 +251,70 @@ class CurrentSessionSwiftUI : ObservableObject {
             }
         
         self.cancellable_removeLastAnchor = NotificationCenter.default
-            .publisher(for: self.notification_removeLastAnchor)
-            .sink { value in
-                print("Notification received from a publisher! \(value) \n to rest 1 number of anchors on scene")
-                self.scene_anchors-=1
-            }
+        .publisher(for: self.notification_removeLastAnchor)
+        .sink { value in
+        print("Notification received from a publisher! \(value) \n to rest 1 number of anchors on scene")
+        self.scene_anchors-=1
+        }
         
         self.cancellable_removeAllAnchors = NotificationCenter.default
-            .publisher(for: self.notification_removeAllAnchors)
-            .sink { value in
-                print("Notification received from a publisher! \(value) \n to delete all number of anchors on scene")
-                self.scene_anchors=0
+        .publisher(for: self.notification_removeAllAnchors)
+        .sink { value in
+        print("Notification received from a publisher! \(value) \n to delete all number of anchors on scene")
+        self.scene_anchors=0
+        }
+    }
+    
+    
+    public func getProjectsNamesOfUser() {
+        //let projects_database = self.ref.child("users/\(Auth.auth().currentUser?.email)/projects").getData { (error, snapshot) in
+        let projects_database = self.ref.child("users/matiasarielol/projects").getData { (error, snapshot) in
+            if let error = error {
+                print("Error getting data \(error)")
             }
-        
+            else if snapshot.exists() {
+                //print("Got data \(snapshot.value!)")
+                //save number of projects
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                    self.projects_of_user = snapshot.value as? Dictionary<String, String> ?? ["":""]
+                    self.getProjects()
+                })
+                
+            }
+            else {
+                print("No data available")
+            }
+        }
+    }
+    
+    public func getProjects() {
+        print(self.projects_of_user)
+        for project_user in self.projects_of_user {
+            let projects_database = self.ref.child("projects/\(project_user.key)/").getData { (error, snapshot) in
+                if let error = error {
+                    print("Error getting data \(error)")
+                }
+                else if snapshot.exists() {
+                    //print("Got data \(snapshot.value!)")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                        self.projects[project_user.key] = snapshot.value as? Dictionary<String, Dictionary<String, Any>>
+                    })
+                }
+                else {
+                    print("No data available")
+                }
+            }
+        }
+        self.getNumberOfAreas()
+    }
+    
+    
+    public func getNumberOfAreas() {
+        print("Areas")
+        print(self.projects)
+        for project in self.projects{
+            print("De \(project)")
+        }
     }
     
 }

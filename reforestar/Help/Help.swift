@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Firebase
 
 extension Color {
     
@@ -31,6 +32,7 @@ class Help {
     public static let width_button = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(55.0) : CGFloat(72.0)
     
     public static let border_padding = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(5.0) : CGFloat(15.0)
+    
 }
 
 extension String {

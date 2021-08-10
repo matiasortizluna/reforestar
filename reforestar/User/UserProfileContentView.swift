@@ -612,7 +612,7 @@ struct UserInformation : View {
                     .padding(0.5)
                 Divider()
                     .background(Color.light_beish)
-                Text(selectedModelManager.loggedUser == nil ? "1" : "XX")
+                Text(selectedModelManager.loggedUser == nil ? "1" : String(selectedModelManager.projects_of_user.count))
                     .font(.system(size: Help.width_button*0.4))
                     .foregroundColor(.light_green)
                     .bold()
