@@ -10,13 +10,13 @@
 		0F0BEDC326BC7D8F004F2B1A /* UserProfileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEDC226BC7D8F004F2B1A /* UserProfileContentView.swift */; };
 		0F1F25F82637A91500694936 /* ProjectsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F25F72637A91500694936 /* ProjectsDetailViewController.swift */; };
 		0F1F25FB2637A92B00694936 /* CatalogDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F25FA2637A92B00694936 /* CatalogDetailViewController.swift */; };
+		0F2EFD3C26C5B8020014877E /* ProjectsDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2EFD3B26C5B8020014877E /* ProjectsDetailContentView.swift */; };
 		0F356310265A82FA00A15D2B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F35630F265A82FA00A15D2B /* GoogleService-Info.plist */; };
-		0F3CDFD226662E80009A643D /* quercus_suber.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0F3CDFD126662E80009A643D /* quercus_suber.usdz */; };
-		0F459E26262CE9F600A62D2B /* christmas.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0F459E25262CE9F600A62D2B /* christmas.usdz */; };
 		0F7A94CC265CCC6F000902E7 /* AugmentedRealityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A94CB265CCC6F000902E7 /* AugmentedRealityViewController.swift */; };
 		0F8B9F45268A99BB00299623 /* ReforestationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8B9F44268A99BB00299623 /* ReforestationSettings.swift */; };
 		0F91F597261E3CED00B5F918 /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */; };
 		0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F599261E547F00B5F918 /* CatalogViewController.swift */; };
+		0FA8DA7526C5F6A500B54822 /* CatalogDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DA7426C5F6A500B54822 /* CatalogDetailContentView.swift */; };
 		0FC6A562261E24DE002B9B73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A561261E24DE002B9B73 /* AppDelegate.swift */; };
 		0FC6A566261E24DE002B9B73 /* Experience.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A565261E24DE002B9B73 /* Experience.rcproject */; };
 		0FC6A569261E24DE002B9B73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FC6A567261E24DE002B9B73 /* Main.storyboard */; };
@@ -24,12 +24,7 @@
 		0FC6A56E261E24E1002B9B73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FC6A56C261E24E1002B9B73 /* LaunchScreen.storyboard */; };
 		0FC6A579261E2A52002B9B73 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A578261E2A52002B9B73 /* UserProfileViewController.swift */; };
 		0FC8D79C268E7E3600C60331 /* SceneItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC8D79B268E7E3600C60331 /* SceneItems.swift */; };
-		0FCBACB52665CD370076B6D3 /* pinus_pinaster.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FCBACB02665CD370076B6D3 /* pinus_pinaster.usdz */; };
-		0FCBACB62665CD370076B6D3 /* eucalyptus.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FCBACB12665CD370076B6D3 /* eucalyptus.usdz */; };
-		0FCBACB72665CD370076B6D3 /* pinus_pinea.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FCBACB22665CD370076B6D3 /* pinus_pinea.usdz */; };
-		0FCBACBD2665CEFD0076B6D3 /* TreesCatalogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCBACB92665CEFC0076B6D3 /* TreesCatalogModel.swift */; };
 		0FCBACC72665CFD30076B6D3 /* ARContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCBACC62665CFD30076B6D3 /* ARContentView.swift */; };
-		0FD25BC3263790A300003897 /* pinus.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0FD25BBF263790A300003897 /* pinus.obj */; };
 		0FD36F962687C99A0078C716 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD36F952687C99A0078C716 /* LocationManager.swift */; };
 		0FE1E014269CC2CD00C3A5F4 /* Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE1E013269CC2CD00C3A5F4 /* Help.swift */; };
 		0FE1E016269D30BF00C3A5F4 /* CustomARUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE1E015269D30BF00C3A5F4 /* CustomARUserInterface.swift */; };
@@ -37,6 +32,12 @@
 		0FF72179261E71CC00E0DA68 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF72178261E71CC00E0DA68 /* MapsViewController.swift */; };
 		0FF72181261E73F200E0DA68 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7217F261E73F200E0DA68 /* TableViewCell.swift */; };
 		0FF72182261E73F200E0DA68 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FF72180261E73F200E0DA68 /* TableViewCell.xib */; };
+		0FF82BC226C74407002251F5 /* Quercus ilex.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FF82BBC26C74406002251F5 /* Quercus ilex.usdz */; };
+		0FF82BC326C74407002251F5 /* Eucalyptus globulus.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FF82BBD26C74406002251F5 /* Eucalyptus globulus.usdz */; };
+		0FF82BC426C74407002251F5 /* Pinus pinaster.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FF82BBE26C74407002251F5 /* Pinus pinaster.usdz */; };
+		0FF82BC626C74407002251F5 /* Quercus suber.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FF82BC026C74407002251F5 /* Quercus suber.usdz */; };
+		0FF82BC726C74407002251F5 /* Salix alba.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FF82BC126C74407002251F5 /* Salix alba.usdz */; };
+		0FF82BC926C74718002251F5 /* Pinus pinea.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FF82BC826C74718002251F5 /* Pinus pinea.usdz */; };
 		9DDB14CCF519597997F85551 /* libPods-reforestar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F691D850D17135829B06696 /* libPods-reforestar.a */; };
 /* End PBXBuildFile section */
 
@@ -44,13 +45,13 @@
 		0F0BEDC226BC7D8F004F2B1A /* UserProfileContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileContentView.swift; sourceTree = "<group>"; };
 		0F1F25F72637A91500694936 /* ProjectsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsDetailViewController.swift; sourceTree = "<group>"; };
 		0F1F25FA2637A92B00694936 /* CatalogDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogDetailViewController.swift; sourceTree = "<group>"; };
+		0F2EFD3B26C5B8020014877E /* ProjectsDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsDetailContentView.swift; sourceTree = "<group>"; };
 		0F35630F265A82FA00A15D2B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		0F3CDFD126662E80009A643D /* quercus_suber.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = quercus_suber.usdz; path = ../../../../3DModels/quercus_suber.usdz; sourceTree = "<group>"; };
-		0F459E25262CE9F600A62D2B /* christmas.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = christmas.usdz; sourceTree = "<group>"; };
 		0F7A94CB265CCC6F000902E7 /* AugmentedRealityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityViewController.swift; sourceTree = "<group>"; };
 		0F8B9F44268A99BB00299623 /* ReforestationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReforestationSettings.swift; sourceTree = "<group>"; };
 		0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
 		0F91F599261E547F00B5F918 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
+		0FA8DA7426C5F6A500B54822 /* CatalogDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogDetailContentView.swift; sourceTree = "<group>"; };
 		0FC6A55E261E24DE002B9B73 /* reforestar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reforestar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FC6A561261E24DE002B9B73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FC6A565261E24DE002B9B73 /* Experience.rcproject */ = {isa = PBXFileReference; lastKnownFileType = file.rcproject; path = Experience.rcproject; sourceTree = "<group>"; };
@@ -60,12 +61,7 @@
 		0FC6A56F261E24E1002B9B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FC6A578261E2A52002B9B73 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		0FC8D79B268E7E3600C60331 /* SceneItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneItems.swift; sourceTree = "<group>"; };
-		0FCBACB02665CD370076B6D3 /* pinus_pinaster.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pinus_pinaster.usdz; sourceTree = "<group>"; };
-		0FCBACB12665CD370076B6D3 /* eucalyptus.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = eucalyptus.usdz; sourceTree = "<group>"; };
-		0FCBACB22665CD370076B6D3 /* pinus_pinea.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pinus_pinea.usdz; sourceTree = "<group>"; };
-		0FCBACB92665CEFC0076B6D3 /* TreesCatalogModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreesCatalogModel.swift; sourceTree = "<group>"; };
 		0FCBACC62665CFD30076B6D3 /* ARContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARContentView.swift; sourceTree = "<group>"; };
-		0FD25BBF263790A300003897 /* pinus.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pinus.obj; sourceTree = "<group>"; };
 		0FD36F952687C99A0078C716 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		0FE1E013269CC2CD00C3A5F4 /* Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help.swift; sourceTree = "<group>"; };
 		0FE1E015269D30BF00C3A5F4 /* CustomARUserInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomARUserInterface.swift; sourceTree = "<group>"; };
@@ -73,6 +69,12 @@
 		0FF72178261E71CC00E0DA68 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		0FF7217F261E73F200E0DA68 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		0FF72180261E73F200E0DA68 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		0FF82BBC26C74406002251F5 /* Quercus ilex.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Quercus ilex.usdz"; sourceTree = "<group>"; };
+		0FF82BBD26C74406002251F5 /* Eucalyptus globulus.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Eucalyptus globulus.usdz"; sourceTree = "<group>"; };
+		0FF82BBE26C74407002251F5 /* Pinus pinaster.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Pinus pinaster.usdz"; sourceTree = "<group>"; };
+		0FF82BC026C74407002251F5 /* Quercus suber.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Quercus suber.usdz"; sourceTree = "<group>"; };
+		0FF82BC126C74407002251F5 /* Salix alba.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Salix alba.usdz"; sourceTree = "<group>"; };
+		0FF82BC826C74718002251F5 /* Pinus pinea.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Pinus pinea.usdz"; sourceTree = "<group>"; };
 		64C921DECC052D8A633F291D /* Pods-reforestar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reforestar.debug.xcconfig"; path = "Target Support Files/Pods-reforestar/Pods-reforestar.debug.xcconfig"; sourceTree = "<group>"; };
 		8F691D850D17135829B06696 /* libPods-reforestar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-reforestar.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8258569B618CF09CD8AF058 /* Pods-reforestar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reforestar.release.xcconfig"; path = "Target Support Files/Pods-reforestar/Pods-reforestar.release.xcconfig"; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			children = (
 				0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */,
 				0F1F25F72637A91500694936 /* ProjectsDetailViewController.swift */,
+				0F2EFD3B26C5B8020014877E /* ProjectsDetailContentView.swift */,
 			);
 			path = Projects;
 			sourceTree = "<group>";
@@ -104,6 +107,7 @@
 			children = (
 				0F91F599261E547F00B5F918 /* CatalogViewController.swift */,
 				0F1F25FA2637A92B00694936 /* CatalogDetailViewController.swift */,
+				0FA8DA7426C5F6A500B54822 /* CatalogDetailContentView.swift */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";
@@ -133,7 +137,6 @@
 				0FCBACC62665CFD30076B6D3 /* ARContentView.swift */,
 				0FE1E015269D30BF00C3A5F4 /* CustomARUserInterface.swift */,
 				0FC6A565261E24DE002B9B73 /* Experience.rcproject */,
-				0FCBACB92665CEFC0076B6D3 /* TreesCatalogModel.swift */,
 			);
 			path = "Augmented Reality";
 			sourceTree = "<group>";
@@ -141,12 +144,12 @@
 		0F459E23262CE9DB00A62D2B /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				0FCBACB12665CD370076B6D3 /* eucalyptus.usdz */,
-				0FCBACB02665CD370076B6D3 /* pinus_pinaster.usdz */,
-				0FCBACB22665CD370076B6D3 /* pinus_pinea.usdz */,
-				0F3CDFD126662E80009A643D /* quercus_suber.usdz */,
-				0FD25BBF263790A300003897 /* pinus.obj */,
-				0F459E25262CE9F600A62D2B /* christmas.usdz */,
+				0FF82BC826C74718002251F5 /* Pinus pinea.usdz */,
+				0FF82BBD26C74406002251F5 /* Eucalyptus globulus.usdz */,
+				0FF82BBE26C74407002251F5 /* Pinus pinaster.usdz */,
+				0FF82BBC26C74406002251F5 /* Quercus ilex.usdz */,
+				0FF82BC026C74407002251F5 /* Quercus suber.usdz */,
+				0FF82BC126C74407002251F5 /* Salix alba.usdz */,
 			);
 			path = assets;
 			sourceTree = "<group>";
@@ -277,16 +280,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FF82BC726C74407002251F5 /* Salix alba.usdz in Resources */,
+				0FF82BC626C74407002251F5 /* Quercus suber.usdz in Resources */,
+				0FF82BC326C74407002251F5 /* Eucalyptus globulus.usdz in Resources */,
 				0FC6A56E261E24E1002B9B73 /* LaunchScreen.storyboard in Resources */,
-				0F459E26262CE9F600A62D2B /* christmas.usdz in Resources */,
 				0FF72182261E73F200E0DA68 /* TableViewCell.xib in Resources */,
-				0FCBACB72665CD370076B6D3 /* pinus_pinea.usdz in Resources */,
-				0FD25BC3263790A300003897 /* pinus.obj in Resources */,
 				0F356310265A82FA00A15D2B /* GoogleService-Info.plist in Resources */,
-				0F3CDFD226662E80009A643D /* quercus_suber.usdz in Resources */,
-				0FCBACB62665CD370076B6D3 /* eucalyptus.usdz in Resources */,
 				0FC6A56B261E24E1002B9B73 /* Assets.xcassets in Resources */,
-				0FCBACB52665CD370076B6D3 /* pinus_pinaster.usdz in Resources */,
+				0FF82BC226C74407002251F5 /* Quercus ilex.usdz in Resources */,
+				0FF82BC926C74718002251F5 /* Pinus pinea.usdz in Resources */,
+				0FF82BC426C74407002251F5 /* Pinus pinaster.usdz in Resources */,
 				0FC6A569261E24DE002B9B73 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -324,7 +327,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */,
-				0FCBACBD2665CEFD0076B6D3 /* TreesCatalogModel.swift in Sources */,
 				0FC6A579261E2A52002B9B73 /* UserProfileViewController.swift in Sources */,
 				0F7A94CC265CCC6F000902E7 /* AugmentedRealityViewController.swift in Sources */,
 				0FCBACC72665CFD30076B6D3 /* ARContentView.swift in Sources */,
@@ -332,10 +334,12 @@
 				0FE1E016269D30BF00C3A5F4 /* CustomARUserInterface.swift in Sources */,
 				0F0BEDC326BC7D8F004F2B1A /* UserProfileContentView.swift in Sources */,
 				0F1F25FB2637A92B00694936 /* CatalogDetailViewController.swift in Sources */,
+				0FA8DA7526C5F6A500B54822 /* CatalogDetailContentView.swift in Sources */,
 				0FF72179261E71CC00E0DA68 /* MapsViewController.swift in Sources */,
 				0FD36F962687C99A0078C716 /* LocationManager.swift in Sources */,
 				0F8B9F45268A99BB00299623 /* ReforestationSettings.swift in Sources */,
 				0FC6A562261E24DE002B9B73 /* AppDelegate.swift in Sources */,
+				0F2EFD3C26C5B8020014877E /* ProjectsDetailContentView.swift in Sources */,
 				0FE1E014269CC2CD00C3A5F4 /* Help.swift in Sources */,
 				0F91F597261E3CED00B5F918 /* ConfigurationViewController.swift in Sources */,
 				0FC6A566261E24DE002B9B73 /* Experience.rcproject in Sources */,

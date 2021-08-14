@@ -6,14 +6,31 @@
 //
 
 import UIKit
+import SwiftUI
 
 class CatalogDetailViewController: UIViewController {
+
+    var titleLatin : String? = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let catalogDetailContentView : UIHostingController<CatalogDetailContentView> = UIHostingController(rootView: CatalogDetailContentView(stringlatin: titleLatin!))
+        
+        //Add AR view with customed AR interface
+        addChild(catalogDetailContentView)
+        view.addSubview(catalogDetailContentView.view)
+
+        catalogDetailContentView.view.translatesAutoresizingMaskIntoConstraints = false
+        catalogDetailContentView.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        catalogDetailContentView.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        catalogDetailContentView.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        catalogDetailContentView.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
+    
+
+ 
+     
     
 
     /*

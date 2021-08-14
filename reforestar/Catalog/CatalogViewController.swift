@@ -1,15 +1,17 @@
 import UIKit
 import Firebase
+import SwiftUI
 
 class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var treesNames:[String] = []
-    var filteredData: [String]!
     var trees:Dictionary<String, Dictionary<String, Any>> = [:]
+    var treesNames:[String] = []
+    
+    var filteredData: [String]!
     var treesInfoToSend :[String:String]=[:]
-    var selectedTree:Dictionary<String, Dictionary<String, Any>> = [:]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,22 +26,16 @@ class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDa
             self.tableView.delegate = self
             self.tableView.dataSource = self
         }
-
+        
     }
     
     
     func getTrees(){
-        let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
         
-        let project_database = ref.child("trees").observe(.value, with: {snapshot in
-            guard let trees_retrieved = snapshot.value as? Dictionary<String, Dictionary<String, Any>> else {
-                return
-            }
-            for tree in trees_retrieved{
-                self.selectedTree[tree.key] = tree.value
-                self.treesNames.append(tree.value["latin_name"] as! String)
-            }
-        })
+        for tree in CurrentSession.sharedInstance.catalog{
+            self.treesNames.append(tree.latin_name)
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,6 +57,7 @@ class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDa
         if (segue.identifier=="catalog_to_detail"){
             let vc = segue.destination as! CatalogDetailViewController
             vc.title = self.treesInfoToSend["latin_name"]
+            vc.titleLatin = self.treesInfoToSend["latin_name"] ?? "FEO"
         }
     }
     
@@ -68,6 +65,6 @@ class CatalogViewController: UIViewController,UITableViewDelegate, UITableViewDa
         //return 0;
         return treesNames.count;
     }
-
+    
     
 }

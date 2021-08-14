@@ -324,7 +324,7 @@ struct LogInAction : View {
                                                 } else {
                                                     self.selectedModelManager.loggedUser = result?.user
                                                     CurrentSession.sharedInstance.setUser(user: result!.user)
-                                                    //form_message = "You have logged in. \(result!.description)"
+                                                    self.selectedModelManager.getProjects()
                                                     self.showForms.toggle()
                                                 }
                                             }
@@ -460,6 +460,7 @@ struct RegisterAction : View {
                                             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
                                                 self.selectedModelManager.loggedUser = result?.user
                                                 CurrentSession.sharedInstance.setUser(user: result!.user)
+                                                self.selectedModelManager.getProjects()
                                                 self.showFormsRegister.toggle()
                                             })
                                         }
@@ -612,7 +613,7 @@ struct UserInformation : View {
                     .padding(0.5)
                 Divider()
                     .background(Color.light_beish)
-                Text(selectedModelManager.loggedUser == nil ? "1" : String(selectedModelManager.projects_of_user.count))
+                Text(selectedModelManager.loggedUser == nil ? "1" : String(selectedModelManager.projects_names.count))
                     .font(.system(size: Help.width_button*0.4))
                     .foregroundColor(.light_green)
                     .bold()
@@ -627,7 +628,7 @@ struct UserInformation : View {
                     .padding(0.5)
                 Divider()
                     .background(Color.light_beish)
-                Text(selectedModelManager.loggedUser == nil ? "1" : "XX")
+                Text(selectedModelManager.loggedUser == nil ? String(selectedModelManager.scene_anchors) : String(selectedModelManager.scene_anchors + selectedModelManager.n_planted_trees_total))
                     .font(.system(size: Help.width_button*0.4))
                     .foregroundColor(.light_green)
                     .bold()
@@ -642,7 +643,7 @@ struct UserInformation : View {
                     .padding(0.5)
                 Divider()
                     .background(Color.light_beish)
-                Text(selectedModelManager.loggedUser == nil ? "1" : "XX")
+                Text(selectedModelManager.loggedUser == nil ? "0" : String(selectedModelManager.n_areas_total))
                     .font(.system(size: Help.width_button*0.4))
                     .foregroundColor(.light_green)
                     .bold()
@@ -738,6 +739,7 @@ struct LogOutButton : View {
                     //Success
                     self.selectedModelManager.loggedUser = nil
                     CurrentSession.sharedInstance.removeUser()
+                    self.selectedModelManager.cleanUserInformation()
                 } catch  {
                     print("An error ocurred")
                     print("Error SwiftUI")

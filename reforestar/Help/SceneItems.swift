@@ -1,34 +1,51 @@
-//
-//  SceneItems.swift
-//  reforestar
-//
-//  Created by Matias Ariel Ortiz Luna on 01/07/2021.
-//
-
 import Foundation
 import SwiftUI
 import ARKit
 import Combine
 import Firebase
 
+
+class TreeCatalogModel{
+    var latin_name:String
+    var common_name:String
+    var image:UIImage
+    var hasModel : Bool
+    
+    init(latin_name:String, common_name:String, hasModel: Bool) {
+        self.latin_name=latin_name
+        self.common_name=common_name
+        self.hasModel = hasModel
+        self.image = UIImage(named: latin_name) ?? UIImage(systemName: "photo")!
+    }
+
+}
+
 final class CurrentSession {
     
-    private var selected_model_name : String = "quercus_suber"
+    private var selected_model_name : String = "Quercus suber"
     private var number_of_trees : Int = 1
     private var scale_compensation : Double = 1.0
     
-    private var last_anchor : ARAnchor? = nil
-    private var scene_anchors : [ARAnchor] = []
-    private var coordinates : CLLocationCoordinate2D = CLLocationCoordinate2D()
-    private var selected_project : String? = nil
+    private var recent_anchor : ARAnchor? = nil
+    private var current_scene_anchors : [ARAnchor] = []
+    
     private var reforestation_plan : Bool = true
     
-    private var projects : [String] = ["------"]
-    //private var areas : [String] = ["------"]
-    //private var catalog : [String] = ["------"]
-    //private var user : [String] = ["------"]
+    private var selected_project : String? = nil
+    
+    public var projects_name : [String] = []
+    public var projects_of_user : Dictionary<String, String> = [:]
+    public var projects : Dictionary<String, Dictionary<String, Any>>? = [:]
+    
+    public var catalog : [TreeCatalogModel] = []
     
     private var user : User? = nil
+    
+    let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
+    
+    //private var areas : [String] = ["------"]
+    
+    //private var user : [String] = ["------"]
     
     static let sharedInstance: CurrentSession = {
         let instance = CurrentSession()
@@ -36,9 +53,85 @@ final class CurrentSession {
     }()
     
     private init(){
-        fetchAllProjects()
         self.user = Auth.auth().currentUser
+        //self.getProjectsNamesOfUser()
         sleep(1)
+    }
+    
+    public func fetchTreeCatalog(){
+        let database = self.ref.child("trees").getData { (error, snapshot) in
+            if let error = error {
+                print("Error getting data \(error)")
+            }
+            else if snapshot.exists() {
+                let trees_catalog = snapshot.value as! Dictionary<String, Dictionary<String, Any>>
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                    for tree in trees_catalog {
+                        self.catalog.append(TreeCatalogModel(latin_name: tree.value["latin_name"] as! String, common_name: tree.value["common_name"] as! String, hasModel: tree.value["3dmodel"] != nil ? true : false))
+                    }
+                    print(self.catalog.count)
+                })
+            }
+            else {
+                print("No data available")
+            }
+        }
+    }
+    
+    public func fetchNameProjectsOfUser() {
+        let projects_database = self.ref.child("users/matiasarielol/projects").getData { (error, snapshot) in
+            if let error = error {
+                print("Error getting data \(error)")
+            }
+            else if snapshot.exists() {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                    self.projects_of_user = snapshot.value as? Dictionary<String, String> ?? ["":""]
+                    self.setSelectedProject(project: self.projects_of_user.keys.first ?? "Default")
+                    for project in self.projects_of_user.keys {
+                        self.projects_name.append(project as! String)
+                    }
+                    self.fetchProjects()
+                })
+            }
+            else {
+                print("No data available")
+            }
+        }
+    }
+    
+    public func fetchProjects() {
+        for project_user in self.projects_name {
+            let projects_database = self.ref.child("projects/\(project_user)/").getData { (error, snapshot) in
+                if let error = error {
+                    print("Error getting data \(error)")
+                }
+                else if snapshot.exists() {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                        self.projects![project_user] = snapshot.value as! Dictionary<String,Any>
+                    })
+                }
+                else {
+                    print("No data available")
+                }
+            }
+        }
+        print("ProjectsName : \(self.projects_name)")
+    }
+    
+    func getAllProjects() -> [String] {
+        return self.projects_name
+    }
+    
+    func getProjecstFull() -> Dictionary<String, Dictionary<String, Any>> {
+        return self.projects ?? [:]
+    }
+    
+    func setSelectedProject(project: String) -> Void {
+        self.selected_project = project
+    }
+    
+    func getSelectedProject() -> String {
+        return self.selected_project ?? "No project Associated"
     }
     
     func getDisplayName() -> String {
@@ -108,14 +201,6 @@ final class CurrentSession {
         return self.reforestation_plan
     }
     
-    func setCoordinates(coordinates: CLLocationCoordinate2D) {
-        self.coordinates = coordinates
-    }
-    
-    func getCoordinates()->CLLocationCoordinate2D {
-        return self.coordinates
-    }
-    
     func setSelectedModelName(name: String){
         self.selected_model_name = name
     }
@@ -141,86 +226,56 @@ final class CurrentSession {
     }
     
     func setLastAnchor(anchor: ARAnchor) -> Void {
-        self.last_anchor = anchor
+        self.recent_anchor = anchor
     }
     
     func getLastAnchor() -> ARAnchor {
-        return self.last_anchor!
+        return self.recent_anchor!
     }
     
     func removeLastAnchor() -> Void {
-        self.last_anchor = nil
+        self.recent_anchor = nil
     }
     
     public func appendSceneAnchor(scene_anchor : ARAnchor){
-        self.scene_anchors.append(scene_anchor)
+        self.current_scene_anchors.append(scene_anchor)
     }
     
     public func removeLast(){
-        self.scene_anchors.removeLast()
+        self.current_scene_anchors.removeLast()
     }
     
     public func removeAll(){
-        self.scene_anchors.removeAll()
+        self.current_scene_anchors.removeAll()
     }
     
     public func setSceneAnchors(scene_anchors : [ARAnchor]){
-        self.scene_anchors = scene_anchors
+        self.current_scene_anchors = scene_anchors
     }
     
     public func getSceneAnchors() -> [ARAnchor]{
-        return self.scene_anchors
+        return self.current_scene_anchors
     }
     
     public func getPositions()->[simd_float4x4]{
         var positions : [simd_float4x4] = []
-        for anchor in self.scene_anchors{
+        for anchor in self.current_scene_anchors{
             positions.append(anchor.transform)
         }
         return positions
     }
     
-    func setSelectedProject(project: String) -> Void {
-        self.selected_project = project
-    }
-    
-    func getSelectedProject() -> String {
-        return self.selected_project ?? "No project Associated"
-    }
-    
-    func fetchAllProjects(){
-        let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
-        
-        let project_database = ref.child("projects/P1").observe(.value, with: {snapshot in
-            guard let projects_retrieved = snapshot.value as? Dictionary<String, Dictionary<String, Any>> else {
-                return
-            }
-            for project in projects_retrieved{
-                self.projects.append(project.value["name"] as! String)
-            }
-        })
-        self.setSelectedProject(project: projects.last!)
-    }
-    
-    func getAllProjects() -> [String] {
-        return self.projects ?? ["------"]
-    }
-    
 }
-
 
 
 class CurrentSessionSwiftUI : ObservableObject {
     
-    @Published var selectedModelName : String = "quercus_suber"
-    //@Published var numberOfTrees : Int = 1
-    //@Published var scaleCompensation : Double = 1.0
-    //private var last_anchor : ARAnchor? = nil
-    //@Published var selectedProject : String? = nil
-    @Published var projects : Dictionary<String, Dictionary<String, Any>> = [:]
+    @Published var selectedModelName : String = "Quercus suber"
     @Published var scene_anchors : Int = 0
     
-    @Published var projects_of_user : Dictionary<String, String> = [:]
+    @Published var projects : Dictionary<String, Dictionary<String,Any>> = [:]
+    @Published var projects_names : [String] = []
+    
     @Published var n_planted_trees_total : Int = 0
     @Published var n_areas_total : Int = 0
     
@@ -237,11 +292,13 @@ class CurrentSessionSwiftUI : ObservableObject {
     
     let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
     
+    var currentSceneManager = CurrentSession.sharedInstance
+    
     init(){
         
         self.loggedUser = Auth.auth().currentUser
         
-        self.getProjectsNamesOfUser()
+        self.getProjects()
         
         self.cancellable_numberOfAnchors = NotificationCenter.default
             .publisher(for: self.notification_numberOfAnchors)
@@ -251,70 +308,43 @@ class CurrentSessionSwiftUI : ObservableObject {
             }
         
         self.cancellable_removeLastAnchor = NotificationCenter.default
-        .publisher(for: self.notification_removeLastAnchor)
-        .sink { value in
-        print("Notification received from a publisher! \(value) \n to rest 1 number of anchors on scene")
-        self.scene_anchors-=1
-        }
+            .publisher(for: self.notification_removeLastAnchor)
+            .sink { value in
+                print("Notification received from a publisher! \(value) \n to rest 1 number of anchors on scene")
+                self.scene_anchors-=1
+            }
         
         self.cancellable_removeAllAnchors = NotificationCenter.default
-        .publisher(for: self.notification_removeAllAnchors)
-        .sink { value in
-        print("Notification received from a publisher! \(value) \n to delete all number of anchors on scene")
-        self.scene_anchors=0
-        }
+            .publisher(for: self.notification_removeAllAnchors)
+            .sink { value in
+                print("Notification received from a publisher! \(value) \n to delete all number of anchors on scene")
+                self.scene_anchors=0
+            }
     }
     
-    
-    public func getProjectsNamesOfUser() {
-        //let projects_database = self.ref.child("users/\(Auth.auth().currentUser?.email)/projects").getData { (error, snapshot) in
-        let projects_database = self.ref.child("users/matiasarielol/projects").getData { (error, snapshot) in
-            if let error = error {
-                print("Error getting data \(error)")
-            }
-            else if snapshot.exists() {
-                //print("Got data \(snapshot.value!)")
-                //save number of projects
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-                    self.projects_of_user = snapshot.value as? Dictionary<String, String> ?? ["":""]
-                    self.getProjects()
-                })
-                
-            }
-            else {
-                print("No data available")
-            }
-        }
-    }
     
     public func getProjects() {
-        print(self.projects_of_user)
-        for project_user in self.projects_of_user {
-            let projects_database = self.ref.child("projects/\(project_user.key)/").getData { (error, snapshot) in
-                if let error = error {
-                    print("Error getting data \(error)")
-                }
-                else if snapshot.exists() {
-                    //print("Got data \(snapshot.value!)")
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-                        self.projects[project_user.key] = snapshot.value as? Dictionary<String, Dictionary<String, Any>>
-                    })
-                }
-                else {
-                    print("No data available")
-                }
+        self.projects_names = CurrentSession.sharedInstance.getAllProjects()
+        
+        for project in CurrentSession.sharedInstance.getProjecstFull() {
+            self.projects[project.key] = project.value
+            if((project.value["areas"]) != nil){
+                let areas_json = project.value["areas"] as! Dictionary<String, Any>
+                self.n_areas_total += areas_json.count
             }
+            if(project.value["trees_ios"] != nil){
+                let trees_json = project.value["trees_ios"] as! Dictionary<String, Any>
+                self.n_planted_trees_total += trees_json.count
+                //self.n_planted_trees_total += 10
+            }
+
         }
-        self.getNumberOfAreas()
     }
     
-    
-    public func getNumberOfAreas() {
-        print("Areas")
-        print(self.projects)
-        for project in self.projects{
-            print("De \(project)")
-        }
+    public func cleanUserInformation(){
+        self.n_areas_total = 0
+        self.n_planted_trees_total = 0
+        self.projects = [:]
     }
     
 }

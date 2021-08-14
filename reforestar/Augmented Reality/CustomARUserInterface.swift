@@ -515,6 +515,7 @@ struct OptionsMenu: View {
                         HStack{
                             Button(action: {
                                 print("Save Button Pressed")
+                                self.showOptionsMenu.toggle()
                                 NotificationCenter.default.post(name: self.notification_save_progress, object: nil)
                             }){
                                 Image(systemName: "sdcard")
@@ -532,6 +533,7 @@ struct OptionsMenu: View {
                             
                             Button(action: {
                                 print("Load Button Pressed")
+                                self.showOptionsMenu.toggle()
                                 NotificationCenter.default.post(name: self.notification_load_progress, object: nil)
                             }){
                                 Image(systemName: "arrow.down.circle")
@@ -574,7 +576,7 @@ struct RightBar : View {
     var body: some View{
         
         VStack{
-            if(self.selectedModelManager.selectedModelName=="quercus_suber"){
+            if(self.selectedModelManager.selectedModelName=="Quercus suber"){
                 PickerSelect(height_screen: self.$height_screen, width_screen: self.$width_screen, height_button: self.$height_button, width_button: self.$width_button)
             }
             
@@ -582,6 +584,7 @@ struct RightBar : View {
             
             OptionsButton(height_button: self.$height_button, width_button: self.$width_button, showOptionsMenu: $showOptionsMenu, action: {
                 self.showOptionsMenu.toggle()
+                CurrentSession.sharedInstance.fetchNameProjectsOfUser()
             }).popover(isPresented: $showOptionsMenu, arrowEdge: .trailing, content: {
                 OptionsMenu(showOptionsMenu: $showOptionsMenu, height_button: self.$height_button, width_button: self.$width_button)
             })
@@ -713,7 +716,6 @@ struct VerticalGrid: View{
     
     @Binding var showTreeCatalog : Bool
     private let gridItemLayout = [GridItem(.fixed(150))]
-    let treesModels = TreeCatalogModels()
     
     @EnvironmentObject var selectedModelManager : CurrentSessionSwiftUI
     var currentSceneManager = CurrentSession.sharedInstance
@@ -722,13 +724,16 @@ struct VerticalGrid: View{
         VStack(alignment: .center){
             LazyVGrid(columns: gridItemLayout, alignment: .leading, spacing: 30, content: {
                 
-                ForEach(self.treesModels.getAll(), id: \.latin_name) { tree in
-                    ItemButton(latin_name: tree.latin_name, common_name: tree.common_name, action: {
-                        self.selectedModelManager.selectedModelName = tree.latin_name
-                        self.currentSceneManager.setSelectedModelName(name: tree.latin_name)
-                        self.showTreeCatalog.toggle()
-                    })
+                ForEach(currentSceneManager.catalog, id: \.latin_name) { tree in
+                    if(tree.hasModel){
+                        ItemButton(latin_name: tree.latin_name, common_name: tree.common_name, action: {
+                            self.selectedModelManager.selectedModelName = tree.latin_name
+                            self.currentSceneManager.setSelectedModelName(name: tree.latin_name)
+                            self.showTreeCatalog.toggle()
+                        })
+                    }
                 }
+                 
             })
             .padding(.horizontal,22)
             .padding(.vertical,10)
@@ -767,4 +772,3 @@ struct ItemButton: View {
         }
     }
 }
-

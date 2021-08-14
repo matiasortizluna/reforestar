@@ -71,7 +71,7 @@ public class CustomARView: ARView{
     var cancellableLoadProgress: AnyCancellable?
     
     func setupARView(){
-    
+        
         self.session.delegate = self
         
         self.automaticallyConfigureSession = false;
@@ -132,33 +132,44 @@ public class CustomARView: ARView{
     
     func loadProject(project: String) -> Int {
         
-        print("NANSNAS \(self.currentSceneManager.getReforestationPlanOption())")
         var validation_code : Int = 0
         
         let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
         
-        let project_database = ref.child("projects").child(project).observe(.value, with: {snapshot in
-            guard let projects_information_retrieved = snapshot.value as? Dictionary<String, Dictionary<String, Any>> else {
-                return
+        print("Project To Load")
+        print(currentSceneManager.projects?[project])
+        
+        let project_database = ref.child("projects").child(project).getData { (error, snapshot) in
+            if let error = error {
+                print("Error getting data \(error)")
             }
-            
-            //Se houver dados ....
-            let anchors_saved : [ARAnchor]
-            
-            /*
-            for anchor in anchors_saved {
-                let anchor = ARAnchor(name: anchor.name, transform: anchor.positions);
-                self.session.add(anchor: anchor);
+            else if snapshot.exists() {
+                print("Got data \(snapshot.value!)")
+                
+                guard let projects_information_retrieved = snapshot.value as? Dictionary<String, Dictionary<String, Any>> else {
+                    return
+                }
+                
+                //Se houver dados ....
+                let anchors_saved : [ARAnchor]
+                
+                /*
+                 for anchor in anchors_saved {
+                 let anchor = ARAnchor(name: anchor.name, transform: anchor.positions);
+                 self.session.add(anchor: anchor);
+                 }
+                 */
+                
+                //just if user has this location on his position
+                
+                
+                //Se não houver dados ....
+                validation_code = 1
             }
-            */
-            
-            //just if user has this location on his position
-            
-            
-            //Se não houver dados ....
-            validation_code = 1
-            
-        })
+            else {
+                print("No data available")
+            }
+        }
         
         return validation_code
     }
@@ -166,36 +177,57 @@ public class CustomARView: ARView{
     func saveProject(project: String) -> Int {
         
         var validation_code : Int = 0
+        var index = 0
         
-        let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference().ref.child("projects").child(self.currentSceneManager.getSelectedProject()).child("trees")
+        var ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference().ref.child("projects").child(self.currentSceneManager.getSelectedProject()).child("trees")
         
-        if(self.currentSceneManager.getSelectedProject() != "------"){
-            var index = 0
-            if(self.currentSceneManager.getPositions().count>0){
-                for anchor in self.currentSceneManager.getSceneAnchors() {
-                    let result_name: Void = ref.setValue(["\(index)" : ["name" : anchor.name]])
-                    let result1: Void = ref.setValue(["\(index)" : ["first" : anchor.transform.columns.0.getValueStringed()]])
-                    let result2: Void = ref.setValue(["\(index)" : ["second" : anchor.transform.columns.1.getValueStringed()]])
-                    let result3: Void = ref.setValue(["\(index)" : ["third" : anchor.transform.columns.2.getValueStringed()]])
-                    let result4: Void = ref.setValue(["\(index)" : ["forth" : anchor.transform.columns.3.getValueStringed()]])
-                    print("Results:\nName: \(result_name)\nFirst: \(result1)\nSecond: \(result2)\nThird: \(result3)\nForth: \(result4)")
-                    index+=1
-                }
-            }else{
-                print("There is no elements to be saved to project \(self.currentSceneManager.getSelectedProject())")
+        ref.getData { [self] (error, snapshot) in
+            if let error = error {
+                print("Error getting data \(error)")
             }
-            
-        }else{
-            print("Can't be saved because no project has been selected")
+            else if snapshot.exists() {
+                print("Got data \(snapshot.value!)")
+                let result = snapshot.value as! NSArray
+                print("Project To Save")
+                index = result.count
+                print(index)
+                
+            }
+            else {
+                index=0
+                print("No data available")
+            }
         }
         
-        //Se conseguir salvar dados ....
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            if(self.currentSceneManager.getSelectedProject() != "No project Associated"){
+                if(self.currentSceneManager.getPositions().count>0){
+                    for anchor in self.currentSceneManager.getSceneAnchors() {
+                        
+                        let result_name: Void = ref.child("\(index)").setValue(["name": anchor.name])
+                        let result1: Void = ref.child("\(index)").child("first").setValue( anchor.transform.columns.0.getValueStringed())
+                        let result2: Void = ref.child("\(index)").child("second").setValue( anchor.transform.columns.1.getValueStringed())
+                        let result3: Void = ref.child("\(index)").child("third").setValue( anchor.transform.columns.2.getValueStringed())
+                        let result4: Void = ref.child("\(index)").child("forth").setValue( anchor.transform.columns.3.getValueStringed())
+                        //save user's location
+                        let result_location: Void = ref.child("\(index)").child("location").setValue("Location")
+                        
+                        index+=1
+                    }
+                    
+                }else{
+                    //Se não conseguir salvar dados ....
+                    validation_code = 1
+                    print("There is no elements to be saved to project \(self.currentSceneManager.getSelectedProject())")
+                }
+                
+            }else{
+                //Se não conseguir salvar dados ....
+                validation_code = 1
+                print("Can't be saved because no project has been selected")
+            }
+        })
         
-        //Salvar uma lista de anchoras, importante ter .name e .positions
-        //salvar tambem localização do utilizador
-        
-        //Se não conseguir salvar dados ....
-        validation_code = 1
         
         return validation_code
     }

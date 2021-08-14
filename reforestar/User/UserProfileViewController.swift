@@ -19,15 +19,9 @@ class UserProfileViewController: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationItem.largeTitleDisplayMode = .always
 
-        if(Auth.auth().currentUser == nil){
-            print("Do you want to log in ?")
-        }
-        
-        //Add AR view with customed AR interface
         addChild(userContentView)
         view.addSubview(userContentView.view)
         setupConstraints()
-        userContentView
     }
     
     func setupConstraints(){

@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import SwiftyJSON
+import SwiftUI
 
 class ProjectsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
@@ -23,6 +24,10 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         //Load Default Information
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+
         //Retreive Projects Information
         self.getProjects()
         
@@ -36,21 +41,14 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
             self.tableView.dataSource = self
             self.searchBar.delegate = self
         }
-        
     }
     
+    
     func getProjects(){
-        let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
         
-        let project_database = ref.child("projects").observe(.value, with: {snapshot in
-            guard let projects_retrieved = snapshot.value as? Dictionary<String, Dictionary<String, Any>> else {
-                return
-            }
-            for project in projects_retrieved{
-                self.projects[project.key] = project.value
-                self.projectsTitles.append(project.value["name"] as! String)
-            }
-        })
+        self.projects = CurrentSession.sharedInstance.getProjecstFull()
+        self.projectsTitles = CurrentSession.sharedInstance.getAllProjects()
+        
     }
     
     
@@ -58,7 +56,6 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
         let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
         tableViewCell.nameLabelForCell.text = filteredData[indexPath.row];
         
-        //Fill information of the 
         if(self.projectsTitles.contains(filteredData[indexPath.row])){
             let project_found = self.getProject(name: filteredData[indexPath.row])
             tableViewCell.treesValueLabel.text = project_found["trees"]
@@ -73,11 +70,11 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
         var data:[String:String]=[:]
         for project in self.projects{
             if(project.value["name"] as! String==name){
-                let trees:[Any] = project.value["trees"] as! Array
                 data["name"]=(project.value["name"] as! String)
-                data["trees"]=String(trees.count)
+                data["trees"]="12"
                 data["status"]=(project.value["availability"] as! String)
-                data["size"]=(project.value["size"] as! String)
+                //data["size"]=(project.value["size"] as! String)
+                data["size"] = "0"
             }
         }
         return data
@@ -108,11 +105,16 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
         var data:[String:String]=[:]
         for project in self.projects{
             if(project.value["name"] as! String==name){
-                let trees:[Any] = project.value["trees"] as! Array
+                data["trees"]="12"
+                /*
+                if(project.value["trees"] != nil){
+                    let trees:[Any] = project.value["trees"] as! Array
+                    data["trees"]=String(trees.count)
+                }
+                */
                 data["name"]=(project.value["name"] as! String)
-                data["trees"]=String(trees.count)
                 data["status"]=(project.value["availability"] as! String)
-                data["size"]=(project.value["size"] as! String)
+                data["size"]="12"
             }
         }
         return data

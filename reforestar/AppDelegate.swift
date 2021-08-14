@@ -14,7 +14,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        //Configure Firebase things.
         FirebaseApp.configure()
+        
+        
+        //Check if user is logged in
+        
+        CurrentSession.sharedInstance.fetchNameProjectsOfUser()
+        CurrentSession.sharedInstance.fetchTreeCatalog()
+        
+        
+        
         return true
     }
 

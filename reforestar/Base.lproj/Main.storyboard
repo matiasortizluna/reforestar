@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -28,61 +27,11 @@
                     <view key="view" contentMode="scaleToFill" id="41m-1n-UkB">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2c-ne-x0D">
-                                <rect key="frame" x="125" y="315" width="125" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" name="Color1"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMx-DF-1ZC">
-                                <rect key="frame" x="250" y="315" width="125" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" name="Color1"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHI-Cy-JAJ">
-                                <rect key="frame" x="0.0" y="315" width="125" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" name="Color1"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6qP-ks-zgD">
-                                <rect key="frame" x="13" y="419" width="99.5" height="21.5"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <color key="textColor" name="Color3"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DescriptionText" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCP-qk-a5P">
-                                <rect key="frame" x="13" y="448" width="346" height="150"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="Color3"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nMf-aq-QGJ">
-                                <rect key="frame" x="0.0" y="106" width="375" height="209"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </mapView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="J3N-W1-9yv"/>
                         <color key="backgroundColor" name="Color1"/>
                         <color key="tintColor" name="Color3"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title of the Project" leftItemsSupplementBackButton="YES" id="0yL-Zh-kqP"/>
-                    <connections>
-                        <outlet property="label1" destination="GHI-Cy-JAJ" id="fhb-VD-nhE"/>
-                        <outlet property="label2" destination="d2c-ne-x0D" id="keN-pm-C36"/>
-                        <outlet property="label3" destination="GMx-DF-1ZC" id="jHl-q1-jWk"/>
-                        <outlet property="mapView" destination="nMf-aq-QGJ" id="QRP-hD-uWc"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vF9-ii-knw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -112,7 +61,7 @@
             </objects>
             <point key="canvasLocation" x="138" y="-674"/>
         </scene>
-        <!--Maps-->
+        <!--Areas-->
         <scene sceneID="dnu-JA-Ns7">
             <objects>
                 <viewController id="qmT-vs-1GC" customClass="MapsViewController" customModule="reforestar" customModuleProvider="target" sceneMemberID="viewController">
@@ -120,40 +69,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LMp-rA-wNc">
-                                <rect key="frame" x="0.0" y="159" width="768" height="815"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LMp-rA-wNc">
+                                <rect key="frame" x="34" y="102" width="700" height="700"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lTF-aJ-NEM">
-                                <rect key="frame" x="20" y="110" width="728" height="32"/>
-                                <segments>
-                                    <segment title="Allowed Areas"/>
-                                    <segment title="My Projects"/>
-                                </segments>
-                                <color key="tintColor" name="Color1"/>
-                                <color key="selectedSegmentTintColor" name="Color2"/>
-                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7zK-IL-YhH"/>
                         <color key="backgroundColor" name="Color1"/>
-                        <constraints>
-                            <constraint firstItem="7zK-IL-YhH" firstAttribute="trailing" secondItem="lTF-aJ-NEM" secondAttribute="trailing" constant="20" id="1Ji-Md-0w9"/>
-                            <constraint firstItem="LMp-rA-wNc" firstAttribute="top" secondItem="lTF-aJ-NEM" secondAttribute="bottom" constant="18" id="3GM-CQ-HhK"/>
-                            <constraint firstItem="lTF-aJ-NEM" firstAttribute="top" secondItem="7zK-IL-YhH" secondAttribute="top" constant="8" id="4fg-9b-B6G"/>
-                            <constraint firstItem="lTF-aJ-NEM" firstAttribute="leading" secondItem="7zK-IL-YhH" secondAttribute="leading" constant="20" id="IN3-JJ-E11"/>
-                            <constraint firstItem="LMp-rA-wNc" firstAttribute="trailing" secondItem="7zK-IL-YhH" secondAttribute="trailing" id="TGa-Y6-fRg"/>
-                            <constraint firstItem="LMp-rA-wNc" firstAttribute="top" secondItem="lTF-aJ-NEM" secondAttribute="bottom" constant="18" id="Tq9-Sp-m9e"/>
-                            <constraint firstItem="LMp-rA-wNc" firstAttribute="leading" secondItem="7zK-IL-YhH" secondAttribute="leading" id="WAF-sG-yjc"/>
-                            <constraint firstItem="LMp-rA-wNc" firstAttribute="bottom" secondItem="7zK-IL-YhH" secondAttribute="bottom" id="psq-Rt-Ryq"/>
-                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Maps" id="v7k-Xg-1Q0"/>
+                    <navigationItem key="navigationItem" title="Areas" id="v7k-Xg-1Q0"/>
                     <connections>
                         <outlet property="mapView" destination="LMp-rA-wNc" id="MkR-fk-83I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Sf-H9-ObN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1575.3623188405797" y="900.66964285714278"/>
+            <point key="canvasLocation" x="-1575.78125" y="900.58593749999989"/>
         </scene>
         <!--Projects-->
         <scene sceneID="OMJ-0w-AJh">
@@ -224,130 +155,6 @@
                     <view key="view" contentMode="scaleToFill" id="QuU-E8-pBG">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Hxp-d1-W7h">
-                                <rect key="frame" x="284" y="138" width="200" height="200"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Planted Trees" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dzp-MD-V6Y">
-                                <rect key="frame" x="279" y="382" width="210" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <color key="tintColor" name="Color1"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="Color1"/>
-                                <color key="highlightedColor" name="Color1"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2he-d0-NBo">
-                                <rect key="frame" x="279" y="865" width="210" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemRedColor"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iNP-ta-Lxh">
-                                <rect key="frame" x="279" y="762" width="210" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color2"/>
-                                <color key="tintColor" name="Color1"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Other" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f0g-aF-3BU">
-                                <rect key="frame" x="489" y="382" width="210" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <color key="tintColor" name="Color1"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="Color1"/>
-                                <color key="highlightedColor" name="Color1"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Projects" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEy-by-QAj">
-                                <rect key="frame" x="70" y="382" width="210" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <color key="tintColor" name="Color1"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="Color1"/>
-                                <color key="highlightedColor" name="Color1"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8b9-Vl-YA7">
-                                <rect key="frame" x="384" y="548" width="210" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <color key="tintColor" name="Color1"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="Color1"/>
-                                <color key="highlightedColor" name="Color1"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x57-LG-0cD">
-                                <rect key="frame" x="175" y="548" width="210" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <color key="tintColor" name="Color1"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="Color1"/>
-                                <color key="highlightedColor" name="Color1"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kA-g9-rG7">
-                                <rect key="frame" x="384" y="618" width="210" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <color key="tintColor" name="Color1"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="Color1"/>
-                                <color key="highlightedColor" name="Color1"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Eo-1R-mo3">
-                                <rect key="frame" x="175" y="618" width="210" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <color key="tintColor" name="Color1"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="Color1"/>
-                                <color key="highlightedColor" name="Color1"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Value Planted Trees" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XEd-zh-hrK">
-                                <rect key="frame" x="279" y="430" width="210" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <color key="tintColor" name="Color1"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="Color1"/>
-                                <color key="highlightedColor" name="Color1"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APE-I6-b20">
-                                <rect key="frame" x="489" y="430" width="210" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <color key="tintColor" name="Color1"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="Color1"/>
-                                <color key="highlightedColor" name="Color1"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Value Projects" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZZ-dA-ZHk">
-                                <rect key="frame" x="70" y="430" width="210" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <color key="tintColor" name="Color1"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="Color1"/>
-                                <color key="highlightedColor" name="Color1"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="gearshape.2" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4Ts-Ep-fNO">
-                                <rect key="frame" x="642" y="95.5" width="106" height="106"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <color key="tintColor" name="Color1"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" button="YES" image="YES"/>
-                                </accessibility>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="25"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="VsG-3Z-8CI"/>
                         <color key="backgroundColor" name="Color1"/>
                         <color key="tintColor" name="Color3"/>
@@ -366,54 +173,70 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PmA-CV-Y2i">
-                                <rect key="frame" x="125" y="315" width="125" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" name="Color1"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="atv-6o-oHC">
-                                <rect key="frame" x="250" y="315" width="125" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" name="Color1"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9s1-vF-3qi">
-                                <rect key="frame" x="0.0" y="315" width="125" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color3"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" name="Color1"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uu8-nP-moH">
-                                <rect key="frame" x="13" y="419" width="99.5" height="21.5"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UV4-gk-PcV">
+                                <rect key="frame" x="33" y="176" width="700" height="350"/>
+                                <color key="backgroundColor" name="Color2"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BEg-z7-CKq" userLabel="common_name_label">
+                                <rect key="frame" x="233" y="118" width="300" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" name="Color3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UV4-gk-PcV">
-                                <rect key="frame" x="0.0" y="106" width="375" height="214"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PmA-CV-Y2i" userLabel="min_height_label">
+                                <rect key="frame" x="283" y="556" width="200" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="Color2"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DescriptionText" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9U-RF-a0n">
-                                <rect key="frame" x="13" y="448" width="346" height="150"/>
+                                <color key="backgroundColor" name="Color3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" name="Color1"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kaR-Pu-dvA" userLabel="max_height_label">
+                                <rect key="frame" x="483" y="556" width="200" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="Color3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" name="Color1"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHE-57-ozt" userLabel="min_height_value">
+                                <rect key="frame" x="283" y="606" width="200" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="Color3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" name="Color1"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIg-JX-MYl" userLabel="max_height_value">
+                                <rect key="frame" x="483" y="606" width="200" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="Color3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" name="Color1"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wXO-lL-DHU" userLabel="space_between_value">
+                                <rect key="frame" x="84" y="606" width="200" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="Color3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" name="Color1"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="DescriptionText" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9U-RF-a0n">
+                                <rect key="frame" x="84" y="700" width="599" height="150"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="Color3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7uV-iT-c4p">
-                                <rect key="frame" x="20" y="96" width="220" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkn-cz-RbV" userLabel="select_button">
+                                <rect key="frame" x="309" y="911" width="150" height="30"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVI-9n-Baj" userLabel="space_between_label">
+                                <rect key="frame" x="84" y="556" width="200" height="50"/>
                                 <color key="backgroundColor" name="Color3"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" name="Color1"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -421,12 +244,27 @@
                         <viewLayoutGuide key="safeArea" id="ZXS-0U-PFg"/>
                         <color key="backgroundColor" name="Color1"/>
                         <color key="tintColor" name="Color3"/>
+                        <constraints>
+                            <constraint firstItem="ZXS-0U-PFg" firstAttribute="trailing" secondItem="o9U-RF-a0n" secondAttribute="trailing" constant="85" id="4h3-Ti-hVB"/>
+                            <constraint firstItem="UV4-gk-PcV" firstAttribute="leading" secondItem="ZXS-0U-PFg" secondAttribute="leading" constant="33" id="BG4-Wk-IZ5"/>
+                            <constraint firstItem="DVI-9n-Baj" firstAttribute="leading" secondItem="ZXS-0U-PFg" secondAttribute="leading" constant="84" id="DAW-df-qYj"/>
+                            <constraint firstItem="ZXS-0U-PFg" firstAttribute="bottom" secondItem="lkn-cz-RbV" secondAttribute="bottom" constant="33" id="GEw-k3-d38"/>
+                            <constraint firstItem="ZXS-0U-PFg" firstAttribute="trailing" secondItem="BEg-z7-CKq" secondAttribute="trailing" constant="235" id="JKI-0E-JX5"/>
+                            <constraint firstItem="ZXS-0U-PFg" firstAttribute="trailing" secondItem="lkn-cz-RbV" secondAttribute="trailing" constant="309" id="PN2-qY-pM9"/>
+                            <constraint firstItem="DVI-9n-Baj" firstAttribute="top" secondItem="UV4-gk-PcV" secondAttribute="bottom" constant="30" id="UQ9-fJ-ydP"/>
+                            <constraint firstItem="BEg-z7-CKq" firstAttribute="top" secondItem="ZXS-0U-PFg" secondAttribute="top" constant="16" id="Y7b-bN-UeO"/>
+                            <constraint firstItem="lkn-cz-RbV" firstAttribute="leading" secondItem="ZXS-0U-PFg" secondAttribute="leading" constant="309" id="a3C-ue-Fhm"/>
+                            <constraint firstItem="ZXS-0U-PFg" firstAttribute="trailing" secondItem="UV4-gk-PcV" secondAttribute="trailing" constant="35" id="dmJ-l1-PLu"/>
+                            <constraint firstItem="UV4-gk-PcV" firstAttribute="top" secondItem="BEg-z7-CKq" secondAttribute="bottom" constant="34" id="lnf-qh-xTn"/>
+                            <constraint firstItem="BEg-z7-CKq" firstAttribute="leading" secondItem="ZXS-0U-PFg" secondAttribute="leading" constant="233" id="p00-Da-1Jb"/>
+                            <constraint firstItem="o9U-RF-a0n" firstAttribute="leading" secondItem="ZXS-0U-PFg" secondAttribute="leading" constant="84" id="qBc-fa-5mC"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title of the Item" id="6Fk-IA-YpU"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ddq-31-AEQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="989.60000000000002" y="1623.2383808095954"/>
+            <point key="canvasLocation" x="989.0625" y="1623.046875"/>
         </scene>
         <!--Configuration View Controller-->
         <scene sceneID="AOT-ln-Wz9">
@@ -602,7 +440,6 @@
         <image name="book.fill" catalog="system" width="128" height="102"/>
         <image name="folder" catalog="system" width="128" height="97"/>
         <image name="folder.fill" catalog="system" width="128" height="97"/>
-        <image name="gearshape.2" catalog="system" width="128" height="100"/>
         <image name="leaf" catalog="system" width="128" height="109"/>
         <image name="leaf.fill" catalog="system" width="128" height="106"/>
         <image name="map" catalog="system" width="128" height="110"/>
@@ -618,8 +455,5 @@
         <namedColor name="Color3">
             <color red="0.22352941176470589" green="0.35294117647058826" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
     </resources>
 </document>
