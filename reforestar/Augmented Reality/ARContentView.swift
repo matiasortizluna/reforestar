@@ -178,7 +178,7 @@ public class CustomARView: ARView{
         
         var validation_code : Int = 0
         var index = 0
-        
+        //
         var ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference().ref.child("projects").child(self.currentSceneManager.getSelectedProject()).child("trees")
         
         ref.getData { [self] (error, snapshot) in
