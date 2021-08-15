@@ -133,52 +133,9 @@ public class CustomARView: ARView{
     func loadProject(project: String) -> Int {
         
         var validation_code : Int = 0
+        //Se houver dados ....
+        var anchors_saved : [ARAnchor] = []
         
-        let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
-        
-        print("Project To Load")
-        print(currentSceneManager.projects?[project])
-        
-        let project_database = ref.child("projects").child(project).getData { (error, snapshot) in
-            if let error = error {
-                print("Error getting data \(error)")
-            }
-            else if snapshot.exists() {
-                print("Got data \(snapshot.value!)")
-                
-                guard let projects_information_retrieved = snapshot.value as? Dictionary<String, Dictionary<String, Any>> else {
-                    return
-                }
-                
-                //Se houver dados ....
-                let anchors_saved : [ARAnchor]
-                
-                /*
-                 for anchor in anchors_saved {
-                 let anchor = ARAnchor(name: anchor.name, transform: anchor.positions);
-                 self.session.add(anchor: anchor);
-                 }
-                 */
-                
-                //just if user has this location on his position
-                
-                
-                //Se não houver dados ....
-                validation_code = 1
-            }
-            else {
-                print("No data available")
-            }
-        }
-        
-        return validation_code
-    }
-    
-    func saveProject(project: String) -> Int {
-        
-        var validation_code : Int = 0
-        var index = 0
-        //
         var ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference().ref.child("projects").child(self.currentSceneManager.getSelectedProject()).child("trees")
         
         ref.getData { [self] (error, snapshot) in
@@ -186,12 +143,63 @@ public class CustomARView: ARView{
                 print("Error getting data \(error)")
             }
             else if snapshot.exists() {
-                print("Got data \(snapshot.value!)")
+                //print("Got data \(snapshot.value!)")
                 let result = snapshot.value as! NSArray
-                print("Project To Save")
+                var object : Dictionary<String, Any>? = nil
+                for tree in result {
+                    object = (tree as! Dictionary<String, Any>)
+                    let first = object!["first"] as! String
+                    let second = object!["second"] as! String
+                    let third = object!["third"] as! String
+                    let forth = object!["forth"] as! String
+                    self.anchors_saved.append(ARAnchor(name: object!["name"] as! String, transform: <#T##simd_float4x4#>))
+                }
+            }
+            else {
+                print("No data available")
+            }
+        }
+        
+        
+        /*
+         for anchor in anchors_saved {
+         let anchor = ARAnchor(name: anchor.name, transform: anchor.positions);
+         self.session.add(anchor: anchor);
+         }
+         */
+        
+        //just if user has this location on his position
+        
+        
+        //Se não houver dados ....
+        validation_code = 1
+        
+        
+        
+        return validation_code
+    }
+    
+    private func createNewMatrix(first: String, second: String, third: String, forth: String){
+        
+        SIMD4(<#T##v0: _##_#>, <#T##v1: _##_#>, <#T##v2: _##_#>, <#T##v3: _##_#>)
+        return simd_float4x4(<#T##col0: SIMD4<Float>##SIMD4<Float>#>, <#T##col1: SIMD4<Float>##SIMD4<Float>#>, <#T##col2: SIMD4<Float>##SIMD4<Float>#>, <#T##col3: SIMD4<Float>##SIMD4<Float>#>)
+    }
+    
+    func saveProject(project: String) -> Int {
+        
+        var validation_code : Int = 0
+        var index = 0
+        
+        var ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference().ref.child("projects").child(self.currentSceneManager.getSelectedProject()).child("trees")
+        
+        ref.getData { [self] (error, snapshot) in
+            if let error = error {
+                print("Error getting data \(error)")
+            }
+            else if snapshot.exists() {
+                //print("Got data \(snapshot.value!)")
+                let result = snapshot.value as! NSArray
                 index = result.count
-                print(index)
-                
             }
             else {
                 index=0
