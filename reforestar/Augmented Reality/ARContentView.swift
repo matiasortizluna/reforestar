@@ -135,7 +135,6 @@ public class CustomARView: ARView{
         
         var validation_code : Int = 0
         //Se houver dados ....
-        var anchors_saved : [ARAnchor] = []
         
         var ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference().ref.child("projects").child(self.currentSceneManager.getSelectedProject()).child("trees")
         
@@ -149,32 +148,25 @@ public class CustomARView: ARView{
                 var object : Dictionary<String, Any>? = nil
                 for tree in result {
                     object = (tree as! Dictionary<String, Any>)
-                    let name = object?["name"] as! String
+                    print("tree")
+                    print(object)
+                    var name : String = "Eucalyptus globulus"
+                    if(object?["name"] != nil){
+                        name = object?["name"] as! String
+                    }
                     let first = object!["first"] as! String
                     let second = object!["second"] as! String
                     let third = object!["third"] as! String
                     let forth = object!["forth"] as! String
                     let matrix = self.createNewMatrix(first: first, second: second, third: third, forth: forth)
                     
-                    anchors_saved.append(ARAnchor(name: name, transform: matrix))
+                    currentSceneManager.addLoadAnchor(anchor: ARAnchor(name: name, transform: matrix))
                 }
             }
             else {
                 print("No data available")
             }
         }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-            print("anchors_saved.count")
-            print(anchors_saved.count)
-            for anchor in anchors_saved {
-                print(anchor)
-                self.session.add(anchor: anchor);
-            }
-        })
-        
-        //just if user has this location on his position
-        
         
         //Se não houver dados ....
         validation_code = 1
@@ -287,44 +279,64 @@ public class CustomARView: ARView{
         let results = self.raycast(from: touchInView, allowing: .estimatedPlane, alignment: .horizontal)
         
         if let firstResult = results.first{
+        
             
-            //At this point, the touch in the screen was recognized by the AR tecnhology to be considered a real surface.
-            //Hello
-            //Now, we'll call this method to create all the positions needed.
-            //It is send, the initial position of the first touch in the screen.
-            //It is also send, the number of trees that the user selected.
-            //It is also send, the scale desired by the user.
-            //It is also send, the anchors already existing in the scene.
-            var positions = self.reforestationSettingsManager.getPositionsThreeDimension(from: firstResult.worldTransform, for: self.currentSceneManager.getNumberOfTrees(),known_positions: self.currentSceneManager.getPositions(), scale_compensation: Float(self.currentSceneManager.getScaleCompensation()))
             
-            //If the array has more than 1 item, it means it created sucessfully new positions, at least 1.
-            if(positions.count>0){
+            
+            //se tem objetos na memoria para carregar e colocar, coloca ...
+            if(currentSceneManager.hasLoadAnchors()){
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                    print("anchors_saved.count")
+                    print(anchors_saved.count)
+                    for anchor in anchors_saved {
+                        print(anchor)
+                        self.session.add(anchor: anchor);
+                    }
+                })
                 
-                //Iterate the array of the positions to compare. Because the first position is 0, the last has to be, the amount of elements - 1
-                for index in 0...(positions.count-1) {
+                
+                //just if user has this location on his position
+                
+                
+            }else{
+                
+                //At this point, the touch in the screen was recognized by the AR tecnhology to be considered a real surface.
+                //Now, we'll call this method to create all the positions needed.
+                //It is send, the initial position of the first touch in the screen.
+                //It is also send, the number of trees that the user selected.
+                //It is also send, the scale desired by the user.
+                //It is also send, the anchors already existing in the scene.
+                var positions = self.reforestationSettingsManager.getPositionsThreeDimension(from: firstResult.worldTransform, for: self.currentSceneManager.getNumberOfTrees(),known_positions: self.currentSceneManager.getPositions(), scale_compensation: Float(self.currentSceneManager.getScaleCompensation()))
+                
+                //If the array has more than 1 item, it means it created sucessfully new positions, at least 1.
+                if(positions.count>0){
                     
-                    //To add a little randomness, the unpair index elements are rotated. Also, the scale needs to be this, because if is lower, it looks weird. hehe
-                    if (index%2 == 0 && self.currentSceneManager.getScaleCompensation() > 0.8){
-                        positions[index] = self.reforestationSettingsManager.rotateObject(old_matrix: positions[index])
+                    //Iterate the array of the positions to compare. Because the first position is 0, the last has to be, the amount of elements - 1
+                    for index in 0...(positions.count-1) {
+                        
+                        //To add a little randomness, the unpair index elements are rotated. Also, the scale needs to be this, because if is lower, it looks weird. hehe
+                        if (index%2 == 0 && self.currentSceneManager.getScaleCompensation() > 0.8){
+                            positions[index] = self.reforestationSettingsManager.rotateObject(old_matrix: positions[index])
+                        }
+                        
+                        //All the items are added a scale randomness
+                        positions[index] = self.reforestationSettingsManager.scaleObjectWithScale(old_matrix: positions[index],scale_compensation: self.currentSceneManager.getScaleCompensation())
+                        
+                        //Finally here, is created the new 3D object, anchor and added to the scene, with all the modifications made by us.
+                        let anchor = ARAnchor(name: self.currentSceneManager.getSelectedModelName(), transform: positions[index]);
+                        self.session.add(anchor: anchor);
                     }
                     
-                    //All the items are added a scale randomness
-                    positions[index] = self.reforestationSettingsManager.scaleObjectWithScale(old_matrix: positions[index],scale_compensation: self.currentSceneManager.getScaleCompensation())
-                    
-                    //Finally here, is created the new 3D object, anchor and added to the scene, with all the modifications made by us.
-                    let anchor = ARAnchor(name: self.currentSceneManager.getSelectedModelName(), transform: positions[index]);
-                    self.session.add(anchor: anchor);
+                    //If the array has not items, it means there was a problem, so either didn't find space to all the trees or the intial position wasn't available.
+                }else{
+                    print("Coudn't find space")
                 }
                 
-                //If the array has not items, it means there was a problem, so either didn't find space to all the trees or the intial position wasn't available.
             }else{
-                print("Coudn't find space")
+                print("Object placement failed - coudn't find surface")
             }
-            
-        }else{
-            print("Object placement failed - coudn't find surface")
-        }
-        
+                
+            }
         
     }
     

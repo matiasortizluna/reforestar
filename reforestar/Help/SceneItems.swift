@@ -28,6 +28,7 @@ final class CurrentSession {
     
     private var recent_anchor : ARAnchor? = nil
     private var current_scene_anchors : [ARAnchor] = []
+    private var to_load_anchors : [ARAnchor] = []
     
     private var reforestation_plan : Bool = true
     
@@ -56,6 +57,26 @@ final class CurrentSession {
         self.user = Auth.auth().currentUser
         //self.getProjectsNamesOfUser()
         sleep(1)
+    }
+    
+    public func addLoadAnchors(anchors: [ARAnchor]){
+        self.to_load_anchors = anchors
+    }
+    
+    public func addLoadAnchor(anchor: ARAnchor){
+        self.to_load_anchors.append(anchor)
+    }
+    
+    public func cleanLoadAnchors(){
+        self.to_load_anchors = []
+    }
+    
+    public func getLoadAnchors() -> [ARAnchor]{
+        return self.to_load_anchors
+    }
+    
+    public func hasLoadAnchors() -> Bool {
+        return self.to_load_anchors.count > 0 ? true : false
     }
     
     public func fetchTreeCatalog(){
