@@ -11,6 +11,7 @@ import ARKit
 import UIKit
 import Combine
 import Firebase
+import SceneKit
 
 struct ARContentView: View {
     
@@ -148,11 +149,14 @@ public class CustomARView: ARView{
                 var object : Dictionary<String, Any>? = nil
                 for tree in result {
                     object = (tree as! Dictionary<String, Any>)
+                    let name = object?["name"] as! String
                     let first = object!["first"] as! String
                     let second = object!["second"] as! String
                     let third = object!["third"] as! String
                     let forth = object!["forth"] as! String
-                    self.anchors_saved.append(ARAnchor(name: object!["name"] as! String, transform: <#T##simd_float4x4#>))
+                    let matrix = self.createNewMatrix(first: first, second: second, third: third, forth: forth)
+                    
+                    anchors_saved.append(ARAnchor(name: name, transform: matrix))
                 }
             }
             else {
@@ -160,13 +164,14 @@ public class CustomARView: ARView{
             }
         }
         
-        
-        /*
-         for anchor in anchors_saved {
-         let anchor = ARAnchor(name: anchor.name, transform: anchor.positions);
-         self.session.add(anchor: anchor);
-         }
-         */
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            print("anchors_saved.count")
+            print(anchors_saved.count)
+            for anchor in anchors_saved {
+                print(anchor)
+                self.session.add(anchor: anchor);
+            }
+        })
         
         //just if user has this location on his position
         
@@ -174,15 +179,44 @@ public class CustomARView: ARView{
         //Se não houver dados ....
         validation_code = 1
         
-        
-        
         return validation_code
     }
     
-    private func createNewMatrix(first: String, second: String, third: String, forth: String){
+    private func createNewMatrix(first: String, second: String, third: String, forth: String) -> simd_float4x4{
+        let first_splitted = first.components(separatedBy: ";")
+        let second_splitted = second.components(separatedBy: ";")
+        let third_splitted = third.components(separatedBy: ";")
+        let forth_splitted = forth.components(separatedBy: ";")
         
-        SIMD4(<#T##v0: _##_#>, <#T##v1: _##_#>, <#T##v2: _##_#>, <#T##v3: _##_#>)
-        return simd_float4x4(<#T##col0: SIMD4<Float>##SIMD4<Float>#>, <#T##col1: SIMD4<Float>##SIMD4<Float>#>, <#T##col2: SIMD4<Float>##SIMD4<Float>#>, <#T##col3: SIMD4<Float>##SIMD4<Float>#>)
+        guard let first_1 = Float(first_splitted[0]) else { return simd_float4x4()}
+        guard let first_2 = Float(first_splitted[1]) else { return simd_float4x4()}
+        guard let first_3 = Float(first_splitted[2]) else { return simd_float4x4()}
+        guard let first_4 = Float(first_splitted[3]) else { return simd_float4x4()}
+        
+        let first_column = SIMD4(first_1, first_2, first_3, first_4)
+        
+        guard let second_1 = Float(second_splitted[0]) else { return simd_float4x4()}
+        guard let second_2 = Float(second_splitted[1]) else { return simd_float4x4()}
+        guard let second_3 = Float(second_splitted[2]) else { return simd_float4x4()}
+        guard let second_4 = Float(second_splitted[3]) else { return simd_float4x4()}
+        
+        let second_column = SIMD4(second_1, second_2, second_3, second_4)
+        
+        guard let third_1 = Float(third_splitted[0]) else { return simd_float4x4()}
+        guard let third_2 = Float(third_splitted[1]) else { return simd_float4x4()}
+        guard let third_3 = Float(third_splitted[2]) else { return simd_float4x4()}
+        guard let third_4 = Float(third_splitted[3]) else { return simd_float4x4()}
+        
+        let third_column = SIMD4(third_1, third_2, third_3, third_4)
+        
+        guard let forth_1 = Float(forth_splitted[0]) else { return simd_float4x4()}
+        guard let forth_2 = Float(forth_splitted[1]) else { return simd_float4x4()}
+        guard let forth_3 = Float(forth_splitted[2]) else { return simd_float4x4()}
+        guard let forth_4 = Float(forth_splitted[3]) else { return simd_float4x4()}
+        
+        let forth_column = SIMD4(forth_1, forth_2, forth_3, forth_4)
+        
+        return simd_float4x4(first_column, second_column, third_column, forth_column)
     }
     
     func saveProject(project: String) -> Int {
@@ -334,5 +368,6 @@ extension SIMD4 {
     func getValueStringed()->String{
         return String("\(self.x);\(self.y);\(self.z);\(self.w)")
     }
+    
     
 }
