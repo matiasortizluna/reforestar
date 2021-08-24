@@ -272,6 +272,14 @@ public class CustomARView: ARView{
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(recognizer:))))
     }
     
+    private func getEditedAnchor(anchor: ARAnchor, first_touch: simd_float4x4) -> ARAnchor {
+        var new_position : simd_float4x4 = anchor.transform
+        //new_position.columns.3.x += first_touch.columns.3.x
+        new_position.columns.3.y = first_touch.columns.3.y
+        new_position.columns.3.z += first_touch.columns.3.z
+        return ARAnchor(name: anchor.name ?? "Quercus suber", transform: new_position)
+    }
+    
     @objc
     func handleTap(recognizer: UITapGestureRecognizer){
         
@@ -279,24 +287,18 @@ public class CustomARView: ARView{
         let results = self.raycast(from: touchInView, allowing: .estimatedPlane, alignment: .horizontal)
         
         if let firstResult = results.first{
-        
-            
-            
             
             //se tem objetos na memoria para carregar e colocar, coloca ...
             if(currentSceneManager.hasLoadAnchors()){
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
                     print("anchors_saved.count")
-                    print(anchors_saved.count)
-                    for anchor in anchors_saved {
-                        print(anchor)
-                        self.session.add(anchor: anchor);
+                    for anchor in self.currentSceneManager.getLoadAnchors() {
+                        self.session.add(anchor: self.getEditedAnchor(anchor: anchor, first_touch: firstResult.worldTransform));
                     }
+                    self.currentSceneManager.cleanLoadAnchors()
                 })
-                
-                
+            
                 //just if user has this location on his position
-                
                 
             }else{
                 
@@ -331,12 +333,11 @@ public class CustomARView: ARView{
                 }else{
                     print("Coudn't find space")
                 }
-                
-            }else{
-                print("Object placement failed - coudn't find surface")
             }
-                
-            }
+            
+        }else{
+            print("Object placement failed - coudn't find surface")
+        }
         
     }
     
