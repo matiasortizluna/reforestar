@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-class LocationManager: NSObject, ObservableObject {
+class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     public let locationManager = CLLocationManager()
     @Published public var coordinates: CLLocation? = nil
@@ -36,18 +36,6 @@ class LocationManager: NSObject, ObservableObject {
         }
     }
     
-    func askForUsersLocation(){
-        if CLLocationManager.locationServicesEnabled() {
-            self.locationManager.requestLocation()
-        }else{
-            print("Location Service is disabled")
-        }
-    }
-    
-}
-
-extension LocationManager: CLLocationManagerDelegate{
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else {
             return
@@ -60,4 +48,13 @@ extension LocationManager: CLLocationManagerDelegate{
         print("Failed to find user's location: \(error.localizedDescription)")
     }
     
+    func askForUsersLocation(){
+        if CLLocationManager.locationServicesEnabled() {
+            self.locationManager.requestLocation()
+        }else{
+            print("Location Service is disabled")
+        }
+    }
+    
 }
+

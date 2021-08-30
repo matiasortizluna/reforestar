@@ -10,7 +10,7 @@ import MapKit
 import CoreLocation
 import Firebase
 import SwiftyJSON
-
+import SwiftUI
 
 class MapsViewController: UIViewController, MKMapViewDelegate{
 
@@ -21,11 +21,31 @@ class MapsViewController: UIViewController, MKMapViewDelegate{
     var vertexes: Dictionary<String,Any> = [:]
     var polygons: [MKPolygon] = []
     var areas_allowed:Dictionary<String, Dictionary<String, Any>> = [:]
-
+    
+    
+    let areasContentView = UIHostingController(rootView: AreasContentView())
+    
+    
+    func setupConstraints(){
+        areasContentView.view.translatesAutoresizingMaskIntoConstraints = false
+        areasContentView.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        areasContentView.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        areasContentView.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        areasContentView.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            //Add AR view with customed AR interface
+            self.addChild(self.areasContentView)
+            self.view.addSubview(self.areasContentView.view)
+            self.setupConstraints()
+            
+        })
+        
+        /*
         getAreasInformation() { [weak self] result in
             self?.areas_allowed = result
         }
@@ -47,6 +67,7 @@ class MapsViewController: UIViewController, MKMapViewDelegate{
         self.locationManager.startUpdatingLocation()
         self.mapView.showsUserLocation = true
         self.mapView.delegate = self
+ */
     }
     
     func getAreasInformation(completion: @escaping (Dictionary<String, Dictionary<String, Any>>) -> ()) {

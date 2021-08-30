@@ -10,6 +10,7 @@
 		0F0BEDC326BC7D8F004F2B1A /* UserProfileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEDC226BC7D8F004F2B1A /* UserProfileContentView.swift */; };
 		0F1F25F82637A91500694936 /* ProjectsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F25F72637A91500694936 /* ProjectsDetailViewController.swift */; };
 		0F1F25FB2637A92B00694936 /* CatalogDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F25FA2637A92B00694936 /* CatalogDetailViewController.swift */; };
+		0F2A7E7C26DCF87B007E602D /* AreasContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A7E7B26DCF87B007E602D /* AreasContentView.swift */; };
 		0F2EFD3C26C5B8020014877E /* ProjectsDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2EFD3B26C5B8020014877E /* ProjectsDetailContentView.swift */; };
 		0F356310265A82FA00A15D2B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F35630F265A82FA00A15D2B /* GoogleService-Info.plist */; };
 		0F7A94CC265CCC6F000902E7 /* AugmentedRealityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A94CB265CCC6F000902E7 /* AugmentedRealityViewController.swift */; };
@@ -45,6 +46,7 @@
 		0F0BEDC226BC7D8F004F2B1A /* UserProfileContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileContentView.swift; sourceTree = "<group>"; };
 		0F1F25F72637A91500694936 /* ProjectsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsDetailViewController.swift; sourceTree = "<group>"; };
 		0F1F25FA2637A92B00694936 /* CatalogDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogDetailViewController.swift; sourceTree = "<group>"; };
+		0F2A7E7B26DCF87B007E602D /* AreasContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreasContentView.swift; sourceTree = "<group>"; };
 		0F2EFD3B26C5B8020014877E /* ProjectsDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsDetailContentView.swift; sourceTree = "<group>"; };
 		0F35630F265A82FA00A15D2B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0F7A94CB265CCC6F000902E7 /* AugmentedRealityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				0FF72178261E71CC00E0DA68 /* MapsViewController.swift */,
+				0F2A7E7B26DCF87B007E602D /* AreasContentView.swift */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				0FC6A566261E24DE002B9B73 /* Experience.rcproject in Sources */,
 				0FC8D79C268E7E3600C60331 /* SceneItems.swift in Sources */,
 				0FF72176261E71AE00E0DA68 /* ProjectsViewController.swift in Sources */,
+				0F2A7E7C26DCF87B007E602D /* AreasContentView.swift in Sources */,
 				0F1F25F82637A91500694936 /* ProjectsDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

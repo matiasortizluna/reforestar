@@ -24,6 +24,7 @@ struct CustomARUserInterface : View {
     
     @State private var showTabBar : Bool = false
     @State private var showTreeCatalog : Bool = false
+    @State private var showDesiredLocation : Bool = false
     
     var cancellableMessage : AnyCancellable?
     var cancellables = Set<AnyCancellable>()
@@ -41,7 +42,14 @@ struct CustomARUserInterface : View {
             }
             Spacer()
             VStack(alignment: .center){
-                CurrentCoordinatesLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
+                ZStack{
+                    VStack{
+                        CurrentCoordinatesLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
+                        if(self.showDesiredLocation){
+                            DesiredCoordinatesLabel(background_color: .light_green, height_button: self.$height_button, width_button: self.$width_button)
+                        }
+                    }
+                }
                 Spacer()
                 if(userFeedbackManager.show_message){
                     UserFeedbackMessage(height_button: self.$height_button, width_button: self.$width_button)
@@ -56,7 +64,7 @@ struct CustomARUserInterface : View {
                 Spacer()
                 if(showTabBar){
                     Spacer()
-                    RightBar(height_screen: self.$height_screen, width_screen: self.$width_screen, height_button: self.$height_button, width_button: self.$width_button, showTreeCatalog: self.$showTreeCatalog)
+                    RightBar(height_screen: self.$height_screen, width_screen: self.$width_screen, height_button: self.$height_button, width_button: self.$width_button, showTreeCatalog: self.$showTreeCatalog, showDesiredLocation: self.$showDesiredLocation)
                 }
                 ShowBarButton(optionToToggle: $showTabBar, height_button: self.$height_button, width_button: self.$width_button, action: {
                     self.showTabBar.toggle()
@@ -184,7 +192,7 @@ struct CurrentCoordinatesLabel : View {
     @Binding var height_button : CGFloat
     @Binding var width_button : CGFloat
     
-    @ObservedObject public var locationManager  = LocationManager()
+    @EnvironmentObject var locationManager : LocationManager
     var currentSceneManager = CurrentSession.sharedInstance
     
     var body: some View{
@@ -217,6 +225,58 @@ struct CurrentCoordinatesLabel : View {
                     Text("\(coordinate.longitude)")
                         .font(.system(size: self.width_button*0.25))
                         .foregroundColor(.light_green)
+                        .bold()
+                }
+            }
+            .padding(1.5)
+        }
+        .frame(width: self.width_button*4, height: self.height_button*0.8, alignment: .center)
+        .background(self.background_color)
+        .cornerRadius(15.0)
+        .padding(.top, 15.0)
+    }
+}
+
+struct DesiredCoordinatesLabel : View {
+    
+    let background_color: Color
+    
+    @Binding var height_button : CGFloat
+    @Binding var width_button : CGFloat
+    
+    
+    var currentSceneManager = CurrentSession.sharedInstance
+    
+    var body: some View{
+        //let coordinate =
+        
+        HStack(alignment: .top){
+            VStack(alignment: .center){
+                Image(systemName: "mappin.and.ellipse")
+                    .font(.system(size: self.width_button*0.45))
+                    .foregroundColor(.dark_green)
+                    .buttonStyle(PlainButtonStyle())
+            }
+            .padding(1.5)
+            VStack(alignment: .center){
+                HStack(alignment: .center){
+                    Text("Desired Latitude & Longitude")
+                        .font(.system(size: self.width_button*0.2))
+                        .foregroundColor(.dark_green)
+                        .bold()
+                }
+                HStack(alignment: .center){
+                    Text("latitude")
+                        .font(.system(size: self.width_button*0.25))
+                        .foregroundColor(.dark_green)
+                        .bold()
+                    Text("|")
+                        .font(.system(size: self.width_button*0.3))
+                        .foregroundColor(.dark_green)
+                        .bold()
+                    Text("longitude")
+                        .font(.system(size: self.width_button*0.25))
+                        .foregroundColor(.dark_green)
                         .bold()
                 }
             }
@@ -450,6 +510,7 @@ struct DefaultButtonWithText: View {
 struct OptionsMenu: View {
     
     @Binding var showOptionsMenu : Bool
+    @Binding var showDesiredLocation: Bool
     
     @Binding var height_button : CGFloat
     @Binding var width_button : CGFloat
@@ -534,6 +595,7 @@ struct OptionsMenu: View {
                             Button(action: {
                                 print("Load Button Pressed")
                                 self.showOptionsMenu.toggle()
+                                self.showDesiredLocation.toggle()
                                 NotificationCenter.default.post(name: self.notification_load_progress, object: nil)
                             }){
                                 Image(systemName: "arrow.down.circle")
@@ -569,7 +631,9 @@ struct RightBar : View {
     @Binding var width_button : CGFloat
     
     @Binding var showTreeCatalog : Bool
+    @Binding var showDesiredLocation : Bool
     @State private var showOptionsMenu : Bool = false
+    
     
     @EnvironmentObject var selectedModelManager : CurrentSessionSwiftUI
     
@@ -586,7 +650,7 @@ struct RightBar : View {
                 self.showOptionsMenu.toggle()
                 CurrentSession.sharedInstance.fetchNameProjectsOfUser()
             }).popover(isPresented: $showOptionsMenu, arrowEdge: .trailing, content: {
-                OptionsMenu(showOptionsMenu: $showOptionsMenu, height_button: self.$height_button, width_button: self.$width_button)
+                OptionsMenu(showOptionsMenu: $showOptionsMenu, showDesiredLocation: $showDesiredLocation, height_button: self.$height_button, width_button: self.$width_button)
             })
         }
         .frame(minWidth: self.width_button, maxWidth: self.width_button, minHeight: 150, maxHeight: 650, alignment: .center)
@@ -733,7 +797,7 @@ struct VerticalGrid: View{
                         })
                     }
                 }
-                 
+                
             })
             .padding(.horizontal,22)
             .padding(.vertical,10)

@@ -40,9 +40,9 @@ final class CurrentSession {
     
     public var catalog : [TreeCatalogModel] = []
     
-    private var user : User? = nil
+    public var user : User? = nil
     
-    let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
+    public var ref : DatabaseReference? = nil
     
     //private var areas : [String] = ["------"]
     
@@ -54,9 +54,10 @@ final class CurrentSession {
     }()
     
     private init(){
-        self.user = Auth.auth().currentUser
+        //self.user = Auth.auth().currentUser
         //self.getProjectsNamesOfUser()
-        sleep(1)
+        //sleep(1)
+        //ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
     }
     
     public func addLoadAnchors(anchors: [ARAnchor]){
@@ -80,7 +81,7 @@ final class CurrentSession {
     }
     
     public func fetchTreeCatalog(){
-        let database = self.ref.child("trees").getData { (error, snapshot) in
+        let database = self.ref!.child("trees").getData { (error, snapshot) in
             if let error = error {
                 print("Error getting data \(error)")
             }
@@ -100,7 +101,8 @@ final class CurrentSession {
     }
     
     public func fetchNameProjectsOfUser() {
-        let projects_database = self.ref.child("users/matiasarielol/projects").getData { (error, snapshot) in
+        
+        let projects_database = self.ref!.child("users/matiasarielol/projects").getData { (error, snapshot) in
             if let error = error {
                 print("Error getting data \(error)")
             }
@@ -118,11 +120,12 @@ final class CurrentSession {
                 print("No data available")
             }
         }
+        
     }
     
     public func fetchProjects() {
         for project_user in self.projects_name {
-            let projects_database = self.ref.child("projects/\(project_user)/").getData { (error, snapshot) in
+            let projects_database = self.ref!.child("projects/\(project_user)/").getData { (error, snapshot) in
                 if let error = error {
                     print("Error getting data \(error)")
                 }

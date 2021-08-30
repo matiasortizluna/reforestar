@@ -17,6 +17,7 @@ struct ARContentView: View {
     
     @StateObject var selectedModelManager = CurrentSessionSwiftUI()
     @StateObject var userFeedbackManager = UserFeedback()
+    @StateObject var locationManager = LocationManager()
     
     var body: some View {
         ZStack(){
@@ -26,6 +27,7 @@ struct ARContentView: View {
             CustomARUserInterface()
                 .environmentObject(selectedModelManager)
                 .environmentObject(userFeedbackManager)
+                .environmentObject(locationManager)
         }
     }
 }
@@ -49,7 +51,7 @@ struct ARViewContainer: UIViewRepresentable {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ARContentView().environmentObject(CurrentSessionSwiftUI()).environmentObject(UserFeedback())
+        ARContentView().environmentObject(CurrentSessionSwiftUI()).environmentObject(UserFeedback()).environmentObject(LocationManager())
     }
 }
 

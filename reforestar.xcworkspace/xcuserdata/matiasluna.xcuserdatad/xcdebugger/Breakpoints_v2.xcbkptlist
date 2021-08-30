@@ -100,5 +100,116 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FE3D7A89-F8B9-4B5E-A199-283D46BA7445"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "reforestar/Help/SceneItems.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "sharedInstance"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "FE3D7A89-F8B9-4B5E-A199-283D46BA7445 - dc5105ad8165b59e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "one-time initialization function for sharedInstance"
+                  moduleName = "reforestar"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matiasluna/Documents/Xcode/reforestar/reforestar/Help/SceneItems.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "8">
+               </Location>
+               <Location
+                  uuid = "FE3D7A89-F8B9-4B5E-A199-283D46BA7445 - 8cdb9d75506c6e4f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; reforestar.CurrentSession in variable initialization expression of static reforestar.CurrentSession.sharedInstance : reforestar.CurrentSession"
+                  moduleName = "reforestar"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matiasluna/Documents/Xcode/reforestar/reforestar/Help/SceneItems.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  uuid = "FE3D7A89-F8B9-4B5E-A199-283D46BA7445 - 5029f41a72c2efb8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "reforestar.CurrentSession.sharedInstance.unsafeMutableAddressor : reforestar.CurrentSession"
+                  moduleName = "reforestar"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matiasluna/Documents/Xcode/reforestar/reforestar/Help/SceneItems.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "8">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C137DA22-314B-4F33-84C6-ABC0861DFB12"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "reforestar/Help/SceneItems.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "CurrentSession"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A69F968C-83C3-4B00-89F4-B510551C45E8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "reforestar/Help/SceneItems.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "CurrentSession"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F566B8BB-6EB3-41E2-8585-C8A58A3F855C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "reforestar/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

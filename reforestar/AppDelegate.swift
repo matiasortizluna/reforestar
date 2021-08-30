@@ -18,13 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Configure Firebase things.
         FirebaseApp.configure()
         
+        CurrentSession.sharedInstance.user = Auth.auth().currentUser
+        CurrentSession.sharedInstance.ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
         
         //Check if user is logged in
-        
         CurrentSession.sharedInstance.fetchNameProjectsOfUser()
         CurrentSession.sharedInstance.fetchTreeCatalog()
-        
-        
         
         return true
     }
