@@ -12,6 +12,7 @@ import UIKit
 import Combine
 import Firebase
 import SceneKit
+import Foundation
 
 struct ARContentView: View {
     
@@ -73,6 +74,9 @@ public class CustomARView: ARView{
     let notification_load_progress = Notification.Name("notification_load_progress")
     var cancellableLoadProgress: AnyCancellable?
     
+    let notification_preparation_load_progress = Notification.Name("notification_preparation_load_progress")
+    var cancellablePreparationLoadProgress: AnyCancellable?
+    
     func setupARView(){
         
         self.session.delegate = self
@@ -120,7 +124,7 @@ public class CustomARView: ARView{
             .publisher(for: self.notification_save_progress)
             .sink { value in
                 print("Notification received from a publisher! \(value)\nto Save The Progress")
-                self.saveProject(project: self.currentSceneManager.getSelectedProject())
+                self.saveProject(project: self.currentSceneManager.getSelectedProject(), location: self.currentSceneManager.user_location)
             }
         
         self.cancellableLoadProgress = NotificationCenter.default
@@ -128,6 +132,8 @@ public class CustomARView: ARView{
             .sink { value in
                 print("Notification received from a publisher! \(value)\nto Load The Progress from Project")
                 self.loadProject(project: self.currentSceneManager.getSelectedProject())
+                sleep(1)
+                NotificationCenter.default.post(name: self.notification_preparation_load_progress, object: nil, userInfo: ["longitude": self.currentSceneManager.desired_location.longitude, "latitude" : self.currentSceneManager.desired_location.latitude])
             }
         
         self.session.run(configuration)
@@ -150,13 +156,11 @@ public class CustomARView: ARView{
                 var object : Dictionary<String, Any>? = nil
                 for tree in result {
                     object = (tree as! Dictionary<String, Any>)
-                    print("tree")
-                    print(object)
                     var name : String = "Eucalyptus globulus"
                     if(object?["name"] != nil){
                         name = object?["name"] as! String
                     }
-                    let first = object!["first"] as! String
+                    let first = object?["first"] as! String
                     let second = object!["second"] as! String
                     let third = object!["third"] as! String
                     let forth = object!["forth"] as! String
@@ -164,11 +168,30 @@ public class CustomARView: ARView{
                     
                     currentSceneManager.addLoadAnchor(anchor: ARAnchor(name: name, transform: matrix))
                 }
+                
+                
+                //save user's location
+                let result_longitude: Void = ref.parent!.child("location").getData { [self] (error, snapshot) in
+                    if let error = error {
+                        print("Error getting data \(error)")
+                    }
+                    else if snapshot.exists() {
+                        //print("Got location \(snapshot.value!)")
+                        let location = snapshot.value as! Dictionary<String, Any>
+                        self.currentSceneManager.desired_location = CLLocationCoordinate2D(latitude: location["latitude"] as! CLLocationDegrees, longitude: location["longitude"] as! CLLocationDegrees)
+                    }
+                    else {
+                        print("No data available")
+                    }
+                }
+                
             }
             else {
                 print("No data available")
             }
         }
+        
+        
         
         //Se não houver dados ....
         validation_code = 1
@@ -213,7 +236,7 @@ public class CustomARView: ARView{
         return simd_float4x4(first_column, second_column, third_column, forth_column)
     }
     
-    func saveProject(project: String) -> Int {
+    func saveProject(project: String, location : CLLocationCoordinate2D) -> Int {
         
         var validation_code : Int = 0
         var index = 0
@@ -238,6 +261,7 @@ public class CustomARView: ARView{
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             if(self.currentSceneManager.getSelectedProject() != "No project Associated"){
                 if(self.currentSceneManager.getPositions().count>0){
+                    
                     for anchor in self.currentSceneManager.getSceneAnchors() {
                         
                         let result_name: Void = ref.child("\(index)").setValue(["name": anchor.name])
@@ -245,11 +269,13 @@ public class CustomARView: ARView{
                         let result2: Void = ref.child("\(index)").child("second").setValue( anchor.transform.columns.1.getValueStringed())
                         let result3: Void = ref.child("\(index)").child("third").setValue( anchor.transform.columns.2.getValueStringed())
                         let result4: Void = ref.child("\(index)").child("forth").setValue( anchor.transform.columns.3.getValueStringed())
-                        //save user's location
-                        let result_location: Void = ref.child("\(index)").child("location").setValue("Location")
                         
                         index+=1
                     }
+                    
+                    //save user's location
+                    let project_location : Dictionary<String, Any> = ["longitude" : location.longitude , "latitude" : location.latitude]
+                    let result_longitude: Void = ref.parent!.child("location").setValue(project_location)
                     
                 }else{
                     //Se não conseguir salvar dados ....
@@ -299,7 +325,7 @@ public class CustomARView: ARView{
                     }
                     self.currentSceneManager.cleanLoadAnchors()
                 })
-            
+                
                 //just if user has this location on his position
                 
             }else{

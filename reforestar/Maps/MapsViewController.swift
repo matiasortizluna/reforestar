@@ -13,49 +13,20 @@ import SwiftyJSON
 import SwiftUI
 
 class MapsViewController: UIViewController, MKMapViewDelegate{
-
+    
     @IBOutlet weak var mapView: MKMapView!
     let locationManager = CLLocationManager()
     
-    var areas_user: [String:AnyObject] = [:]
     var vertexes: Dictionary<String,Any> = [:]
     var polygons: [MKPolygon] = []
-    var areas_allowed:Dictionary<String, Dictionary<String, Any>> = [:]
-    
-    
-    let areasContentView = UIHostingController(rootView: AreasContentView())
-    
-    
-    func setupConstraints(){
-        areasContentView.view.translatesAutoresizingMaskIntoConstraints = false
-        areasContentView.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        areasContentView.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        areasContentView.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        areasContentView.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-    }
+    var all_areas:Dictionary<String, Any> = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-            //Add AR view with customed AR interface
-            self.addChild(self.areasContentView)
-            self.view.addSubview(self.areasContentView.view)
-            self.setupConstraints()
-            
-        })
-        
-        /*
-        getAreasInformation() { [weak self] result in
-            self?.areas_allowed = result
-        }
-    
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-            // Code you want to be delayed
-            
-            self.createPolygonsFromAreas(areas: self.areas_allowed)
-            print(self.polygons)
-            
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+            self.getAreasInformation()
+            self.createPolygonsFromAreas(areas: self.all_areas)
             let overlays : [MKOverlay] = self.polygons
             self.mapView.addOverlays(overlays)
         })
@@ -67,55 +38,44 @@ class MapsViewController: UIViewController, MKMapViewDelegate{
         self.locationManager.startUpdatingLocation()
         self.mapView.showsUserLocation = true
         self.mapView.delegate = self
- */
+        
+        self.mapView.setRegion(MKCoordinateRegion(center: self.locationManager.location!.coordinate, latitudinalMeters: 100, longitudinalMeters: 100), animated: true)
+        self.mapView.showsCompass = true
+        self.mapView.showsScale = true
+        self.mapView.showsBuildings = true
+        
+        self.mapView.layer.cornerRadius = 20.0
+        self.mapView.layer.borderColor = Color.dark_green.cgColor
+        self.mapView.layer.borderWidth = 4.0
     }
     
-    func getAreasInformation(completion: @escaping (Dictionary<String, Dictionary<String, Any>>) -> ()) {
-        let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
+    func getAreasInformation() {
         
-        let areas_ref = ref.child("areas")
-        
-        let areas_database = areas_ref.observe(.value, with: {snapshot in
-            guard let areas = snapshot.value as? Dictionary<String, Dictionary<String, Any>> else {
-                        print("Error in getting information about the Trees")
-                        return
-                    }
-            
-            var areas_default: Dictionary<String, Dictionary<String, Any>> = [:]
-            var default_area: Bool = false
-            for area in areas{
-                default_area = area.value["default"] as! Bool
-            
-                if (default_area == true){
-                    areas_default[area.key] = area.value
-                }
-            }
-            completion(areas_default)
-        })
+        self.all_areas = CurrentSession.sharedInstance.areas
+        //print("Areas : \(CurrentSession.sharedInstance.areas)")
     }
     
-    func createPolygonsFromAreas(areas: Dictionary<String, Dictionary<String, Any>>){
+    func createPolygonsFromAreas(areas: Dictionary<String, Any>){
         for area in areas {
-            self.polygons.append(self.createPolygon(vertexs: area.value["vertexs"] as! [AnyObject]))
+            self.polygons.append(self.createPolygon(vertexs: area.value as! NSArray))
         }
     }
     
-    func createPolygon(vertexs: [AnyObject])->MKPolygon{
+    func createPolygon(vertexs: NSArray)->MKPolygon{
         var polygon:MKPolygon = MKPolygon()
-
-        if (!vertexs.isEmpty){
-            var polygonCoordinates:[CLLocationCoordinate2D] = []
-            for vertex in vertexs {
-                
-                polygonCoordinates.append(CLLocationCoordinate2D(latitude: vertex["latitude"]! as! CLLocationDegrees, longitude: vertex["longitude"]! as! CLLocationDegrees))
-            }
-            polygon = MKPolygon(coordinates: polygonCoordinates, count: polygonCoordinates.count)
+        var polygonCoordinates:[CLLocationCoordinate2D] = []
+        
+        for vertex in vertexs {
+            let vertex_dictionary = vertex as! Dictionary<String, Any>
+            polygonCoordinates.append(CLLocationCoordinate2D(latitude: vertex_dictionary["latitude"]! as! CLLocationDegrees, longitude: vertex_dictionary["longitude"]! as! CLLocationDegrees))
         }
+        polygon = MKPolygon(coordinates: polygonCoordinates, count: polygonCoordinates.count)
+        
         return polygon
     }
-
+    
 }
-   
+
 extension MapsViewController{
     
     func generateRandomColor() -> UIColor {
@@ -130,31 +90,22 @@ extension MapsViewController{
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         guard(overlay is MKPolygon || overlay is MKCircle) else { return MKOverlayRenderer() }
-            
+        
         if(overlay is MKPolygon){
             var renderer = MKPolygonRenderer.init(polygon: overlay as! MKPolygon)
             
+            renderer.fillColor = self.generateRandomColor().withAlphaComponent(0.4)
             renderer.lineWidth = 2.0
-            renderer.strokeColor = self.generateRandomColor()
-            renderer.fillColor = self.generateRandomColor().withAlphaComponent(0.4)
-            renderer.alpha = 0.4
-            renderer.polygon.accessibilityLabel="Hello"
-            renderer.accessibilityLabel="Hello"
-            renderer.accessibilityRespondsToUserInteraction = true
-            renderer.accessibilityPerformMagicTap()
-
-                    
-            return renderer
-        }else if(overlay is MKCircle){
-            var renderer = MKCircleRenderer.init(circle: overlay as! MKCircle)
+            renderer.strokeColor = renderer.fillColor
+            //renderer.alpha = 0.4
+            //renderer.polygon.accessibilityLabel="Hello"
+            //renderer.accessibilityLabel="Hello"
+            //renderer.accessibilityRespondsToUserInteraction = true
+            //renderer.accessibilityPerformMagicTap()
             
-            renderer.lineWidth = 1.0
-            renderer.strokeColor = self.generateRandomColor()
-            renderer.fillColor = self.generateRandomColor().withAlphaComponent(0.4)
-            renderer.alpha = 0.9
-                    
             return renderer
         }
+        
         return MKOverlayRenderer()
         
     }
@@ -165,10 +116,10 @@ extension MapsViewController{
 /*
  
  func createCircle() -> MKOverlay{
-     let coordinates = CLLocationCoordinate2D(latitude: 39.612981, longitude: -8.662311);
-     let region = CLCircularRegion(center: coordinates, radius: 5000, identifier: "geofence")
-     let overlay = MKCircle(center: coordinates, radius: region.radius)
-     return overlay
+ let coordinates = CLLocationCoordinate2D(latitude: 39.612981, longitude: -8.662311);
+ let region = CLCircularRegion(center: coordinates, radius: 5000, identifier: "geofence")
+ let overlay = MKCircle(center: coordinates, radius: region.radius)
+ return overlay
  }
-
-*/
+ 
+ */

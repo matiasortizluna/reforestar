@@ -44,9 +44,10 @@ final class CurrentSession {
     
     public var ref : DatabaseReference? = nil
     
-    //private var areas : [String] = ["------"]
+    public var areas : Dictionary<String, Any> = [:]
     
-    //private var user : [String] = ["------"]
+    public var user_location : CLLocationCoordinate2D = CLLocationCoordinate2D()
+    public var desired_location: CLLocationCoordinate2D = CLLocationCoordinate2D()
     
     static let sharedInstance: CurrentSession = {
         let instance = CurrentSession()
@@ -54,32 +55,11 @@ final class CurrentSession {
     }()
     
     private init(){
-        //self.user = Auth.auth().currentUser
-        //self.getProjectsNamesOfUser()
-        //sleep(1)
-        //ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference()
+        self.user = Auth.auth().currentUser
+        sleep(1)
     }
     
-    public func addLoadAnchors(anchors: [ARAnchor]){
-        self.to_load_anchors = anchors
-    }
-    
-    public func addLoadAnchor(anchor: ARAnchor){
-        self.to_load_anchors.append(anchor)
-    }
-    
-    public func cleanLoadAnchors(){
-        self.to_load_anchors = []
-    }
-    
-    public func getLoadAnchors() -> [ARAnchor]{
-        return self.to_load_anchors
-    }
-    
-    public func hasLoadAnchors() -> Bool {
-        return self.to_load_anchors.count > 0 ? true : false
-    }
-    
+   
     public func fetchTreeCatalog(){
         let database = self.ref!.child("trees").getData { (error, snapshot) in
             if let error = error {
@@ -113,6 +93,7 @@ final class CurrentSession {
                     for project in self.projects_of_user.keys {
                         self.projects_name.append(project as! String)
                     }
+                    self.fetchAreas()
                     self.fetchProjects()
                 })
             }
@@ -139,7 +120,51 @@ final class CurrentSession {
                 }
             }
         }
-        print("ProjectsName : \(self.projects_name)")
+        //print("ProjectsName : \(self.projects_name)")
+    }
+    
+    func fetchAreas() {
+
+        for project_user in self.projects_name {
+            let areas_database = self.ref!.child("projects/\(project_user)/areas").getData { (error, snapshot) in
+                if let error = error {
+                    print("Error getting data \(error)")
+                }
+                else if snapshot.exists() {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                        for area in snapshot.value as! Dictionary<String,Any> {
+                            self.areas[area.key] = area.value as! NSArray
+                        }
+                    })
+                }
+                else {
+                    print("No data of areas available")
+                }
+            }
+        }
+        
+        //print("Areas : \(self.areas)")
+        
+    }
+    
+    public func addLoadAnchors(anchors: [ARAnchor]){
+        self.to_load_anchors = anchors
+    }
+    
+    public func addLoadAnchor(anchor: ARAnchor){
+        self.to_load_anchors.append(anchor)
+    }
+    
+    public func cleanLoadAnchors(){
+        self.to_load_anchors = []
+    }
+    
+    public func getLoadAnchors() -> [ARAnchor]{
+        return self.to_load_anchors
+    }
+    
+    public func hasLoadAnchors() -> Bool {
+        return self.to_load_anchors.count > 0 ? true : false
     }
     
     func getAllProjects() -> [String] {

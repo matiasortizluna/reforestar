@@ -26,14 +26,17 @@ struct CustomARUserInterface : View {
     @State private var showTreeCatalog : Bool = false
     @State private var showDesiredLocation : Bool = false
     
+    @State public var desired_location : Dictionary<String, Any> = ["longitude" : 0.0, "latitude": 0.0]
+    
     var cancellableMessage : AnyCancellable?
     var cancellables = Set<AnyCancellable>()
+    let notification_preparation_load_progress = Notification.Name("notification_preparation_load_progress")
     
     init() {
         //setupUserMessage(userFeedbackManager: userFeedbackManager, icon_string: "checkmark.circle", text_color: .dark_green, text_string: "Last placed tree has been deleted! :)", title_color: .sucess, title_string: "Success", back_color: .white_gray)
     }
-    
     var body: some View{
+        
         HStack(alignment: .center){
             VStack(alignment: .leading){
                 NumberOfTreesOnSceneLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
@@ -46,7 +49,7 @@ struct CustomARUserInterface : View {
                     VStack{
                         CurrentCoordinatesLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
                         if(self.showDesiredLocation){
-                            DesiredCoordinatesLabel(background_color: .light_green, height_button: self.$height_button, width_button: self.$width_button)
+                            DesiredCoordinatesLabel(background_color: .light_green, latitude: self.desired_location["latitude"] as! CLLocationDegrees, longitude: self.desired_location["longitude"] as! CLLocationDegrees, height_button: self.$height_button, width_button: self.$width_button)
                         }
                     }
                 }
@@ -71,10 +74,17 @@ struct CustomARUserInterface : View {
                 }, icon_string1: "chevron.right.square.fill", icon_string2: "chevron.backward.square", button_title: "Menu")
             }
         }
-        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("user_message"))) { _ in
-            print(">> in init")
-            print("Notification received from a publisher!")
-        }
+        .onReceive(NotificationCenter.default.publisher(for: self.notification_preparation_load_progress), perform: { obj in
+            print("Notification received from a publisher To prepare load progress!")
+            self.desired_location["latitude"] = obj.userInfo!["latitude"]
+            self.desired_location["longitude"] = obj.userInfo!["longitude"]
+        })
+        /*
+         .onReceive(NotificationCenter.default.publisher(for: Notification.Name("user_message"))) { _ in
+         print(">> in init")
+         print("Notification received from a publisher!")
+         }
+         */
     }
 }
 
@@ -240,16 +250,15 @@ struct CurrentCoordinatesLabel : View {
 struct DesiredCoordinatesLabel : View {
     
     let background_color: Color
+    let latitude : CLLocationDegrees
+    let longitude : CLLocationDegrees
     
     @Binding var height_button : CGFloat
     @Binding var width_button : CGFloat
     
-    
     var currentSceneManager = CurrentSession.sharedInstance
     
-    var body: some View{
-        //let coordinate =
-        
+    var body: some View{ 
         HStack(alignment: .top){
             VStack(alignment: .center){
                 Image(systemName: "mappin.and.ellipse")
@@ -266,16 +275,16 @@ struct DesiredCoordinatesLabel : View {
                         .bold()
                 }
                 HStack(alignment: .center){
-                    Text("latitude")
-                        .font(.system(size: self.width_button*0.25))
+                    Text(String(self.latitude))
+                        .font(.system(size: self.width_button*0.2))
                         .foregroundColor(.dark_green)
                         .bold()
                     Text("|")
                         .font(.system(size: self.width_button*0.3))
                         .foregroundColor(.dark_green)
                         .bold()
-                    Text("longitude")
-                        .font(.system(size: self.width_button*0.25))
+                    Text(String(self.longitude))
+                        .font(.system(size: self.width_button*0.2))
                         .foregroundColor(.dark_green)
                         .bold()
                 }
@@ -522,6 +531,8 @@ struct OptionsMenu: View {
     @State private var selectedProject : String = "Default"
     var currentSceneManager = CurrentSession.sharedInstance
     
+    @EnvironmentObject var locationManager : LocationManager
+    
     var body: some View{
         
         ZStack{
@@ -577,6 +588,7 @@ struct OptionsMenu: View {
                             Button(action: {
                                 print("Save Button Pressed")
                                 self.showOptionsMenu.toggle()
+                                currentSceneManager.user_location = locationManager.coordinates!.coordinate
                                 NotificationCenter.default.post(name: self.notification_save_progress, object: nil)
                             }){
                                 Image(systemName: "sdcard")
@@ -597,6 +609,7 @@ struct OptionsMenu: View {
                                 self.showOptionsMenu.toggle()
                                 self.showDesiredLocation.toggle()
                                 NotificationCenter.default.post(name: self.notification_load_progress, object: nil)
+                                
                             }){
                                 Image(systemName: "arrow.down.circle")
                                     .font(.system(size: self.width_button*0.3))

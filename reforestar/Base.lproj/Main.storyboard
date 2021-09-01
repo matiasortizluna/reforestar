@@ -69,13 +69,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LMp-rA-wNc">
-                                <rect key="frame" x="34" y="102" width="700" height="700"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LMp-rA-wNc">
+                                <rect key="frame" x="34" y="137" width="700" height="750"/>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7zK-IL-YhH"/>
                         <color key="backgroundColor" name="Color1"/>
+                        <constraints>
+                            <constraint firstItem="7zK-IL-YhH" firstAttribute="bottom" secondItem="LMp-rA-wNc" secondAttribute="bottom" constant="87" id="7GL-8S-RIY"/>
+                            <constraint firstItem="LMp-rA-wNc" firstAttribute="top" secondItem="7zK-IL-YhH" secondAttribute="top" constant="35" id="AVN-In-Pen"/>
+                            <constraint firstItem="7zK-IL-YhH" firstAttribute="trailing" secondItem="LMp-rA-wNc" secondAttribute="trailing" constant="34" id="FQb-sO-D70"/>
+                            <constraint firstItem="LMp-rA-wNc" firstAttribute="leading" secondItem="7zK-IL-YhH" secondAttribute="leading" constant="34" id="dix-ER-hdA"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Areas" id="v7k-Xg-1Q0"/>
                     <connections>
