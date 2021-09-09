@@ -29,19 +29,19 @@ class ReforestationSettings {
         var tries: Int = 0
         
         //Range of the random numbers to be created, is also the distance from the initial position that the new trees will be
-        let range : Float = scale_compensation / 10
+        let range : Float = scale_compensation * 2.0
         //Minimum distance that all trees need to have (So other trees don't get placed in the same position and can be seen as separated)
-        let min_distance : Float = scale_compensation / 50
+        let min_distance : Float = scale_compensation
         //Maximum disance that any tree could be from the first touch/initial position of the same group
-        let max_distance_from_initial : Float = (scale_compensation*Float(numberOfTrees)) * 2
+        let max_distance_from_initial : Float = (scale_compensation*Float(numberOfTrees)) * 3
         //Maximum disance that any tree could be from their brothers of the same group
         let max_distance_from_group : Float = (scale_compensation*Float(numberOfTrees)) * 4
         //Maximum disance that any tree could be from other trees that already exist in the scene
-        let max_distance_for_other_areas : Float = (scale_compensation*Float(numberOfTrees)) * 6
+        let max_distance_for_other_areas : Float = (scale_compensation*Float(numberOfTrees)) * 5
         
         
         //Check if initial position is in the same place as others trees.
-        var available_initial_spot : Bool = self.verify_distance_with_other_positions(positions_to_compare: known_positions, new_coordinates: initial_coordinates, min_distance: min_distance, max_distance: max_distance_for_other_areas)
+        let available_initial_spot : Bool = self.verify_distance_with_other_positions(positions_to_compare: known_positions, new_coordinates: initial_coordinates, min_distance: min_distance, max_distance: max_distance_for_other_areas)
         
         //If initial spot is available
         if(available_initial_spot){
@@ -61,7 +61,7 @@ class ReforestationSettings {
             if(limit>=0){
                 
                 //This cycle will create new positons for each tree
-                for tree in 0...(limit) {
+                for _ in 0...(limit) {
                     
                     //Restart the number of tries, (so a each tree has the same amount of tries)
                     tries=0
@@ -72,8 +72,8 @@ class ReforestationSettings {
                         //Restart a variable that holds the boolean result of the calculation of the distances
                         inside_area=true
                         
-                        //A new position (their coordinates) is created randomly, the random number is added to the original number of the initial position.
-                        //Note: This happens because, all of the values are in relation with the camera, so the initial position is also in relation with the camera, so let's say that the value of the initial position away from the camera is  5,00. If I just create a new number with a value of 1, the new tree will be placed super close with the camera, which I don't, I want the new trees to be around the initial positions. So that's why I add a new random number to the initial positions, so in this example, let's say the random number is 0,5. Then the new tree will be 5,50 away from the camera, and 0,5 away from the initial posiiton
+                        //A new position (their coordinates) is created randomly, the random number is summed to the original number of the initial position.
+                        //Note: This happens because, all of the values are in relation with the camera, so the initial position is also in relation with the camera, so let's say that the value of the initial position away from the camera is  5,00. If I just create a new number with a value of 1, the new tree will be placed super close with the camera, which is not the result I need. I want the new trees to be around the initial positions. So that's why I sum a new random number to the initial positions, so in this example, let's say the random number is 0,5. Then the new tree will be 5,50 away from the camera, and 0,5 away from the initial posiiton
                         new_position_coordinates = ThreeDimensionPoint.init(x: CGFloat(Float(initial_coordinates.x) + Float.random(in: -range...range)), y: CGFloat(Float(initial_coordinates.y)), z:CGFloat(Float(initial_coordinates.z) + Float.random(in: -range...range)))
                         
                         //Check if new coordinates is close to initial position
@@ -84,10 +84,8 @@ class ReforestationSettings {
                             inside_area=self.verify_distance_with_other_positions(positions_to_compare: new_occupied_positions, new_coordinates: new_position_coordinates, min_distance: min_distance, max_distance: max_distance_from_group)
                             
                             if(inside_area){
-                                
                                 //Check if new coordinates is close to already existing positions in the Scene
                                 inside_area=self.verify_distance_with_other_positions(positions_to_compare: known_positions, new_coordinates: new_position_coordinates,min_distance:min_distance,max_distance: max_distance_for_other_areas)
-                            
                             }
                             
                         }
@@ -103,7 +101,8 @@ class ReforestationSettings {
                         //This exit, return means that more than 20 tries were done to create a random number and still didn't fulfill the distance parameters
                         return []
                     }
-                    
+                    print("New position")
+                    print(new_position)
                     //Create a new Position based on the new coordiantes (random) previously created. In resume, this is basically passing the positions to the right object.
                     new_position.columns.3.x = Float(new_position_coordinates.x)
                     new_position.columns.3.y = Float(initial_coordinates.y) //The height is is the same than the initial position, because we want all the trees of the same group to be at the same level. Not one 0,5 meters upside of the others like if the were floating. They should all be on the same surface.
@@ -143,7 +142,7 @@ class ReforestationSettings {
         if (positions_to_compare.count>0){
         
             //Iterate the array of the positions to compare. Because the first position is 0, the last has to be, the amount of elements - 1
-            for var index in 0...(positions_to_compare.count-1) {
+            for index in 0...(positions_to_compare.count-1) {
                 
                 //Get the 3 coordinates we need from the position of the array, so a calculation of the distance between them could be made.
                 old_coordinates = ThreeDimensionPoint.init(x: CGFloat(Float(positions_to_compare[index].columns.3.x)), y: CGFloat(Float(positions_to_compare[index].columns.3.y)), z:CGFloat(Float(positions_to_compare[index].columns.3.z)))

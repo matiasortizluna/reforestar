@@ -10,13 +10,17 @@ import SwiftUI
 
 class ProjectsDetailViewController: UIViewController {
 
-    var titleReceived = ""
-    let stringlatin : String? = ""
+    //var titleReceived = ""
+    var project_name : String? = ""
+    var project_description : String? = ""
+    var project_status : String? = ""
+    var project_trees : Int? = 0
+    var project_areas : Int? = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let projectsDetailContentView : UIHostingController<ProjectsDetailContentView> = UIHostingController(rootView: ProjectsDetailContentView(stringlatin: stringlatin!))
+        let projectsDetailContentView : UIHostingController<ProjectsDetailContentView> = UIHostingController(rootView: ProjectsDetailContentView(project_name: self.project_name!, project_description: self.project_description!, project_status: self.project_status!, project_trees: self.project_trees!, project_areas: self.project_areas!))
         
         //Add AR view with customed AR interface
         addChild(projectsDetailContentView)

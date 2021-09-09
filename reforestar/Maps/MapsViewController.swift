@@ -39,7 +39,7 @@ class MapsViewController: UIViewController, MKMapViewDelegate{
         self.mapView.showsUserLocation = true
         self.mapView.delegate = self
         
-        self.mapView.setRegion(MKCoordinateRegion(center: self.locationManager.location!.coordinate, latitudinalMeters: 100, longitudinalMeters: 100), animated: true)
+        self.mapView.setRegion(MKCoordinateRegion(center: self.locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 41.15, longitude: -8.61024), latitudinalMeters: 100, longitudinalMeters: 100), animated: true)
         self.mapView.showsCompass = true
         self.mapView.showsScale = true
         self.mapView.showsBuildings = true
@@ -64,52 +64,36 @@ class MapsViewController: UIViewController, MKMapViewDelegate{
     func createPolygon(vertexs: NSArray)->MKPolygon{
         var polygon:MKPolygon = MKPolygon()
         var polygonCoordinates:[CLLocationCoordinate2D] = []
-        
         for vertex in vertexs {
             let vertex_dictionary = vertex as! Dictionary<String, Any>
             polygonCoordinates.append(CLLocationCoordinate2D(latitude: vertex_dictionary["latitude"]! as! CLLocationDegrees, longitude: vertex_dictionary["longitude"]! as! CLLocationDegrees))
         }
         polygon = MKPolygon(coordinates: polygonCoordinates, count: polygonCoordinates.count)
-        
         return polygon
     }
     
 }
 
 extension MapsViewController{
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        guard(overlay is MKPolygon || overlay is MKCircle) else { return MKOverlayRenderer() }
+        if(overlay is MKPolygon){
+            let renderer = MKPolygonRenderer.init(polygon: overlay as! MKPolygon)
+            renderer.fillColor = self.generateRandomColor().withAlphaComponent(0.4)
+            renderer.lineWidth = 2.0
+            renderer.strokeColor = renderer.fillColor
+            return renderer
+        }
+        return MKOverlayRenderer()
+    }
     
     func generateRandomColor() -> UIColor {
         let redValue = CGFloat.random(in: 0...1)
         let greenValue = CGFloat.random(in: 0...1)
         let blueValue = CGFloat.random(in: 0...1)
-        
         let randomColor = UIColor(red: redValue, green: greenValue, blue: blueValue, alpha: 1.0)
-        
         return randomColor
     }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        guard(overlay is MKPolygon || overlay is MKCircle) else { return MKOverlayRenderer() }
-        
-        if(overlay is MKPolygon){
-            var renderer = MKPolygonRenderer.init(polygon: overlay as! MKPolygon)
-            
-            renderer.fillColor = self.generateRandomColor().withAlphaComponent(0.4)
-            renderer.lineWidth = 2.0
-            renderer.strokeColor = renderer.fillColor
-            //renderer.alpha = 0.4
-            //renderer.polygon.accessibilityLabel="Hello"
-            //renderer.accessibilityLabel="Hello"
-            //renderer.accessibilityRespondsToUserInteraction = true
-            //renderer.accessibilityPerformMagicTap()
-            
-            return renderer
-        }
-        
-        return MKOverlayRenderer()
-        
-    }
-    
 }
 
 

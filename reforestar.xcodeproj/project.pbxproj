@@ -17,6 +17,10 @@
 		0F8B9F45268A99BB00299623 /* ReforestationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8B9F44268A99BB00299623 /* ReforestationSettings.swift */; };
 		0F91F597261E3CED00B5F918 /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */; };
 		0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F599261E547F00B5F918 /* CatalogViewController.swift */; };
+		0F9DF8C926E57E0300036216 /* CatalogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9DF8C726E57E0300036216 /* CatalogTableViewCell.swift */; };
+		0F9DF8CA26E57E0300036216 /* CatalogTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F9DF8C826E57E0300036216 /* CatalogTableViewCell.xib */; };
+		0F9DF8CD26E582C900036216 /* ProjectsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9DF8CB26E582C900036216 /* ProjectsTableViewCell.swift */; };
+		0F9DF8CE26E582C900036216 /* ProjectsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F9DF8CC26E582C900036216 /* ProjectsTableViewCell.xib */; };
 		0FA8DA7526C5F6A500B54822 /* CatalogDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DA7426C5F6A500B54822 /* CatalogDetailContentView.swift */; };
 		0FC6A562261E24DE002B9B73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A561261E24DE002B9B73 /* AppDelegate.swift */; };
 		0FC6A566261E24DE002B9B73 /* Experience.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 0FC6A565261E24DE002B9B73 /* Experience.rcproject */; };
@@ -31,14 +35,9 @@
 		0FE1E016269D30BF00C3A5F4 /* CustomARUserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE1E015269D30BF00C3A5F4 /* CustomARUserInterface.swift */; };
 		0FF72176261E71AE00E0DA68 /* ProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */; };
 		0FF72179261E71CC00E0DA68 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF72178261E71CC00E0DA68 /* MapsViewController.swift */; };
-		0FF72181261E73F200E0DA68 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF7217F261E73F200E0DA68 /* TableViewCell.swift */; };
-		0FF72182261E73F200E0DA68 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FF72180261E73F200E0DA68 /* TableViewCell.xib */; };
-		0FF82BC226C74407002251F5 /* Quercus ilex.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FF82BBC26C74406002251F5 /* Quercus ilex.usdz */; };
-		0FF82BC326C74407002251F5 /* Eucalyptus globulus.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FF82BBD26C74406002251F5 /* Eucalyptus globulus.usdz */; };
 		0FF82BC426C74407002251F5 /* Pinus pinaster.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FF82BBE26C74407002251F5 /* Pinus pinaster.usdz */; };
-		0FF82BC626C74407002251F5 /* Quercus suber.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FF82BC026C74407002251F5 /* Quercus suber.usdz */; };
 		0FF82BC726C74407002251F5 /* Salix alba.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FF82BC126C74407002251F5 /* Salix alba.usdz */; };
-		0FF82BC926C74718002251F5 /* Pinus pinea.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FF82BC826C74718002251F5 /* Pinus pinea.usdz */; };
+		0FF82BC926C74718002251F5 /* Pinus sylvestris.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0FF82BC826C74718002251F5 /* Pinus sylvestris.usdz */; };
 		9DDB14CCF519597997F85551 /* libPods-reforestar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F691D850D17135829B06696 /* libPods-reforestar.a */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +52,10 @@
 		0F8B9F44268A99BB00299623 /* ReforestationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReforestationSettings.swift; sourceTree = "<group>"; };
 		0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
 		0F91F599261E547F00B5F918 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
+		0F9DF8C726E57E0300036216 /* CatalogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogTableViewCell.swift; sourceTree = "<group>"; };
+		0F9DF8C826E57E0300036216 /* CatalogTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatalogTableViewCell.xib; sourceTree = "<group>"; };
+		0F9DF8CB26E582C900036216 /* ProjectsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsTableViewCell.swift; sourceTree = "<group>"; };
+		0F9DF8CC26E582C900036216 /* ProjectsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectsTableViewCell.xib; sourceTree = "<group>"; };
 		0FA8DA7426C5F6A500B54822 /* CatalogDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogDetailContentView.swift; sourceTree = "<group>"; };
 		0FC6A55E261E24DE002B9B73 /* reforestar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reforestar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FC6A561261E24DE002B9B73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,14 +72,9 @@
 		0FE1E015269D30BF00C3A5F4 /* CustomARUserInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomARUserInterface.swift; sourceTree = "<group>"; };
 		0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewController.swift; sourceTree = "<group>"; };
 		0FF72178261E71CC00E0DA68 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
-		0FF7217F261E73F200E0DA68 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
-		0FF72180261E73F200E0DA68 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
-		0FF82BBC26C74406002251F5 /* Quercus ilex.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Quercus ilex.usdz"; sourceTree = "<group>"; };
-		0FF82BBD26C74406002251F5 /* Eucalyptus globulus.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Eucalyptus globulus.usdz"; sourceTree = "<group>"; };
 		0FF82BBE26C74407002251F5 /* Pinus pinaster.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Pinus pinaster.usdz"; sourceTree = "<group>"; };
-		0FF82BC026C74407002251F5 /* Quercus suber.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Quercus suber.usdz"; sourceTree = "<group>"; };
 		0FF82BC126C74407002251F5 /* Salix alba.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Salix alba.usdz"; sourceTree = "<group>"; };
-		0FF82BC826C74718002251F5 /* Pinus pinea.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Pinus pinea.usdz"; sourceTree = "<group>"; };
+		0FF82BC826C74718002251F5 /* Pinus sylvestris.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Pinus sylvestris.usdz"; sourceTree = "<group>"; };
 		64C921DECC052D8A633F291D /* Pods-reforestar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reforestar.debug.xcconfig"; path = "Target Support Files/Pods-reforestar/Pods-reforestar.debug.xcconfig"; sourceTree = "<group>"; };
 		8F691D850D17135829B06696 /* libPods-reforestar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-reforestar.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8258569B618CF09CD8AF058 /* Pods-reforestar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reforestar.release.xcconfig"; path = "Target Support Files/Pods-reforestar/Pods-reforestar.release.xcconfig"; sourceTree = "<group>"; };
@@ -100,6 +98,8 @@
 				0FF72175261E71AE00E0DA68 /* ProjectsViewController.swift */,
 				0F1F25F72637A91500694936 /* ProjectsDetailViewController.swift */,
 				0F2EFD3B26C5B8020014877E /* ProjectsDetailContentView.swift */,
+				0F9DF8CB26E582C900036216 /* ProjectsTableViewCell.swift */,
+				0F9DF8CC26E582C900036216 /* ProjectsTableViewCell.xib */,
 			);
 			path = Projects;
 			sourceTree = "<group>";
@@ -110,6 +110,8 @@
 				0F91F599261E547F00B5F918 /* CatalogViewController.swift */,
 				0F1F25FA2637A92B00694936 /* CatalogDetailViewController.swift */,
 				0FA8DA7426C5F6A500B54822 /* CatalogDetailContentView.swift */,
+				0F9DF8C726E57E0300036216 /* CatalogTableViewCell.swift */,
+				0F9DF8C826E57E0300036216 /* CatalogTableViewCell.xib */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";
@@ -147,11 +149,8 @@
 		0F459E23262CE9DB00A62D2B /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				0FF82BC826C74718002251F5 /* Pinus pinea.usdz */,
-				0FF82BBD26C74406002251F5 /* Eucalyptus globulus.usdz */,
+				0FF82BC826C74718002251F5 /* Pinus sylvestris.usdz */,
 				0FF82BBE26C74407002251F5 /* Pinus pinaster.usdz */,
-				0FF82BBC26C74406002251F5 /* Quercus ilex.usdz */,
-				0FF82BC026C74407002251F5 /* Quercus suber.usdz */,
 				0FF82BC126C74407002251F5 /* Salix alba.usdz */,
 			);
 			path = assets;
@@ -187,8 +186,6 @@
 				0F459E23262CE9DB00A62D2B /* assets */,
 				0FC6A561261E24DE002B9B73 /* AppDelegate.swift */,
 				0FC6A567261E24DE002B9B73 /* Main.storyboard */,
-				0FF7217F261E73F200E0DA68 /* TableViewCell.swift */,
-				0FF72180261E73F200E0DA68 /* TableViewCell.xib */,
 				0FC6A56A261E24E1002B9B73 /* Assets.xcassets */,
 				0FC6A56C261E24E1002B9B73 /* LaunchScreen.storyboard */,
 				0FC6A56F261E24E1002B9B73 /* Info.plist */,
@@ -284,16 +281,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FF82BC726C74407002251F5 /* Salix alba.usdz in Resources */,
-				0FF82BC626C74407002251F5 /* Quercus suber.usdz in Resources */,
-				0FF82BC326C74407002251F5 /* Eucalyptus globulus.usdz in Resources */,
 				0FC6A56E261E24E1002B9B73 /* LaunchScreen.storyboard in Resources */,
-				0FF72182261E73F200E0DA68 /* TableViewCell.xib in Resources */,
 				0F356310265A82FA00A15D2B /* GoogleService-Info.plist in Resources */,
 				0FC6A56B261E24E1002B9B73 /* Assets.xcassets in Resources */,
-				0FF82BC226C74407002251F5 /* Quercus ilex.usdz in Resources */,
-				0FF82BC926C74718002251F5 /* Pinus pinea.usdz in Resources */,
+				0FF82BC926C74718002251F5 /* Pinus sylvestris.usdz in Resources */,
+				0F9DF8CE26E582C900036216 /* ProjectsTableViewCell.xib in Resources */,
 				0FF82BC426C74407002251F5 /* Pinus pinaster.usdz in Resources */,
 				0FC6A569261E24DE002B9B73 /* Main.storyboard in Resources */,
+				0F9DF8CA26E57E0300036216 /* CatalogTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,14 +325,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F91F59A261E547F00B5F918 /* CatalogViewController.swift in Sources */,
+				0F9DF8CD26E582C900036216 /* ProjectsTableViewCell.swift in Sources */,
 				0FC6A579261E2A52002B9B73 /* UserProfileViewController.swift in Sources */,
 				0F7A94CC265CCC6F000902E7 /* AugmentedRealityViewController.swift in Sources */,
 				0FCBACC72665CFD30076B6D3 /* ARContentView.swift in Sources */,
-				0FF72181261E73F200E0DA68 /* TableViewCell.swift in Sources */,
 				0FE1E016269D30BF00C3A5F4 /* CustomARUserInterface.swift in Sources */,
 				0F0BEDC326BC7D8F004F2B1A /* UserProfileContentView.swift in Sources */,
 				0F1F25FB2637A92B00694936 /* CatalogDetailViewController.swift in Sources */,
 				0FA8DA7526C5F6A500B54822 /* CatalogDetailContentView.swift in Sources */,
+				0F9DF8C926E57E0300036216 /* CatalogTableViewCell.swift in Sources */,
 				0FF72179261E71CC00E0DA68 /* MapsViewController.swift in Sources */,
 				0FD36F962687C99A0078C716 /* LocationManager.swift in Sources */,
 				0F8B9F45268A99BB00299623 /* ReforestationSettings.swift in Sources */,

@@ -18,7 +18,7 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
     var projectsTitles:[String] = []
     var filteredData: [String]!
     var projectInfoToSend :[String:String]=[:]
-    var projects:Dictionary<String, Dictionary<String, Any>> = [:]
+    var projects: [ProjectModel] = []
     var selectedProject:Dictionary<String, Dictionary<String, Any>> = [:]
     
     override func viewDidLoad() {
@@ -36,7 +36,7 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
             self.filteredData = self.projectsTitles;
             
             //Additional setup after loading the view.
-            self.tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
+            self.tableView.register(UINib(nibName: "ProjectsTableViewCell", bundle: nil), forCellReuseIdentifier: "ProjectsTableViewCell")
             self.tableView.delegate = self
             self.tableView.dataSource = self
             self.searchBar.delegate = self
@@ -46,21 +46,24 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func getProjects(){
         
-        self.projects = CurrentSession.sharedInstance.getProjecstFull()
-        self.projectsTitles = CurrentSession.sharedInstance.getAllProjects()
+        for project in CurrentSession.sharedInstance.getProjecst() {
+            let trees = project.project_trees
+            let areas = project.project_areas
+            self.projects.append(ProjectModel(project_name: project.project_name, project_description: project.project_description, project_status: project.project_status, project_trees: trees, project_areas: areas))
+        }
+        self.projectsTitles = CurrentSession.sharedInstance.getProjectsNames()
         
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
-        tableViewCell.nameLabelForCell.text = filteredData[indexPath.row];
+        let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "ProjectsTableViewCell", for: indexPath) as! ProjectsTableViewCell
+        tableViewCell.projects_name_label.text = filteredData[indexPath.row];
         
         if(self.projectsTitles.contains(filteredData[indexPath.row])){
             let project_found = self.getProject(name: filteredData[indexPath.row])
-            tableViewCell.treesValueLabel.text = project_found["trees"]
-            tableViewCell.sizeValueLabel.text = project_found["size"]
-            tableViewCell.statusLabel.text = project_found["status"]
+            tableViewCell.projects_trees_value.text = project_found["trees"]
+            tableViewCell.projects_status_value.text = project_found["status"]
         }
         
         return tableViewCell;
@@ -68,13 +71,11 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func getProject(name: String)->[String:String]{
         var data:[String:String]=[:]
-        for project in self.projects{
-            if(project.value["name"] as! String==name){
-                data["name"]=(project.value["name"] as! String)
-                data["trees"]="12"
-                data["status"]=(project.value["availability"] as! String)
-                //data["size"]=(project.value["size"] as! String)
-                data["size"] = "0"
+        for project in self.projects {
+            if(project.project_name == name){
+                data["name"] = project.project_name
+                data["trees"] = String(project.project_trees)
+                data["status"] = project.project_status
             }
         }
         return data
@@ -97,24 +98,16 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
     
     //Default function for Table View to work
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return 0;
         return filteredData.count;
     }
     
     func getProjectSelected(name: String)->[String:String]{
         var data:[String:String]=[:]
         for project in self.projects{
-            if(project.value["name"] as! String==name){
-                data["trees"]="12"
-                /*
-                if(project.value["trees"] != nil){
-                    let trees:[Any] = project.value["trees"] as! Array
-                    data["trees"]=String(trees.count)
-                }
-                */
-                data["name"]=(project.value["name"] as! String)
-                data["status"]=(project.value["availability"] as! String)
-                data["size"]="12"
+            if(project.project_name == name){
+                data["name"] = project.project_name
+                data["trees"] = String(project.project_trees)
+                data["status"] = project.project_status
             }
         }
         return data
@@ -122,9 +115,7 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
     
     //When user select one item of the list
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //Which title will send
         self.projectInfoToSend = self.getProjectSelected(name: filteredData[indexPath.row])
-        //Prepare for next page
         performSegue(withIdentifier: "project_to_detail", sender: self)
     }
     
@@ -132,12 +123,13 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
         if segue.identifier == "project_to_detail" {
             //Create new View Controller
             let vc = segue.destination as! ProjectsDetailViewController
-            //Pass Project Information to New Controller
             vc.title=self.projectInfoToSend["name"]
-            //vc.label1.text = self.projectInfoToSend["trees"]
-            //vc.label2.text = self.projectInfoToSend["status"]
-            //vc.label3.text = self.projectInfoToSend["size"]
+            let index_project = CurrentSession.sharedInstance.searchForProjectCatalog(project_name: vc.title!)
             
+            vc.project_areas = self.projects[index_project].project_areas
+            vc.project_trees = self.projects[index_project].project_trees
+            vc.project_description = self.projects[index_project].project_description
+            vc.project_status = self.projects[index_project].project_status
         }
     }
     
@@ -151,5 +143,6 @@ class ProjectsViewController: UIViewController, UITableViewDelegate, UITableView
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.endEditing(true)
     }
+ 
     
 }

@@ -10,7 +10,13 @@ import SwiftUI
 
 struct CatalogDetailContentView : View {
     
-    let stringlatin : String
+    let catalog_latin_name : String
+    let catalog_common_name: String
+    let catalog_space_betwen: Int
+    let catalog_min_height: Int
+    let catalog_max_height: Int
+    let catalog_description_tree: String
+    let catalog_has3dmodel: Bool
     
     var body: some View{
         ZStack{
@@ -19,11 +25,11 @@ struct CatalogDetailContentView : View {
             VStack(alignment: .center, spacing: 15.0){
                 
                 VStack(alignment: .center,spacing: 10.0){
-                    Text("Common Name")
+                    Text(catalog_common_name)
                         .font(.system(size: Help.width_button*0.4))
                         .foregroundColor(.dark_green)
                         .bold()
-                    Image("matias")
+                    Image(catalog_latin_name)
                         .resizable()
                         .scaledToFit()
                         .shadow(radius: 5)
@@ -47,7 +53,7 @@ struct CatalogDetailContentView : View {
                             .multilineTextAlignment(.center)
                         Divider()
                             .background(Color.light_beish)
-                        Text("1 m")
+                        Text("\(self.catalog_space_betwen) m")
                             .font(.system(size: Help.width_button*0.35))
                             .foregroundColor(.light_green)
                             .bold()
@@ -67,7 +73,7 @@ struct CatalogDetailContentView : View {
                             .multilineTextAlignment(.center)
                         Divider()
                             .background(Color.light_beish)
-                        Text("1 m")
+                        Text("\(self.catalog_min_height) m")
                             .font(.system(size: Help.width_button*0.35))
                             .foregroundColor(.light_green)
                             .bold()
@@ -86,7 +92,7 @@ struct CatalogDetailContentView : View {
                             .multilineTextAlignment(.center)
                         Divider()
                             .background(Color.light_beish)
-                        Text("1 m")
+                        Text("\(self.catalog_max_height) m")
                             .font(.system(size: Help.width_button*0.35))
                             .foregroundColor(.light_green)
                             .bold()
@@ -100,7 +106,7 @@ struct CatalogDetailContentView : View {
                 .frame(width: Help.height_screen*12.0, height: Help.height_button*2.0, alignment: .center)
                 
                 HStack{
-                    Text("At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusan.")
+                    Text(self.catalog_description_tree.isEmpty ? "No available Description" : self.catalog_description_tree)
                         .font(.system(size: Help.width_button*0.4))
                         .foregroundColor(.dark_green)
                         .lineLimit(5)
@@ -112,29 +118,31 @@ struct CatalogDetailContentView : View {
                 
                 Spacer()
                 
-                VStack(alignment: .center){
-                    Button(action: {
-                        print("dasdsada")
-                    }){
-                        HStack{
-                            Image(systemName: "cursorarrow.rays")
-                                .font(.system(size: Help.width_button*0.4))
-                                .foregroundColor(.light_beish)
-                                .padding(0.5)
-                            Text("Select")
-                                .font(.system(size: Help.width_button*0.3))
-                                .foregroundColor(.light_beish)
-                                .bold()
-                                .padding(0.5)
+                if(self.catalog_has3dmodel){
+                    VStack(alignment: .center){
+                        Button(action: {
+                            print("Selected Model")
+                        }){
+                            HStack{
+                                Image(systemName: "cursorarrow.rays")
+                                    .font(.system(size: Help.width_button*0.4))
+                                    .foregroundColor(.light_beish)
+                                    .padding(0.5)
+                                Text("Select")
+                                    .font(.system(size: Help.width_button*0.3))
+                                    .foregroundColor(.light_beish)
+                                    .bold()
+                                    .padding(0.5)
+                            }
+                            .padding(5.0)
                         }
-                        .padding(5.0)
+                        .padding(3.0)
+                        .buttonStyle(PlainButtonStyle())
+                        .background(Color.dark_green.opacity(95.0))
+                        .cornerRadius(15.0)
+                        .shadow(radius: 5)
+                        .frame(width: Help.width_button*8.0, height: Help.height_button*0.80, alignment: .center)
                     }
-                    .padding(3.0)
-                    .buttonStyle(PlainButtonStyle())
-                    .background(Color.dark_green.opacity(95.0))
-                    .cornerRadius(15.0)
-                    .shadow(radius: 5)
-                    .frame(width: Help.width_button*8.0, height: Help.height_button*0.80, alignment: .center)
                 }
                 
                 Spacer()

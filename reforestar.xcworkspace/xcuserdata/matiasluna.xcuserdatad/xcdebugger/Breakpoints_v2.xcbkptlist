@@ -78,8 +78,8 @@
             filePath = "reforestar/Help/ReforestationSettings.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "verify_distance_with_other_positions(positions_to_compare:new_coordinates:min_distance:max_distance:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,8 +110,8 @@
             filePath = "reforestar/Help/SceneItems.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "sharedInstance"
             landmarkType = "24">
             <Locations>
@@ -173,8 +173,8 @@
             filePath = "reforestar/Help/SceneItems.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "CurrentSession"
             landmarkType = "3">
          </BreakpointContent>
@@ -189,8 +189,8 @@
             filePath = "reforestar/Help/SceneItems.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "CurrentSession"
             landmarkType = "3">
          </BreakpointContent>

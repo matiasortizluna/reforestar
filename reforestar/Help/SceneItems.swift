@@ -4,25 +4,45 @@ import ARKit
 import Combine
 import Firebase
 
-
 class TreeCatalogModel{
     var latin_name:String
     var common_name:String
-    var image:UIImage
     var hasModel : Bool
+    var description_tree : String
+    var max_height : Int
+    var min_height : Int
+    var space_betwen : Int
     
-    init(latin_name:String, common_name:String, hasModel: Bool) {
+    init(latin_name: String, common_name: String, hasModel: Bool, description_tree : String, max_height : Int, min_height : Int, space_betwen : Int) {
         self.latin_name=latin_name
         self.common_name=common_name
         self.hasModel = hasModel
-        self.image = UIImage(named: latin_name) ?? UIImage(systemName: "photo")!
+        self.description_tree = description_tree
+        self.max_height = max_height
+        self.min_height = min_height
+        self.space_betwen = space_betwen
     }
+}
 
+class ProjectModel{
+    var project_name:String
+    var project_description : String
+    var project_status : String
+    var project_trees : Int
+    var project_areas : Int
+    
+    init(project_name:String, project_description : String, project_status : String, project_trees : Int, project_areas : Int) {
+        self.project_name = project_name
+        self.project_description = project_description
+        self.project_status = project_status
+        self.project_trees = project_trees
+        self.project_areas = project_areas
+    }
 }
 
 final class CurrentSession {
     
-    private var selected_model_name : String = "Quercus suber"
+    private var selected_model_name : String = "Pinus pinaster"
     private var number_of_trees : Int = 1
     private var scale_compensation : Double = 1.0
     
@@ -36,7 +56,7 @@ final class CurrentSession {
     
     public var projects_name : [String] = []
     public var projects_of_user : Dictionary<String, String> = [:]
-    public var projects : Dictionary<String, Dictionary<String, Any>>? = [:]
+    public var projects : [ProjectModel] = []
     
     public var catalog : [TreeCatalogModel] = []
     
@@ -59,9 +79,30 @@ final class CurrentSession {
         sleep(1)
     }
     
-   
+    public func searchForProjectCatalog(project_name: String) -> Int {
+        var index = -1
+        for project in self.projects {
+            index+=1
+            if (project.project_name == project_name){
+                return index
+            }
+        }
+        return -1
+    }
+    
+    public func searchForTreeCatalog(latin_name: String) -> Int {
+        var index = -1
+        for tree in self.catalog {
+            index+=1
+            if (tree.latin_name == latin_name){
+                return index
+            }
+        }
+        return -1
+    }
+    
     public func fetchTreeCatalog(){
-        let database = self.ref!.child("trees").getData { (error, snapshot) in
+        self.ref!.child("trees").getData { (error, snapshot) in
             if let error = error {
                 print("Error getting data \(error)")
             }
@@ -69,7 +110,7 @@ final class CurrentSession {
                 let trees_catalog = snapshot.value as! Dictionary<String, Dictionary<String, Any>>
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
                     for tree in trees_catalog {
-                        self.catalog.append(TreeCatalogModel(latin_name: tree.value["latin_name"] as! String, common_name: tree.value["common_name"] as! String, hasModel: tree.value["3dmodel"] != nil ? true : false))
+                        self.catalog.append(TreeCatalogModel(latin_name: tree.value["latin_name"] as! String, common_name: tree.value["common_name"] as! String, hasModel: tree.value["3dmodel"] != nil ? true : false, description_tree : tree.value["description"] as! String, max_height : Int(tree.value["max_height"] as! NSNumber), min_height : Int(tree.value["min_height"] as! NSNumber), space_betwen : Int(truncating: tree.value["space_between"] as! NSNumber)))
                     }
                     print(self.catalog.count)
                 })
@@ -81,8 +122,7 @@ final class CurrentSession {
     }
     
     public func fetchNameProjectsOfUser() {
-        
-        let projects_database = self.ref!.child("users/matiasarielol/projects").getData { (error, snapshot) in
+        self.ref!.child("users/\(Auth.auth().currentUser)/projects").getData { (error, snapshot) in
             if let error = error {
                 print("Error getting data \(error)")
             }
@@ -91,7 +131,7 @@ final class CurrentSession {
                     self.projects_of_user = snapshot.value as? Dictionary<String, String> ?? ["":""]
                     self.setSelectedProject(project: self.projects_of_user.keys.first ?? "Default")
                     for project in self.projects_of_user.keys {
-                        self.projects_name.append(project as! String)
+                        self.projects_name.append(project )
                     }
                     self.fetchAreas()
                     self.fetchProjects()
@@ -106,13 +146,16 @@ final class CurrentSession {
     
     public func fetchProjects() {
         for project_user in self.projects_name {
-            let projects_database = self.ref!.child("projects/\(project_user)/").getData { (error, snapshot) in
+            self.ref!.child("projects/\(project_user)/").getData { (error, snapshot) in
                 if let error = error {
                     print("Error getting data \(error)")
                 }
                 else if snapshot.exists() {
                     DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-                        self.projects![project_user] = snapshot.value as! Dictionary<String,Any>
+                        let project = snapshot.value as! Dictionary<String,Any>
+                        let trees = project["trees"] != nil ? project["trees"] as! NSArray : []
+                        let areas = project["areas"] != nil ? project["areas"] as! NSDictionary : [:]
+                        self.projects.append(ProjectModel(project_name: project["name"] as! String, project_description: project["description"] as! String, project_status: project["status"] as! String, project_trees: trees.count, project_areas: areas.count))
                     })
                 }
                 else {
@@ -120,13 +163,11 @@ final class CurrentSession {
                 }
             }
         }
-        //print("ProjectsName : \(self.projects_name)")
     }
     
     func fetchAreas() {
-
         for project_user in self.projects_name {
-            let areas_database = self.ref!.child("projects/\(project_user)/areas").getData { (error, snapshot) in
+            self.ref!.child("projects/\(project_user)/areas").getData { (error, snapshot) in
                 if let error = error {
                     print("Error getting data \(error)")
                 }
@@ -142,9 +183,6 @@ final class CurrentSession {
                 }
             }
         }
-        
-        //print("Areas : \(self.areas)")
-        
     }
     
     public func addLoadAnchors(anchors: [ARAnchor]){
@@ -167,12 +205,12 @@ final class CurrentSession {
         return self.to_load_anchors.count > 0 ? true : false
     }
     
-    func getAllProjects() -> [String] {
+    func getProjectsNames() -> [String] {
         return self.projects_name
     }
     
-    func getProjecstFull() -> Dictionary<String, Dictionary<String, Any>> {
-        return self.projects ?? [:]
+    func getProjecst() -> [ProjectModel] {
+        return self.projects
     }
     
     func setSelectedProject(project: String) -> Void {
@@ -319,7 +357,7 @@ final class CurrentSession {
 
 class CurrentSessionSwiftUI : ObservableObject {
     
-    @Published var selectedModelName : String = "Quercus suber"
+    @Published var selectedModelName : String = "Pinus pinaster"
     @Published var scene_anchors : Int = 0
     
     @Published var projects : Dictionary<String, Dictionary<String,Any>> = [:]
@@ -373,20 +411,15 @@ class CurrentSessionSwiftUI : ObservableObject {
     
     
     public func getProjects() {
-        self.projects_names = CurrentSession.sharedInstance.getAllProjects()
-        
-        for project in CurrentSession.sharedInstance.getProjecstFull() {
-            self.projects[project.key] = project.value
-            if((project.value["areas"]) != nil){
-                let areas_json = project.value["areas"] as! Dictionary<String, Any>
-                self.n_areas_total += areas_json.count
+        self.projects_names = CurrentSession.sharedInstance.getProjectsNames()
+    
+        for project in CurrentSession.sharedInstance.getProjecst() {
+            if(project.project_areas != 0){
+                self.n_areas_total += project.project_areas
             }
-            if(project.value["trees_ios"] != nil){
-                let trees_json = project.value["trees_ios"] as! Dictionary<String, Any>
-                self.n_planted_trees_total += trees_json.count
-                //self.n_planted_trees_total += 10
-            }
-
+            if(project.project_trees != 0){
+                self.n_planted_trees_total += project.project_trees
+            } 
         }
     }
     
@@ -400,17 +433,16 @@ class CurrentSessionSwiftUI : ObservableObject {
 
 class UserFeedback : ObservableObject {
     
-    @Published var text_color: Color = Color.black
-    @Published var text_string: String = ""
+    @Published var title_string: String = "Title of message"
+    @Published var title_color: Color = Color.dark_green
+
+    @Published var icon_string: String = "lasso"
+    @Published var text_string: String = "Text of the message associated to the title"
+    @Published var text_color: Color = Color.dark_green
     
-    @Published var title_color: Color = Color.black
-    @Published var title_string: String = ""
+    @Published var back_color: Color = Color.light_beish
     
-    @Published var icon_string: String = ""
-    
-    @Published var back_color: Color = Color.black
-    
-    @Published var show_message: Bool = false
+    @Published var show_message: Bool = true
     
     init(){
     }

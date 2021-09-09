@@ -28,13 +28,13 @@ struct CustomARUserInterface : View {
     
     @State public var desired_location : Dictionary<String, Any> = ["longitude" : 0.0, "latitude": 0.0]
     
-    var cancellableMessage : AnyCancellable?
-    var cancellables = Set<AnyCancellable>()
     let notification_preparation_load_progress = Notification.Name("notification_preparation_load_progress")
+    let notification_delete_all_trees_confirmation = Notification.Name("delete_all_trees_confirmation")
+    let notification_remove_last_anchor_confirmation = Notification.Name("last_anchor_confirmation")
+    let notification_placed_tree_confirmation = Notification.Name("notification_placed_tree_confirmation")
     
-    init() {
-        //setupUserMessage(userFeedbackManager: userFeedbackManager, icon_string: "checkmark.circle", text_color: .dark_green, text_string: "Last placed tree has been deleted! :)", title_color: .sucess, title_string: "Success", back_color: .white_gray)
-    }
+    init() {}
+    
     var body: some View{
         
         HStack(alignment: .center){
@@ -78,13 +78,123 @@ struct CustomARUserInterface : View {
             print("Notification received from a publisher To prepare load progress!")
             self.desired_location["latitude"] = obj.userInfo!["latitude"]
             self.desired_location["longitude"] = obj.userInfo!["longitude"]
+            
+            /*
+            self.userFeedbackManager.show_message.toggle()
+            self.userFeedbackManager.title_string = "Load Progress Process Started"
+            self.userFeedbackManager.title_color = Color.blue
+            self.userFeedbackManager.text_string = "Please select a surface on the ground that will function as the origin point for the loaded trees. Keep in minf that the last time you saved the progress of this project the origion point was the device's location."
+            self.userFeedbackManager.text_color = Color.blue
+            self.userFeedbackManager.back_color = Color.black
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
+                self.userFeedbackManager.show_message = false
+            })
+             */
         })
-        /*
-         .onReceive(NotificationCenter.default.publisher(for: Notification.Name("user_message"))) { _ in
-         print(">> in init")
-         print("Notification received from a publisher!")
-         }
-         */
+        .onReceive(NotificationCenter.default.publisher(for: self.notification_delete_all_trees_confirmation), perform: { _ in
+            print("Confirmation of deleting objects")
+            selectedModelManager.scene_anchors=0
+            
+            
+            self.userFeedbackManager.title_string = "Successfully Deleted All Trees from Scene"
+            self.userFeedbackManager.title_color = Color.red_error
+            self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
+            self.userFeedbackManager.text_color = Color.black
+            self.userFeedbackManager.back_color = Color.yellow_warning.opacity(90.0)
+            
+            self.userFeedbackManager.show_message.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
+                self.userFeedbackManager.show_message = false
+            })
+        })
+        .onReceive(NotificationCenter.default.publisher(for: self.notification_remove_last_anchor_confirmation), perform: { _ in
+            print("Confirmation of deleting last anchor")
+            selectedModelManager.scene_anchors-=1
+            
+            self.userFeedbackManager.title_string = "Successfully Deleted Last Tree from Scene"
+            self.userFeedbackManager.title_color = Color.red_error
+            self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
+            self.userFeedbackManager.text_color = Color.black
+            self.userFeedbackManager.back_color = Color.yellow_warning.opacity(90.0)
+            
+            self.userFeedbackManager.show_message.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+                self.userFeedbackManager.show_message = false
+            })
+        })
+        .onReceive(NotificationCenter.default.publisher(for: self.notification_placed_tree_confirmation), perform: { obj in
+            /*
+            if (obj.userInfo!["code"] != nil){
+                let code : Int = Int(obj.userInfo!["code"] as! NSNumber)
+                switch(code)
+                {
+                case 1:
+                    print("Confirmation of placing an element")
+                    
+                    self.userFeedbackManager.show_message.toggle()
+                    self.userFeedbackManager.title_string = "Successfully Placed Tree"
+                    self.userFeedbackManager.title_color = Color.yellow
+                    self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
+                    self.userFeedbackManager.text_color = Color.yellow
+                    self.userFeedbackManager.back_color = Color.black
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+                        self.userFeedbackManager.show_message = false
+                    })
+                case 2:
+                    print("Coudn't find space")
+                    
+                    self.userFeedbackManager.show_message.toggle()
+                    self.userFeedbackManager.title_string = "Error in Placing Tree: Cound't find space"
+                    self.userFeedbackManager.title_color = Color.yellow
+                    self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
+                    self.userFeedbackManager.text_color = Color.yellow
+                    self.userFeedbackManager.back_color = Color.black
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+                        self.userFeedbackManager.show_message = false
+                    })
+                case 3:
+                    print("Confirmation of placing an element")
+                    
+                    self.userFeedbackManager.show_message.toggle()
+                    self.userFeedbackManager.title_string = "Successfully Placed Tree"
+                    self.userFeedbackManager.title_color = Color.yellow
+                    self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
+                    self.userFeedbackManager.text_color = Color.yellow
+                    self.userFeedbackManager.back_color = Color.black
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+                        self.userFeedbackManager.show_message = false
+                    })
+                case 4:
+                    print("Confirmation of placing an element")
+                    
+                    self.userFeedbackManager.show_message.toggle()
+                    self.userFeedbackManager.title_string = "Successfully Placed Tree"
+                    self.userFeedbackManager.title_color = Color.yellow
+                    self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
+                    self.userFeedbackManager.text_color = Color.yellow
+                    self.userFeedbackManager.back_color = Color.black
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+                        self.userFeedbackManager.show_message = false
+                    })
+                case 5:
+                    print("Confirmation of placing an element")
+                    
+                    self.userFeedbackManager.show_message.toggle()
+                    self.userFeedbackManager.title_string = "Successfully Placed Tree"
+                    self.userFeedbackManager.title_color = Color.yellow
+                    self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
+                    self.userFeedbackManager.text_color = Color.yellow
+                    self.userFeedbackManager.back_color = Color.black
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+                        self.userFeedbackManager.show_message = false
+                    })
+                default:
+                    print("Default option")
+                }
+            }
+            */
+            
+        })
     }
 }
 
@@ -132,8 +242,9 @@ struct UserFeedbackMessage : View {
     
     var body: some View{
         HStack{
-            VStack{
-                HStack(alignment: .center){
+            VStack(alignment: .center, spacing: 3.0){
+                Spacer()
+                HStack(alignment: .center, spacing: 3.0){
                     Image(systemName: userFeedbackManager.icon_string)
                         .font(.system(size: self.width_button*0.45))
                         .foregroundColor(userFeedbackManager.title_color)
@@ -142,18 +253,37 @@ struct UserFeedbackMessage : View {
                         .font(.system(size: self.width_button*0.25))
                         .foregroundColor(userFeedbackManager.title_color)
                         .bold()
+                        .multilineTextAlignment(.center)
+                        .lineLimit(1)
                 }
-                .padding(0.5)
                 HStack(alignment: .center){
                     Text(userFeedbackManager.text_string)
-                        .font(.system(size: self.width_button*0.25))
+                        .font(.system(size: self.width_button*0.2))
                         .foregroundColor(userFeedbackManager.text_color)
-                        .bold()
+                        .multilineTextAlignment(.center)
+                        .lineLimit(2)
                 }
-                .padding(0.5)
+                Spacer()
+                HStack(alignment: .center){
+                    Button( action: {
+                        self.userFeedbackManager.show_message = false
+                    }, label: {
+                        VStack(alignment: .center){
+                            Text("Dismiss")
+                                .font(.system(size: self.width_button*0.15))
+                                .foregroundColor(.black)
+                                .bold()
+                        }.padding(1.5)
+                    })
+                    .frame(width: self.width_button*2.0, height: self.height_button*0.5, alignment: .center)
+                    .background(Color.white_gray.opacity(95.0))
+                    .border(Color.gray)
+                    .cornerRadius(35.0)
+                    .overlay(RoundedRectangle(cornerRadius: 35.0).stroke(Color.blue, lineWidth: 3))
+                }
+                Spacer()
             }
-            .padding(1.0)
-            .frame(width: self.width_button*5.0, height: self.height_button*1.5, alignment: .center)
+            .frame(width: self.width_button*5.0, height: self.height_button*2.0, alignment: .center)
         }
         .background(userFeedbackManager.back_color)
         .cornerRadius(15.0)
@@ -342,17 +472,23 @@ struct SelectedModelButtonLabel : View {
             .sheet(isPresented: $showTreeCatalog, content: {
                 //Browse View
                 NavigationView{
-                    ScrollView(.vertical, showsIndicators: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, content: {
-                        //All Trees
-                        VerticalGrid(showTreeCatalog: $showTreeCatalog)
-                    })
-                    .navigationTitle(Text("Tree's Catalog")).navigationBarTitleDisplayMode(.large)
-                    .navigationBarItems(trailing: Button(action: {
-                        self.showTreeCatalog.toggle()
-                    }, label: {
-                        Text("Done").bold()
-                    }))
+                    ZStack{
+                        Color.light_beish.edgesIgnoringSafeArea(.all)
+                    
+                        ScrollView(.vertical, showsIndicators: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, content: {
+                            //All Trees
+                            VerticalGrid(showTreeCatalog: $showTreeCatalog)
+                        })
+                        .navigationTitle(Text("Tree's Catalog")).navigationBarTitleDisplayMode(.large)
+                        .navigationBarItems(trailing: Button(action: {
+                            self.showTreeCatalog.toggle()
+                        }, label: {
+                            Text("Done").bold()
+                        }))
+                    }
+                    
                 }
+                
             })
         }
     }
@@ -524,7 +660,7 @@ struct OptionsMenu: View {
     @Binding var height_button : CGFloat
     @Binding var width_button : CGFloat
     
-    let notification_name = Notification.Name("delete_all_trees")
+    let notification_delete_all_trees = Notification.Name("delete_all_trees")
     let notification_save_progress = Notification.Name("notification_save_progress")
     let notification_load_progress = Notification.Name("notification_load_progress")
     
@@ -543,7 +679,7 @@ struct OptionsMenu: View {
                 HStack{
                     Button(action: {
                         print("Delete all Trees button pressed")
-                        NotificationCenter.default.post(name: self.notification_name, object: nil)
+                        NotificationCenter.default.post(name: self.notification_delete_all_trees, object: nil)
                     }){
                         Image(systemName: "trash")
                             .font(.system(size: self.width_button*0.3))
@@ -570,7 +706,7 @@ struct OptionsMenu: View {
                             .font(.system(size: self.width_button*0.25))
                             .bold()
                         Picker("Projects", selection: $selectedProject){
-                            ForEach(self.currentSceneManager.getAllProjects(),id:\.self){
+                            ForEach(self.currentSceneManager.getProjectsNames(),id:\.self){
                                 
                                 Text("\($0)")
                                     .foregroundColor(Color.dark_green)
@@ -653,7 +789,7 @@ struct RightBar : View {
     var body: some View{
         
         VStack{
-            if(self.selectedModelManager.selectedModelName=="Quercus suber"){
+            if(self.selectedModelManager.selectedModelName=="Pinus pinaster"){
                 PickerSelect(height_screen: self.$height_screen, width_screen: self.$width_screen, height_button: self.$height_button, width_button: self.$width_button)
             }
             
@@ -696,7 +832,7 @@ struct PickerSelect: View{
         HStack{
             //Number of trees picker
             Picker("Trees", selection: $numberOfTrees){
-                ForEach(1...20,id:\.self){
+                ForEach(1...10,id:\.self){
                     
                     Text("\($0)")
                         .foregroundColor(Color.light_beish)
@@ -792,15 +928,17 @@ struct TreesCatalogMenu: View{
 struct VerticalGrid: View{
     
     @Binding var showTreeCatalog : Bool
-    private let gridItemLayout = [GridItem(.fixed(150))]
+    private let gridItemLayout = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     
     @EnvironmentObject var selectedModelManager : CurrentSessionSwiftUI
     var currentSceneManager = CurrentSession.sharedInstance
     
     var body: some View{
         VStack(alignment: .center){
-            LazyVGrid(columns: gridItemLayout, alignment: .leading, spacing: 30, content: {
-                
+            LazyVGrid(columns: gridItemLayout, alignment: .center, spacing: 30, content: {
                 ForEach(currentSceneManager.catalog, id: \.latin_name) { tree in
                     if(tree.hasModel){
                         ItemButton(latin_name: tree.latin_name, common_name: tree.common_name, action: {
@@ -828,24 +966,28 @@ struct ItemButton: View {
             self.action()
         }){
             HStack {
-                VStack(alignment: .leading){
-                    Image(systemName: "gift")
-                        .resizable()
-                        .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .leading)
-                }
-                
+                Spacer()
                 VStack(alignment: .center){
-                    HStack(alignment: .center, spacing: 1.0, content: {
-                        Text(self.latin_name).font(.title3)
-                    }).padding()
-                    HStack(alignment: .center, spacing: 1.0, content: {
-                        Text(self.common_name).font(.title3)
-                    }).padding()
+                    Image("\(self.latin_name) 3D")
+                        .resizable()
+                        .frame(width: Help.width_button*1.7, height: Help.height_button*2.0)
                 }
+                Spacer()
+                VStack(alignment: .center, spacing: 5.0) {
+                    Text(self.latin_name)
+                        .foregroundColor(Color.light_beish)
+                        .font(.system(size: Help.width_button*0.3))
+                        .bold()
+                        .italic()
+                    Text(self.common_name)
+                        .foregroundColor(Color.light_beish)
+                        .font(.system(size: Help.width_button*0.3))
+                }
+                Spacer()
             }
-            .cornerRadius(8.0)
-            .frame(minWidth: 310, idealWidth: 400, maxWidth: .infinity, minHeight: 150, idealHeight: 150, maxHeight: .infinity)
-            .background(Color(UIColor.secondarySystemFill))
+            .frame(width: Help.width_button*4.0, height: Help.height_button*3.0, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            .background(Color.dark_green)
+            .cornerRadius(30.0)
         }
     }
 }

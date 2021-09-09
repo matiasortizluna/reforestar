@@ -62,11 +62,14 @@ public class CustomARView: ARView{
     
     var currentSceneManager = CurrentSession.sharedInstance
     
-    let notification_name = Notification.Name("last_item_anchor")
+    let notification_last_item_anchor = Notification.Name("last_item_anchor")
     var cancellable: AnyCancellable?
     
     let notification_delete_all_trees = Notification.Name("delete_all_trees")
     var cancellableAllTrees: AnyCancellable?
+    let notification_delete_all_trees_confirmation = Notification.Name("delete_all_trees_confirmation")
+    
+    let notification_remove_last_anchor_confirmation = Notification.Name("last_anchor_confirmation")
     
     let notification_save_progress = Notification.Name("notification_save_progress")
     var cancellableSaveProgress: AnyCancellable?
@@ -76,6 +79,8 @@ public class CustomARView: ARView{
     
     let notification_preparation_load_progress = Notification.Name("notification_preparation_load_progress")
     var cancellablePreparationLoadProgress: AnyCancellable?
+    
+    let notification_placed_tree_confirmation = Notification.Name("notification_placed_tree_confirmation")
     
     func setupARView(){
         
@@ -88,16 +93,15 @@ public class CustomARView: ARView{
         configuration.environmentTexturing = .none;
         
         self.cancellable = NotificationCenter.default
-            .publisher(for: self.notification_name)
+            .publisher(for: self.notification_last_item_anchor)
             .sink { value in
-                print("Notification received from a publisher! \(value)")
+                print("Notification received from a publisher! \(value) to delete last anchor.")
                 if(self.scene.anchors.count>=1){
                     print("Removing \(self.scene.anchors[self.scene.anchors.endIndex-1])")
                     self.scene.removeAnchor(self.scene.anchors[self.scene.anchors.endIndex-1])
                     self.currentSceneManager.removeLast()
                     
-                    let notification_removeLastAnchor = Notification.Name("removeLastAnchor")
-                    NotificationCenter.default.post(name: notification_removeLastAnchor, object: nil)
+                    NotificationCenter.default.post(name: self.notification_remove_last_anchor_confirmation, object: nil)
                     
                 }else{
                     print("No items to delete")
@@ -112,8 +116,7 @@ public class CustomARView: ARView{
                     self.scene.anchors.removeAll()
                     self.currentSceneManager.removeAll()
                     
-                    let notification_removeAllAnchors = Notification.Name("removeAllAnchors")
-                    NotificationCenter.default.post(name: notification_removeAllAnchors, object: nil)
+                    NotificationCenter.default.post(name: self.notification_delete_all_trees_confirmation, object: nil)
                     print("Sucessfully Deleted all Trees from Scene")
                 }else{
                     print("No items to delete")
@@ -140,18 +143,13 @@ public class CustomARView: ARView{
     }
     
     func loadProject(project: String) -> Int {
-        
         var validation_code : Int = 0
-        //Se houver dados ....
-        
-        var ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference().ref.child("projects").child(self.currentSceneManager.getSelectedProject()).child("trees")
-        
+        let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference().ref.child("projects").child(self.currentSceneManager.getSelectedProject()).child("trees")
         ref.getData { [self] (error, snapshot) in
             if let error = error {
                 print("Error getting data \(error)")
             }
             else if snapshot.exists() {
-                //print("Got data \(snapshot.value!)")
                 let result = snapshot.value as! NSArray
                 var object : Dictionary<String, Any>? = nil
                 for tree in result {
@@ -165,18 +163,14 @@ public class CustomARView: ARView{
                     let third = object!["third"] as! String
                     let forth = object!["forth"] as! String
                     let matrix = self.createNewMatrix(first: first, second: second, third: third, forth: forth)
-                    
                     currentSceneManager.addLoadAnchor(anchor: ARAnchor(name: name, transform: matrix))
                 }
                 
-                
-                //save user's location
-                let result_longitude: Void = ref.parent!.child("location").getData { [self] (error, snapshot) in
+                let _: Void = ref.parent!.child("location").getData { [self] (error, snapshot) in
                     if let error = error {
                         print("Error getting data \(error)")
                     }
                     else if snapshot.exists() {
-                        //print("Got location \(snapshot.value!)")
                         let location = snapshot.value as! Dictionary<String, Any>
                         self.currentSceneManager.desired_location = CLLocationCoordinate2D(latitude: location["latitude"] as! CLLocationDegrees, longitude: location["longitude"] as! CLLocationDegrees)
                     }
@@ -319,9 +313,9 @@ public class CustomARView: ARView{
             //se tem objetos na memoria para carregar e colocar, coloca ...
             if(currentSceneManager.hasLoadAnchors()){
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-                    print("anchors_saved.count")
                     for anchor in self.currentSceneManager.getLoadAnchors() {
                         self.session.add(anchor: self.getEditedAnchor(anchor: anchor, first_touch: firstResult.worldTransform));
+                        NotificationCenter.default.post(name: self.notification_placed_tree_confirmation, object: nil, userInfo: ["code": 5])
                     }
                     self.currentSceneManager.cleanLoadAnchors()
                 })
@@ -336,6 +330,7 @@ public class CustomARView: ARView{
                 //It is also send, the number of trees that the user selected.
                 //It is also send, the scale desired by the user.
                 //It is also send, the anchors already existing in the scene.
+                
                 var positions = self.reforestationSettingsManager.getPositionsThreeDimension(from: firstResult.worldTransform, for: self.currentSceneManager.getNumberOfTrees(),known_positions: self.currentSceneManager.getPositions(), scale_compensation: Float(self.currentSceneManager.getScaleCompensation()))
                 
                 //If the array has more than 1 item, it means it created sucessfully new positions, at least 1.
@@ -356,15 +351,20 @@ public class CustomARView: ARView{
                         let anchor = ARAnchor(name: self.currentSceneManager.getSelectedModelName(), transform: positions[index]);
                         self.session.add(anchor: anchor);
                     }
+                    NotificationCenter.default.post(name: notification_placed_tree_confirmation, object: nil, userInfo: ["code": 1])
                     
                     //If the array has not items, it means there was a problem, so either didn't find space to all the trees or the intial position wasn't available.
                 }else{
                     print("Coudn't find space")
+                    NotificationCenter.default.post(name: notification_placed_tree_confirmation, object: nil, userInfo: ["code": 2])
                 }
             }
             
         }else{
             print("Object placement failed - coudn't find surface")
+            print("CODEEEE")
+            NotificationCenter.default.post(name: notification_placed_tree_confirmation, object: nil, userInfo: ["code": 3])
+            
         }
         
     }
@@ -397,6 +397,7 @@ extension CustomARView: ARSessionDelegate{
                 placeObject(named: anchorName, for: anchor)
             }else{
                 print("Error placing: \(anchor.name) model")
+                NotificationCenter.default.post(name: notification_placed_tree_confirmation, object: nil, userInfo: ["code": 4])
             }
             
         }

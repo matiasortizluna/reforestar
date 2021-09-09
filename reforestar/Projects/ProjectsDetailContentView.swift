@@ -10,7 +10,11 @@ import SwiftUI
 
 struct ProjectsDetailContentView : View {
     
-    let stringlatin : String
+    var project_name : String
+    var project_description : String
+    var project_status : String
+    var project_trees : Int
+    var project_areas : Int
     
     var body: some View{
         ZStack{
@@ -26,7 +30,7 @@ struct ProjectsDetailContentView : View {
                         .foregroundColor(.dark_green)
                         .bold()
                         .shadow(radius: 5)
-                    Text("At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusan.")
+                    Text(self.project_description.isEmpty ? "No description available" : self.project_description)
                         .font(.system(size: Help.width_button*0.4))
                         .foregroundColor(.dark_green)
                         .lineLimit(6)
@@ -46,7 +50,7 @@ struct ProjectsDetailContentView : View {
                             .bold()
                             .padding(0.5)
                         Spacer()
-                        Text("Planning")
+                        Text(self.project_status)
                             .font(.system(size: Help.width_button*0.3))
                             .foregroundColor(.light_green)
                             .padding(0.5)
@@ -63,7 +67,7 @@ struct ProjectsDetailContentView : View {
                             .foregroundColor(.light_beish)
                             .padding(0.5)
                         Spacer()
-                        Text("3")
+                        Text(String(self.project_trees))
                             .font(.system(size: Help.width_button*0.3))
                             .foregroundColor(.light_green)
                             .padding(0.5)
@@ -81,7 +85,7 @@ struct ProjectsDetailContentView : View {
                             .bold()
                             .padding(0.5)
                         Spacer()
-                        Text("3")
+                        Text(String(self.project_areas))
                             .font(.system(size: Help.width_button*0.3))
                             .foregroundColor(.light_green)
                             .bold()
@@ -100,7 +104,7 @@ struct ProjectsDetailContentView : View {
                 
                 VStack(alignment: .center){
                     Button(action: {
-                        print("dasdsada")
+                        print("Select Project")
                     }){
                         HStack{
                             Image(systemName: "cursorarrow.rays")

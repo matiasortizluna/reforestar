@@ -49,7 +49,7 @@ struct AreasContentView : View{
                                 ProjectAreaButton(project_name: "All", project_color: Color.black, action: {
                                     print("All")
                                 })
-                                ForEach(currentSceneManager.getAllProjects(), id: \.self) { project in
+                                ForEach(currentSceneManager.getProjectsNames(), id: \.self) { project in
                                     ProjectAreaButton(project_name: project, project_color: Color.blue, action: {
                                         print(project)
                                     })

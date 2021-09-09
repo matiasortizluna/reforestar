@@ -443,11 +443,6 @@ struct RegisterAction : View {
                                 })
                             }
                             
-                            
-                            Section(header: Text("User's Profile Picture")) {
-                                TextField("Picture", text: $email)
-                            }
-                            
                             Section(content: {
                                 Button(action: {
                                     Auth.auth().createUser(withEmail: email, password: password){ (result, error) in
