@@ -122,7 +122,7 @@ final class CurrentSession {
     }
     
     public func fetchNameProjectsOfUser() {
-        self.ref!.child("users/\(Auth.auth().currentUser)/projects").getData { (error, snapshot) in
+        self.ref!.child("users/matiasarielol/projects").getData { (error, snapshot) in
             if let error = error {
                 print("Error getting data \(error)")
             }
@@ -442,7 +442,7 @@ class UserFeedback : ObservableObject {
     
     @Published var back_color: Color = Color.light_beish
     
-    @Published var show_message: Bool = true
+    @Published var show_message: Bool = false
     
     init(){
     }

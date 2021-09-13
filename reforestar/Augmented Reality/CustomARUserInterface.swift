@@ -14,7 +14,7 @@ struct CustomARUserInterface : View {
     
     //Variables of State for different Menus
     @State private var height_screen = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(30.0) : CGFloat(50.0)
-    @State private var width_screen = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(70.0) : CGFloat(175.0)
+    @State private var width_screen = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(60.0) : CGFloat(175.0)
     
     @State private var height_button = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(55.0) : CGFloat(72.0)
     @State private var width_button = UIDevice.current.userInterfaceIdiom == .phone ? CGFloat(55.0) : CGFloat(72.0)
@@ -32,169 +32,229 @@ struct CustomARUserInterface : View {
     let notification_delete_all_trees_confirmation = Notification.Name("delete_all_trees_confirmation")
     let notification_remove_last_anchor_confirmation = Notification.Name("last_anchor_confirmation")
     let notification_placed_tree_confirmation = Notification.Name("notification_placed_tree_confirmation")
+    let notification_save_progress_confirmation = Notification.Name("notification_save_progress_confirmation")
     
     init() {}
     
     var body: some View{
-        
-        HStack(alignment: .center){
-            VStack(alignment: .leading){
-                NumberOfTreesOnSceneLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
+        ZStack(alignment: .center){
+            VStack(alignment: .center, spacing: 10.0){
                 Spacer()
-                UndoButton(height_button: self.$height_button, width_button: self.$width_button)
-            }
-            Spacer()
-            VStack(alignment: .center){
-                ZStack{
-                    VStack{
+                VStack{
+                    if(self.showDesiredLocation){
                         CurrentCoordinatesLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
-                        if(self.showDesiredLocation){
-                            DesiredCoordinatesLabel(background_color: .light_green, latitude: self.desired_location["latitude"] as! CLLocationDegrees, longitude: self.desired_location["longitude"] as! CLLocationDegrees, height_button: self.$height_button, width_button: self.$width_button)
-                        }
+                        DesiredCoordinatesLabel(background_color: .light_green, latitude: self.desired_location["latitude"] as! CLLocationDegrees, longitude: self.desired_location["longitude"] as! CLLocationDegrees, height_button: self.$height_button, width_button: self.$width_button)
                     }
                 }
                 Spacer()
-                if(userFeedbackManager.show_message){
-                    UserFeedbackMessage(height_button: self.$height_button, width_button: self.$width_button)
-                        .transition(AnyTransition.opacity.animation(.easeInOut(duration:0.5)))
+                VStack{
+                    if(userFeedbackManager.show_message){
+                        UserFeedbackMessage(height_button: self.$height_button, width_button: self.$width_button)
+                            .transition(AnyTransition.opacity.animation(.easeInOut(duration:0.5)))
+                    }
                 }
                 Spacer()
-                SelectedModelButtonLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button, showTreeCatalog: self.$showTreeCatalog)
             }
-            Spacer()
-            VStack(alignment: .trailing){
-                ReforestationPlanSwitch(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
-                Spacer()
-                if(showTabBar){
+            VStack(alignment: .center){
+                HStack(alignment: .top){
+                    NumberOfTreesOnSceneLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
                     Spacer()
-                    RightBar(height_screen: self.$height_screen, width_screen: self.$width_screen, height_button: self.$height_button, width_button: self.$width_button, showTreeCatalog: self.$showTreeCatalog, showDesiredLocation: self.$showDesiredLocation)
+                    ReforestationPlanSwitch(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button)
                 }
-                ShowBarButton(optionToToggle: $showTabBar, height_button: self.$height_button, width_button: self.$width_button, action: {
-                    self.showTabBar.toggle()
-                }, icon_string1: "chevron.right.square.fill", icon_string2: "chevron.backward.square", button_title: "Menu")
+                Spacer()
+                HStack(alignment: .bottom){
+                    UndoButton(height_button: self.$height_button, width_button: self.$width_button)
+                    Spacer()
+                    SelectedModelButtonLabel(background_color: .dark_green, height_button: self.$height_button, width_button: self.$width_button, showTreeCatalog: self.$showTreeCatalog)
+                    Spacer()
+                    VStack{
+                        ZStack{
+                            if(showTabBar){
+                                RightBar(height_screen: self.$height_screen, width_screen: self.$width_screen, height_button: self.$height_button, width_button: self.$width_button, showTreeCatalog: self.$showTreeCatalog)
+                            }
+                        }
+                        ShowBarButton(optionToToggle: $showTabBar, height_button: self.$height_button, width_button: self.$width_button, action: {
+                            self.showTabBar.toggle()
+                        }, icon_string1: "chevron.right.square.fill", icon_string2: "chevron.backward.square", button_title: "Menu")
+                    }
+                }
             }
+            .onReceive(NotificationCenter.default.publisher(for: self.notification_preparation_load_progress), perform: { obj in
+                print("Notification received from a publisher To prepare load progress!")
+                if(CurrentSession.sharedInstance.getReforestationPlanOption()){
+                    self.showDesiredLocation = true
+                    self.desired_location["latitude"] = obj.userInfo!["latitude"]
+                    self.desired_location["longitude"] = obj.userInfo!["longitude"]
+                    
+                    self.userFeedbackManager.show_message.toggle()
+                    self.userFeedbackManager.title_string = "Load Progress Process Started"
+                    self.userFeedbackManager.title_color = Color.white_gray
+                    self.userFeedbackManager.text_string = "Select the origin point for the trees."
+                    self.userFeedbackManager.text_color = Color.white_gray
+                    self.userFeedbackManager.back_color = Color.blue_info.opacity(0.95)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4), execute: {
+                        self.userFeedbackManager.show_message = false
+                    })
+                }
+            })
+            .onReceive(NotificationCenter.default.publisher(for: self.notification_delete_all_trees_confirmation), perform: { _ in
+                print("Confirmation of deleting objects")
+                selectedModelManager.scene_anchors=0
+                
+                
+                self.userFeedbackManager.title_string = "All Trees Deleted from Scene"
+                self.userFeedbackManager.title_color = Color.black
+                self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
+                self.userFeedbackManager.text_color = Color.black
+                self.userFeedbackManager.back_color = Color.red_error.opacity(0.95)
+                
+                self.userFeedbackManager.show_message.toggle()
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+                    self.userFeedbackManager.show_message = false
+                })
+            })
+            .onReceive(NotificationCenter.default.publisher(for: self.notification_remove_last_anchor_confirmation), perform: { _ in
+                print("Confirmation of deleting last anchor")
+                selectedModelManager.scene_anchors-=1
+                
+                self.userFeedbackManager.title_string = "Last Tree Deleted from Scene"
+                self.userFeedbackManager.title_color = Color.black
+                self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
+                self.userFeedbackManager.text_color = Color.black
+                self.userFeedbackManager.back_color = Color.red_error.opacity(0.95)
+                
+                self.userFeedbackManager.show_message.toggle()
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+                    self.userFeedbackManager.show_message = false
+                })
+            })
+            .onReceive(NotificationCenter.default.publisher(for: self.notification_placed_tree_confirmation), perform: { obj in
+                print("Trying to place an element")
+                
+                if (obj.userInfo!["code"] != nil){
+                    let code : Int = Int(obj.userInfo!["code"] as! NSNumber)
+                    switch(code)
+                    {
+                    case 1:
+                        print("Place 1")
+                        self.showDesiredLocation = false
+                        
+                        self.userFeedbackManager.show_message = true
+                        self.userFeedbackManager.title_string = "Success at Placing Trees"
+                        self.userFeedbackManager.title_color = Color.black
+                        self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
+                        self.userFeedbackManager.text_color = Color.black
+                        self.userFeedbackManager.back_color = Color.light_green.opacity(0.95)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+                            self.userFeedbackManager.show_message = false
+                        })
+                    case 2:
+                        print("Place 2")
+                        self.userFeedbackManager.show_message = true
+                        self.userFeedbackManager.title_string = "Cound't find space for Trees"
+                        self.userFeedbackManager.title_color = Color.black
+                        self.userFeedbackManager.text_string = "Please try again"
+                        self.userFeedbackManager.text_color = Color.black
+                        self.userFeedbackManager.back_color = Color.yellow_warning.opacity(0.95)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+                            self.userFeedbackManager.show_message = false
+                        })
+                    case 3:
+                        print("Place 3")
+                        self.userFeedbackManager.show_message = true
+                        self.userFeedbackManager.title_string = "Coudn't find surface for the Trees"
+                        self.userFeedbackManager.title_color = Color.black
+                        self.userFeedbackManager.text_string = "Please try again :)"
+                        self.userFeedbackManager.text_color = Color.black
+                        self.userFeedbackManager.back_color = Color.yellow_warning.opacity(0.95)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+                            self.userFeedbackManager.show_message = false
+                        })
+                    case 4:
+                        print("Place 4")
+                        self.userFeedbackManager.show_message = true
+                        self.userFeedbackManager.title_string = "Error Placing Trees"
+                        self.userFeedbackManager.title_color = Color.black
+                        self.userFeedbackManager.text_string = "Please Try Again :)"
+                        self.userFeedbackManager.text_color = Color.black
+                        self.userFeedbackManager.back_color = Color.red_error.opacity(0.95)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+                            self.userFeedbackManager.show_message = false
+                        })
+                    case 5:
+                        print("Confirmation of placing an element after Load")
+                        self.userFeedbackManager.show_message = true
+                        self.userFeedbackManager.title_string = "Loaded Trees Successfully"
+                        self.userFeedbackManager.title_color = Color.black
+                        self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
+                        self.userFeedbackManager.text_color = Color.black
+                        self.userFeedbackManager.back_color = Color.sucess.opacity(0.95)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+                            self.userFeedbackManager.show_message = false
+                        })
+                    case 6:
+                        //Get closer to position
+                        self.userFeedbackManager.show_message = true
+                        self.userFeedbackManager.title_string = "Can't Load Trees"
+                        self.userFeedbackManager.title_color = Color.black
+                        self.userFeedbackManager.text_string = "You're \(Float(obj.userInfo!["distance"] as! NSNumber)) m. away from location. Get at least less than 10 meters."
+                        self.userFeedbackManager.text_color = Color.black
+                        self.userFeedbackManager.back_color = Color.blue_info.opacity(0.95)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+                            self.userFeedbackManager.show_message = false
+                        })
+                    default:
+                        print("Default option")
+                    }
+                }
+            })
+            .onReceive(NotificationCenter.default.publisher(for: self.notification_save_progress_confirmation), perform: { obj in
+                    print("Trying to save progress")
+                    
+                    if (obj.userInfo!["code"] != nil){
+                        let code : Int = Int(obj.userInfo!["code"] as! NSNumber)
+                        switch(code)
+                        {
+                        case 1:
+                            //Success at Saving Progress
+                            self.userFeedbackManager.show_message = true
+                            self.userFeedbackManager.title_string = "Success at Saving Progress"
+                            self.userFeedbackManager.title_color = Color.black
+                            self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
+                            self.userFeedbackManager.text_color = Color.black
+                            self.userFeedbackManager.back_color = Color.light_green.opacity(0.95)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+                                self.userFeedbackManager.show_message = false
+                            })
+                        case 2:
+                            //There are no elements to be saved.
+                            self.userFeedbackManager.show_message = true
+                            self.userFeedbackManager.title_string = "No elements to be saved"
+                            self.userFeedbackManager.title_color = Color.black
+                            self.userFeedbackManager.text_string = "Place some trees and then try again :)"
+                            self.userFeedbackManager.text_color = Color.black
+                            self.userFeedbackManager.back_color = Color.yellow_warning.opacity(0.95)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+                                self.userFeedbackManager.show_message = false
+                            })
+                        case 3:
+                            //There is no project selected
+                            self.userFeedbackManager.show_message = true
+                            self.userFeedbackManager.title_string = "No project selected"
+                            self.userFeedbackManager.title_color = Color.black
+                            self.userFeedbackManager.text_string = "Please select a project in order to save progress"
+                            self.userFeedbackManager.text_color = Color.black
+                            self.userFeedbackManager.back_color = Color.yellow_warning.opacity(0.95)    
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+                                self.userFeedbackManager.show_message = false
+                            })
+                        default:
+                            print("Default option")
+                        }
+                    }
+                })
         }
-        .onReceive(NotificationCenter.default.publisher(for: self.notification_preparation_load_progress), perform: { obj in
-            print("Notification received from a publisher To prepare load progress!")
-            self.desired_location["latitude"] = obj.userInfo!["latitude"]
-            self.desired_location["longitude"] = obj.userInfo!["longitude"]
-            
-            /*
-            self.userFeedbackManager.show_message.toggle()
-            self.userFeedbackManager.title_string = "Load Progress Process Started"
-            self.userFeedbackManager.title_color = Color.blue
-            self.userFeedbackManager.text_string = "Please select a surface on the ground that will function as the origin point for the loaded trees. Keep in minf that the last time you saved the progress of this project the origion point was the device's location."
-            self.userFeedbackManager.text_color = Color.blue
-            self.userFeedbackManager.back_color = Color.black
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
-                self.userFeedbackManager.show_message = false
-            })
-             */
-        })
-        .onReceive(NotificationCenter.default.publisher(for: self.notification_delete_all_trees_confirmation), perform: { _ in
-            print("Confirmation of deleting objects")
-            selectedModelManager.scene_anchors=0
-            
-            
-            self.userFeedbackManager.title_string = "Successfully Deleted All Trees from Scene"
-            self.userFeedbackManager.title_color = Color.red_error
-            self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
-            self.userFeedbackManager.text_color = Color.black
-            self.userFeedbackManager.back_color = Color.yellow_warning.opacity(90.0)
-            
-            self.userFeedbackManager.show_message.toggle()
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
-                self.userFeedbackManager.show_message = false
-            })
-        })
-        .onReceive(NotificationCenter.default.publisher(for: self.notification_remove_last_anchor_confirmation), perform: { _ in
-            print("Confirmation of deleting last anchor")
-            selectedModelManager.scene_anchors-=1
-            
-            self.userFeedbackManager.title_string = "Successfully Deleted Last Tree from Scene"
-            self.userFeedbackManager.title_color = Color.red_error
-            self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
-            self.userFeedbackManager.text_color = Color.black
-            self.userFeedbackManager.back_color = Color.yellow_warning.opacity(90.0)
-            
-            self.userFeedbackManager.show_message.toggle()
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
-                self.userFeedbackManager.show_message = false
-            })
-        })
-        .onReceive(NotificationCenter.default.publisher(for: self.notification_placed_tree_confirmation), perform: { obj in
-            /*
-            if (obj.userInfo!["code"] != nil){
-                let code : Int = Int(obj.userInfo!["code"] as! NSNumber)
-                switch(code)
-                {
-                case 1:
-                    print("Confirmation of placing an element")
-                    
-                    self.userFeedbackManager.show_message.toggle()
-                    self.userFeedbackManager.title_string = "Successfully Placed Tree"
-                    self.userFeedbackManager.title_color = Color.yellow
-                    self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
-                    self.userFeedbackManager.text_color = Color.yellow
-                    self.userFeedbackManager.back_color = Color.black
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
-                        self.userFeedbackManager.show_message = false
-                    })
-                case 2:
-                    print("Coudn't find space")
-                    
-                    self.userFeedbackManager.show_message.toggle()
-                    self.userFeedbackManager.title_string = "Error in Placing Tree: Cound't find space"
-                    self.userFeedbackManager.title_color = Color.yellow
-                    self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
-                    self.userFeedbackManager.text_color = Color.yellow
-                    self.userFeedbackManager.back_color = Color.black
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
-                        self.userFeedbackManager.show_message = false
-                    })
-                case 3:
-                    print("Confirmation of placing an element")
-                    
-                    self.userFeedbackManager.show_message.toggle()
-                    self.userFeedbackManager.title_string = "Successfully Placed Tree"
-                    self.userFeedbackManager.title_color = Color.yellow
-                    self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
-                    self.userFeedbackManager.text_color = Color.yellow
-                    self.userFeedbackManager.back_color = Color.black
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
-                        self.userFeedbackManager.show_message = false
-                    })
-                case 4:
-                    print("Confirmation of placing an element")
-                    
-                    self.userFeedbackManager.show_message.toggle()
-                    self.userFeedbackManager.title_string = "Successfully Placed Tree"
-                    self.userFeedbackManager.title_color = Color.yellow
-                    self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
-                    self.userFeedbackManager.text_color = Color.yellow
-                    self.userFeedbackManager.back_color = Color.black
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
-                        self.userFeedbackManager.show_message = false
-                    })
-                case 5:
-                    print("Confirmation of placing an element")
-                    
-                    self.userFeedbackManager.show_message.toggle()
-                    self.userFeedbackManager.title_string = "Successfully Placed Tree"
-                    self.userFeedbackManager.title_color = Color.yellow
-                    self.userFeedbackManager.text_string = "You can always add more trees to the scene :)"
-                    self.userFeedbackManager.text_color = Color.yellow
-                    self.userFeedbackManager.back_color = Color.black
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
-                        self.userFeedbackManager.show_message = false
-                    })
-                default:
-                    print("Default option")
-                }
-            }
-            */
-            
-        })
+        
     }
 }
 
@@ -224,7 +284,7 @@ struct ReforestationPlanSwitch: View {
                     })
             }
             .padding(3.0)
-            .frame(width: self.width_button*2.3, height: self.height_button*0.8, alignment: .center)
+            .frame(width: self.width_button == 72.0 ? self.width_button*2.3 : self.width_button*3.0, height: self.height_button*0.8, alignment: .center)
         }
         .background(self.background_color)
         .cornerRadius(15.0)
@@ -279,7 +339,7 @@ struct UserFeedbackMessage : View {
                     .background(Color.white_gray.opacity(95.0))
                     .border(Color.gray)
                     .cornerRadius(35.0)
-                    .overlay(RoundedRectangle(cornerRadius: 35.0).stroke(Color.blue, lineWidth: 3))
+                    .overlay(RoundedRectangle(cornerRadius: 35.0).stroke(Color.black, lineWidth: 3))
                 }
                 Spacer()
             }
@@ -405,7 +465,7 @@ struct DesiredCoordinatesLabel : View {
                         .bold()
                 }
                 HStack(alignment: .center){
-                    Text(String(self.latitude))
+                    Text(String(format: "%0.6f",self.latitude))
                         .font(.system(size: self.width_button*0.2))
                         .foregroundColor(.dark_green)
                         .bold()
@@ -413,7 +473,7 @@ struct DesiredCoordinatesLabel : View {
                         .font(.system(size: self.width_button*0.3))
                         .foregroundColor(.dark_green)
                         .bold()
-                    Text(String(self.longitude))
+                    Text(String(format: "%0.6f", self.longitude))
                         .font(.system(size: self.width_button*0.2))
                         .foregroundColor(.dark_green)
                         .bold()
@@ -474,7 +534,7 @@ struct SelectedModelButtonLabel : View {
                 NavigationView{
                     ZStack{
                         Color.light_beish.edgesIgnoringSafeArea(.all)
-                    
+                        
                         ScrollView(.vertical, showsIndicators: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, content: {
                             //All Trees
                             VerticalGrid(showTreeCatalog: $showTreeCatalog)
@@ -655,7 +715,6 @@ struct DefaultButtonWithText: View {
 struct OptionsMenu: View {
     
     @Binding var showOptionsMenu : Bool
-    @Binding var showDesiredLocation: Bool
     
     @Binding var height_button : CGFloat
     @Binding var width_button : CGFloat
@@ -675,7 +734,6 @@ struct OptionsMenu: View {
             Color.light_beish
             
             VStack{
-                
                 HStack{
                     Button(action: {
                         print("Delete all Trees button pressed")
@@ -743,7 +801,7 @@ struct OptionsMenu: View {
                             Button(action: {
                                 print("Load Button Pressed")
                                 self.showOptionsMenu.toggle()
-                                self.showDesiredLocation.toggle()
+                                //self.showDesiredLocation.toggle()
                                 NotificationCenter.default.post(name: self.notification_load_progress, object: nil)
                                 
                             }){
@@ -780,7 +838,6 @@ struct RightBar : View {
     @Binding var width_button : CGFloat
     
     @Binding var showTreeCatalog : Bool
-    @Binding var showDesiredLocation : Bool
     @State private var showOptionsMenu : Bool = false
     
     
@@ -792,17 +849,15 @@ struct RightBar : View {
             if(self.selectedModelManager.selectedModelName=="Pinus pinaster"){
                 PickerSelect(height_screen: self.$height_screen, width_screen: self.$width_screen, height_button: self.$height_button, width_button: self.$width_button)
             }
-            
             HeightSlider(height_screen: self.$height_screen, width_screen: self.$width_screen, height_button: self.$height_button, width_button: self.$width_button)
-            
             OptionsButton(height_button: self.$height_button, width_button: self.$width_button, showOptionsMenu: $showOptionsMenu, action: {
                 self.showOptionsMenu.toggle()
                 CurrentSession.sharedInstance.fetchNameProjectsOfUser()
             }).popover(isPresented: $showOptionsMenu, arrowEdge: .trailing, content: {
-                OptionsMenu(showOptionsMenu: $showOptionsMenu, showDesiredLocation: $showDesiredLocation, height_button: self.$height_button, width_button: self.$width_button)
+                OptionsMenu(showOptionsMenu: $showOptionsMenu, height_button: self.$height_button, width_button: self.$width_button)
             })
         }
-        .frame(minWidth: self.width_button, maxWidth: self.width_button, minHeight: 150, maxHeight: 650, alignment: .center)
+        .frame(minWidth: self.width_button, maxWidth: self.width_button, minHeight: 400, maxHeight: 650, alignment: .center)
         .background(Color.dark_green)
         .cornerRadius(20.0)
         .padding(.trailing, 15.0)
@@ -842,7 +897,7 @@ struct PickerSelect: View{
                     self.currentSceneManager.setNumberOfTrees(number: numberOfTrees)
                 }
             }
-            .frame(width: self.width_screen-20.0, height:  self.height_screen == 60.0 ? 100.0 : 200.0, alignment: .center)
+            .frame(width: self.width_screen-20.0, height:  self.height_screen == 30.0 ? 100.0 : 200.0, alignment: .center)
             .clipped()
             .padding(.bottom,3.5)
         }
@@ -884,16 +939,15 @@ struct HeightSlider: View{
             Slider(value: $current_scale, in: min_scale...max_scale,step: 0.10)
                 .accentColor(Color.light_beish)
                 .rotationEffect(Angle(degrees: -90.0))
-                .frame(width: self.height_screen == 60.0 ? 100.0 : 200.0, height: self.width_screen-10.0, alignment: .center)
+                .frame(width: self.height_screen == 30.0 ? 100.0 : 200.0, height: self.width_screen-10.0, alignment: .center)
                 .onChange(of: current_scale, perform: { _ in
                     print("Scale Changed: \(self.currentSceneManager.getScaleCompensation())")
                     self.currentSceneManager.setScaleCompensation(number: current_scale)
                 })
         }
-        .frame(width: self.width_screen-10.0, height: self.height_screen == 60.0 ? 100.0 : 200.0, alignment: .center)
+        .frame(width: self.width_screen-10.0, height: self.width_screen == 60.0 ? 100.0 : 200.0, alignment: .center)
         .padding(0.5)
         .padding(.bottom,3.5)
-        
     }
 }
 

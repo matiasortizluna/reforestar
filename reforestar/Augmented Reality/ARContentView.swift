@@ -59,6 +59,7 @@ struct ContentView_Previews: PreviewProvider {
 public class CustomARView: ARView{
     
     private var reforestationSettingsManager = ReforestationSettings();
+    private var locationManager = LocationManager()
     
     var currentSceneManager = CurrentSession.sharedInstance
     
@@ -73,10 +74,10 @@ public class CustomARView: ARView{
     
     let notification_save_progress = Notification.Name("notification_save_progress")
     var cancellableSaveProgress: AnyCancellable?
+    let notification_save_progress_confirmation = Notification.Name("notification_save_progress_confirmation")
     
     let notification_load_progress = Notification.Name("notification_load_progress")
     var cancellableLoadProgress: AnyCancellable?
-    
     let notification_preparation_load_progress = Notification.Name("notification_preparation_load_progress")
     var cancellablePreparationLoadProgress: AnyCancellable?
     
@@ -143,6 +144,8 @@ public class CustomARView: ARView{
     }
     
     func loadProject(project: String) -> Int {
+        self.locationManager.locationManager.requestLocation()
+        
         var validation_code : Int = 0
         let ref = Database.database(url: "https://reforestar-database-default-rtdb.europe-west1.firebasedatabase.app/").reference().ref.child("projects").child(self.currentSceneManager.getSelectedProject()).child("trees")
         ref.getData { [self] (error, snapshot) in
@@ -173,6 +176,7 @@ public class CustomARView: ARView{
                     else if snapshot.exists() {
                         let location = snapshot.value as! Dictionary<String, Any>
                         self.currentSceneManager.desired_location = CLLocationCoordinate2D(latitude: location["latitude"] as! CLLocationDegrees, longitude: location["longitude"] as! CLLocationDegrees)
+                        self.currentSceneManager.user_location = self.locationManager.locationManager.location?.coordinate ?? CLLocationCoordinate2D()
                     }
                     else {
                         print("No data available")
@@ -184,8 +188,6 @@ public class CustomARView: ARView{
                 print("No data available")
             }
         }
-        
-        
         
         //Se não houver dados ....
         validation_code = 1
@@ -271,16 +273,24 @@ public class CustomARView: ARView{
                     let project_location : Dictionary<String, Any> = ["longitude" : location.longitude , "latitude" : location.latitude]
                     let result_longitude: Void = ref.parent!.child("location").setValue(project_location)
                     
+                    //Success at Saving Progress
+                    NotificationCenter.default.post(name: self.notification_save_progress_confirmation, object: nil, userInfo: ["code": 1])
+                    
+                    
                 }else{
                     //Se não conseguir salvar dados ....
                     validation_code = 1
                     print("There is no elements to be saved to project \(self.currentSceneManager.getSelectedProject())")
+                    NotificationCenter.default.post(name: self.notification_save_progress_confirmation, object: nil, userInfo: ["code": 2])
+                    //There are no elements to be saved.
                 }
                 
             }else{
                 //Se não conseguir salvar dados ....
                 validation_code = 1
                 print("Can't be saved because no project has been selected")
+                NotificationCenter.default.post(name: self.notification_save_progress_confirmation, object: nil, userInfo: ["code": 3])
+                //There is no project selected
             }
         })
         
@@ -304,23 +314,45 @@ public class CustomARView: ARView{
     
     @objc
     func handleTap(recognizer: UITapGestureRecognizer){
+        self.locationManager.locationManager.requestLocation()
         
         let touchInView = recognizer.location(in: self)
         let results = self.raycast(from: touchInView, allowing: .estimatedPlane, alignment: .horizontal)
+        
+        let desired_coordinate = CLLocation(latitude: self.currentSceneManager.desired_location.latitude, longitude: self.currentSceneManager.desired_location.longitude)
+        
+        self.currentSceneManager.user_location = self.locationManager.locationManager.location?.coordinate ?? CLLocationCoordinate2D()
+        
+        let users_coordinate = CLLocation(latitude: self.currentSceneManager.user_location.latitude, longitude: self.currentSceneManager.user_location.longitude)
+        
         
         if let firstResult = results.first{
             
             //se tem objetos na memoria para carregar e colocar, coloca ...
             if(currentSceneManager.hasLoadAnchors()){
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-                    for anchor in self.currentSceneManager.getLoadAnchors() {
-                        self.session.add(anchor: self.getEditedAnchor(anchor: anchor, first_touch: firstResult.worldTransform));
-                        NotificationCenter.default.post(name: self.notification_placed_tree_confirmation, object: nil, userInfo: ["code": 5])
+                    //if user is less than 5 meters away from saved position
+                    if (self.currentSceneManager.getReforestationPlanOption() == true){
+                        let distance = users_coordinate.distance(from: desired_coordinate)
+                        if (distance <= 10){
+                            for anchor in self.currentSceneManager.getLoadAnchors() {
+                                self.session.add(anchor: self.getEditedAnchor(anchor: anchor, first_touch: firstResult.worldTransform));
+                                NotificationCenter.default.post(name: self.notification_placed_tree_confirmation, object: nil, userInfo: ["code": 5])
+                            }
+                            self.currentSceneManager.cleanLoadAnchors()
+                        }else{
+                            //Get closer to position
+                            NotificationCenter.default.post(name: self.notification_placed_tree_confirmation, object: nil, userInfo: ["code": 6, "distance": distance])
+                        }
+                    }else{
+                        for anchor in self.currentSceneManager.getLoadAnchors() {
+                            self.session.add(anchor: self.getEditedAnchor(anchor: anchor, first_touch: firstResult.worldTransform));
+                            NotificationCenter.default.post(name: self.notification_placed_tree_confirmation, object: nil, userInfo: ["code": 5])
+                        }
+                        self.currentSceneManager.cleanLoadAnchors()
                     }
-                    self.currentSceneManager.cleanLoadAnchors()
+                    
                 })
-                
-                //just if user has this location on his position
                 
             }else{
                 
@@ -362,9 +394,7 @@ public class CustomARView: ARView{
             
         }else{
             print("Object placement failed - coudn't find surface")
-            print("CODEEEE")
             NotificationCenter.default.post(name: notification_placed_tree_confirmation, object: nil, userInfo: ["code": 3])
-            
         }
         
     }

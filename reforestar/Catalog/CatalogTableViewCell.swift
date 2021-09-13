@@ -16,6 +16,12 @@ class CatalogTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        if(UIDevice.current.userInterfaceIdiom == .phone){
+            print("UIDevice.current.userInterfaceIdiom == .phone")
+            image_tree.autoresizingMask = []
+            image_tree.frame.size.height = image_tree.frame.size.height / 2
+            image_tree.frame.size.width = image_tree.frame.size.width / 2
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
