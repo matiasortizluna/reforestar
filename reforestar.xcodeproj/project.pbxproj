@@ -13,6 +13,7 @@
 		0F2A7E7C26DCF87B007E602D /* AreasContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A7E7B26DCF87B007E602D /* AreasContentView.swift */; };
 		0F2EFD3C26C5B8020014877E /* ProjectsDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2EFD3B26C5B8020014877E /* ProjectsDetailContentView.swift */; };
 		0F356310265A82FA00A15D2B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F35630F265A82FA00A15D2B /* GoogleService-Info.plist */; };
+		0F4D06AB26F16CA300357DB3 /* arinterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4D06AA26F16CA300357DB3 /* arinterface.swift */; };
 		0F7A94CC265CCC6F000902E7 /* AugmentedRealityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A94CB265CCC6F000902E7 /* AugmentedRealityViewController.swift */; };
 		0F8B9F45268A99BB00299623 /* ReforestationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8B9F44268A99BB00299623 /* ReforestationSettings.swift */; };
 		0F91F597261E3CED00B5F918 /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */; };
@@ -48,6 +49,7 @@
 		0F2A7E7B26DCF87B007E602D /* AreasContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreasContentView.swift; sourceTree = "<group>"; };
 		0F2EFD3B26C5B8020014877E /* ProjectsDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsDetailContentView.swift; sourceTree = "<group>"; };
 		0F35630F265A82FA00A15D2B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0F4D06AA26F16CA300357DB3 /* arinterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = arinterface.swift; sourceTree = "<group>"; };
 		0F7A94CB265CCC6F000902E7 /* AugmentedRealityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityViewController.swift; sourceTree = "<group>"; };
 		0F8B9F44268A99BB00299623 /* ReforestationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReforestationSettings.swift; sourceTree = "<group>"; };
 		0F91F596261E3CED00B5F918 /* ConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 		0F04866E265BF1D90083AC26 /* Augmented Reality */ = {
 			isa = PBXGroup;
 			children = (
+				0F4D06AA26F16CA300357DB3 /* arinterface.swift */,
 				0F7A94CB265CCC6F000902E7 /* AugmentedRealityViewController.swift */,
 				0FCBACC62665CFD30076B6D3 /* ARContentView.swift */,
 				0FE1E015269D30BF00C3A5F4 /* CustomARUserInterface.swift */,
@@ -330,6 +333,7 @@
 				0F7A94CC265CCC6F000902E7 /* AugmentedRealityViewController.swift in Sources */,
 				0FCBACC72665CFD30076B6D3 /* ARContentView.swift in Sources */,
 				0FE1E016269D30BF00C3A5F4 /* CustomARUserInterface.swift in Sources */,
+				0F4D06AB26F16CA300357DB3 /* arinterface.swift in Sources */,
 				0F0BEDC326BC7D8F004F2B1A /* UserProfileContentView.swift in Sources */,
 				0F1F25FB2637A92B00694936 /* CatalogDetailViewController.swift in Sources */,
 				0FA8DA7526C5F6A500B54822 /* CatalogDetailContentView.swift in Sources */,
