@@ -1,4 +1,8 @@
-ReflorestAR
+# Welcome to reflorestar repository
+
+Final project of the Computer Engineering Bachelor's degree: Application to simulate a reforestation plan using Artificial Reality for iOS devices
+
+Final grade of the Final Computer Engineering: 19/20.
 
 “ReforestAR” is a native augmented reality mobile application for iOS and Android devices, which allows the user to place virtual trees on horizontal surfaces and, with that, simulate a real experience of a reforestation plan. This behavior is achieved through an algorithm that respects several minimum distances between trees. The application also allows users to customize the experience with specific options, such as modifying the scale, type, and quantity of trees to be placed. It even has functionalities to save and load the progress of a reforestation session. “Reforestar” was implemented as a final project of the degree course, later published as a scientific article and in the process of being submitted on the AppStore.
 
