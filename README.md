@@ -17,7 +17,9 @@ To accomplish this purpose, the creation of an augmented reality mobile app, for
 Clone the repo to your local computer and open XCode, select the option “Open Existing Project” and select the file “reforestar.xcworkspace”. To test the app, you need to run the app on any iOS device which OS version is at least 14.1. (Will not work on a simulator because of the ARKit features that require connection to the camera’s device).
 
 # Usage Examples
-Videos of the app in use:
+Video of the app in use:
+
+[VIDEO]
 
 # Full List of Features of the App
 The users can:
@@ -175,7 +177,12 @@ Because this app was my first, it doesn’t follow a specific pattern, although,
 
 ### Database
 
+![Database 1](https://github.com/matiasortizluna/reforestar/assets/64530615/2057e96d-cb66-4ba8-9346-546727edfad5)
+
 Google Real-Time Firebase is used to share the same information between the iOS and the Android App. The database keeps the information of all users and the data of the app (name of 3D models, height, descriptions of trees, etc.).
+
+![Database 2](https://github.com/matiasortizluna/reforestar/assets/64530615/294a7963-f435-4fde-812e-c42c947138c9)
+
 
 ### Data Flow
 
@@ -185,7 +192,9 @@ Because SwiftUI is a different UI framework, a way of communicating the changes 
 
 SwiftUI components (framework in charge of UI) are reactive, a special type of variables that maintains their state thought the app cycle and is evident in the user’s screen.
 To solve this issue and make a good user experience when changing values, and to allow the user to personalize the reforestation session even better, a CurrentSessionSwiftUI class was created. Thus, when the user changes a value in the UI interface, the change will be experimented in the SwiftUI variables and will trigger in code the functions of the Singleton class, so the information is the same, when deployed actions in the AR session.
-Because this is a big and complex process to explain, in each section will be explained with details and examples how this seamless workflow between SwiftUI UI interface and UIKit classes and components is done.
+
+![Data Flow](https://github.com/matiasortizluna/reforestar/assets/64530615/bde712bd-d9d4-43f8-8ea5-4e760339df25)
+
 
 ### Seamless integration between SwiftUI and UIKit
 
@@ -195,7 +204,10 @@ In resume, either SwiftUI and UIKit are important tools when designing the UI in
 
 ### Views
 
-the app has a tab bar with 5 options that will help the user navigate through the different sections of the app, each of them with a unique purpose and with features available inside them. The 5 options are: Areas, Projects, ReforestAR, Catalog, and the User sections.
+The app has a tab bar with 5 options that will help the user navigate through the different sections of the app, each of them with a unique purpose and with features available inside them. The 5 options are: Areas, Projects, ReforestAR, Catalog, and the User sections.
+
+![Views](https://github.com/matiasortizluna/reforestar/assets/64530615/1e635140-72a3-411d-b4b1-e1136d644665)
+
 
 #### Areas Section
 
