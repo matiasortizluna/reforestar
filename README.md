@@ -181,7 +181,7 @@ Because this app was my first, it doesn’t follow a specific pattern, although,
 
 Google Real-Time Firebase is used to share the same information between the iOS and the Android App. The database keeps the information of all users and the data of the app (name of 3D models, height, descriptions of trees, etc.).
 
-![Database 2](https://github.com/matiasortizluna/reforestar/assets/64530615/294a7963-f435-4fde-812e-c42c947138c9)
+![Database 2](https://github.com/matiasortizluna/reforestar/assets/64530615/c04790ce-a395-48cf-bac0-db3fc5d88665)
 
 
 ### Data Flow
@@ -193,8 +193,7 @@ Because SwiftUI is a different UI framework, a way of communicating the changes 
 SwiftUI components (framework in charge of UI) are reactive, a special type of variables that maintains their state thought the app cycle and is evident in the user’s screen.
 To solve this issue and make a good user experience when changing values, and to allow the user to personalize the reforestation session even better, a CurrentSessionSwiftUI class was created. Thus, when the user changes a value in the UI interface, the change will be experimented in the SwiftUI variables and will trigger in code the functions of the Singleton class, so the information is the same, when deployed actions in the AR session.
 
-![Data Flow](https://github.com/matiasortizluna/reforestar/assets/64530615/bde712bd-d9d4-43f8-8ea5-4e760339df25)
-
+![Data Flow](https://github.com/matiasortizluna/reforestar/assets/64530615/afea614a-d816-4493-9669-3420acd3adc3)
 
 ### Seamless integration between SwiftUI and UIKit
 
@@ -230,17 +229,31 @@ The user section shows the user’s name, email, username, statistics about the 
 The ReforestAR section holds the AR view where the main features of the application are available, or in other words, the AR camera, along with some instructions.
 ReforestAR Section in iOS was developed with SwiftUI and is compound by different buttons, labels, sliders, switchers, and pickers with each one of them with a specific function.
 
+
+![View ReforestAR5](https://github.com/matiasortizluna/reforestar/assets/64530615/a0b1a86e-0bc8-49f1-a5f4-4d78ee9d033b)
+![View ReforestAR4](https://github.com/matiasortizluna/reforestar/assets/64530615/d2df9c9e-3f76-4796-9895-7ed953ab90f4)
+![View ReforestAR3](https://github.com/matiasortizluna/reforestar/assets/64530615/a5f6a51c-fd1f-45f7-8bf4-614270694b26)
+![View ReforestAR2](https://github.com/matiasortizluna/reforestar/assets/64530615/7514635c-8863-4e6c-8d3b-079f5896c07c)
+![View ReforestAR1](https://github.com/matiasortizluna/reforestar/assets/64530615/31ac85b0-f9eb-4b22-a676-bce3f50c11d3)
+
+
 Some of the views have either SwiftUI, UIKit components or both. The way of communicating the changes happening in SwiftUI components to UIKit components is done with the API of the Notification Center 15 and redundancy of variables. SwiftUI components are reactive, so the variables state is kept through the app cycle and is evident in the user’s screen. Notification Center notifications are used to exchange information between the interface (as for example, the tap of a button) to the AR class and vice versa, making the user experience fluid and user friendly.
 
 Labels that show relevant information, such as: the current number of trees that have been placed in the current session and the real-time geographic location of the user's device. A toggle switch activates a functionality that compares the current user’s device location to the one stored in the project once the load.
 
 Buttons to remove the last placed tree from the current session, present a view with all available models that may be selected, and a to display or hide a right bar menu. This right bar menu contains a picker select for configuring the number of trees to be placed by a single tap (from 1 to 10), a slider that modifies the scale of future placement models, and another button to display or hide a small menu that includes features to delete all the placed trees existing in the current session, select the associated project, and save and load progress from the associated project. 
 
+![View ReforestAR_2](https://github.com/matiasortizluna/reforestar/assets/64530615/42bbb73d-e314-419a-83f3-2a654b5f2db5)
+![View ReforestAR_1](https://github.com/matiasortizluna/reforestar/assets/64530615/519a426a-43eb-46a9-9294-01ebf58cc432)
+
+
 ##### ReforestAR Placement Algorithm
 
 When the user taps on an available horizontal surface on the screen, an object is created in that position. The algorithm was created so when the user taps to create objects, it must respect some ground rules as if it was a real reforestation plan. The user can’t create an object in a position where there is another virtual object. Every object should have a distance value to prevent this from happening. Now, when the user intends to create more than one object with a single click, the first object will be placed in this position, but it will also be used as the origin position to create new random positions for the new objects that are part of the same tap group. The new positions will go through several comparisons that will verify that they are valid positions to simulate a reforestation environment. If the positions created do not comply, a new position is created and the verifications are made again, having a limit of twenty attempts per position, before failing and communicating to the user that the place where they intend to place the objects does not have enough space.
-The three rules that the new random positions must follow are: 1) To be between a “min_distance” and “max_distance” away from the initial position, the first tap of the user. 2) To be “min_distance” and “max_distance” away from any of the models from the same tap group. 3) To be “min_distance” and “max_distance” away from any models that already
-existed in the scene before the tap group. 
+The three rules that the new random positions must follow are: 1) To be between a “min_distance” and “max_distance” away from the initial position, the first tap of the user. 2) To be “min_distance” and “max_distance” away from any of the models from the same tap group. 3) To be “min_distance” and “max_distance” away from any models that already existed in the scene before the tap group. 
+
+![Placement Algorithm](https://github.com/matiasortizluna/reforestar/assets/64530615/8d1d571b-93bc-4e7b-bfa4-41063a09e282)
+
 
 ##### Algorithm load functionality
 
