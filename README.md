@@ -9,76 +9,7 @@ The iOS version was developed my myself while the Android version by my colleagu
 Along with my colleague, we wrote “ReforestAR – An Augmented Reality Mobile app for Reforest Purposes", a paper presented at the B-ranked conference, "VISIGRAPP: 17th International Joint Conference on Computer Vision, Imaging and Computer Graphics Theory and Applications" on February 6, 2022. Published by INSTICC through its SciTePress digital library. Available for free download at: https://www.scitepress.org/Papers/2022/108332/108332.pdf
 
 
-# Index: 
-
-Brief Summary
-
-Installation Instructions
-
-Usage Examples
-
-Full List of Features of the App 
-
-About development of the App
-
-  Hardware
-    
-  Software
-    
-  3D Models
-  
-  Frameworks Used
-    
-      Foundation
-      
-      UIKit Framework
-      
-      SwiftUI
-      
-      MapKit
-      
-      CoreLocation
-      
-      AR Kit
-      
-      Reality Kit
-      
-      Scene Kit
-      
-      Firebase iOS SDK
-      
-      Combine Framework
-
-Architecture
-
-      Software Design Pattern
-      
-      Database
-      
-      Data Flow
-      
-      Seamless integration between SwiftUI and UIKit
-      
-      Views
-
-          Areas Section
-          
-          Projects Section
-          
-          Trees Section
-          
-          User Section
-          
-          ReforestAR Section
-          
-                ReforestAR Placement Algorithm
-                
-                Algorithm load functionality
-
-Limitations
-
-
-# Brief Summary
+# Introduction
 ReforestAR is a project to raise awareness to environmental damages by immersing users into a real-time reforestation experience using Augmented Reality (AR), by allowing users to virtually place 3D models of trees on a real surface, using their own mobile phones, helping in planning and visualize the replanting process.
 To accomplish this purpose, the creation of an augmented reality mobile app, for both iOS and Android platforms. The app, named “ReforestAR”, let users place virtual trees on detected surfaces, and with this, simulating a reforestation planning experience. This behavior was achieved by the usage of an algorithm that acknowledges the minimum distance between trees. The application also enables users to personalize the experience with specific options such as scale modification, quantity of placed trees, and the type of tree that is being placed. Saving, loading, and sharing reforestation projects is also possible.
 
