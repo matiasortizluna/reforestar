@@ -1,3 +1,5 @@
+
+https://github.com/matiasortizluna/reforestar/assets/64530615/5fea10a4-0805-4a71-8af9-1fbfbafd0cd4
 # Welcome to reflorestar repository
 
 Final project of the Computer Engineering Bachelor's degree: Application to simulate a reforestation plan using Artificial Reality for iOS devices. Final Score: 19/20.
@@ -19,7 +21,7 @@ Clone the repo to your local computer and open XCode, select the option “Open 
 # Usage Examples
 Video of the app in use:
 
-[VIDEO]
+https://github.com/matiasortizluna/reforestar/assets/64530615/73f03413-e90c-4962-ac75-c2a68030fcd4
 
 # Full List of Features of the App
 The users can:
@@ -212,29 +214,33 @@ The app has a tab bar with 5 options that will help the user navigate through th
 
 The areas section shows the map with the device’s location, and polygons overlaid representing the predefined areas that the system has defined.
 
+https://github.com/matiasortizluna/reforestar/assets/64530615/69cd8a16-6db7-4f90-90c6-70519a40b63e
+
 #### Projects Section
 
 The projects section shows a list of all the reforestation projects associated with the authenticated user. When adding a virtual 3D tree’s model with AR, its placement is associated with a project. Each project has a specific view that is shown when selected from the list, showing the project’s name, description, status, number of trees, associated users, and sharing/deleting functions if the user that is accessing the page is the project owner.
+
+https://github.com/matiasortizluna/reforestar/assets/64530615/1a6a907f-fb85-4d87-88d5-d8cdacd64e52
 
 #### Trees Section
 
 The trees section shows a list of all the tree species considered in the project’s scope. A specific view for each tree is shown when selected, and it shows the tree’s Latin name, common name, recommended space between each one when planted, its minimum and maximum height, and a description.
 
+https://github.com/matiasortizluna/reforestar/assets/64530615/d580a663-9df0-4dd2-9581-1a610670586c
+
 #### User Section
 
 The user section shows the user’s name, email, username, statistics about the number of projects of the authenticated user, and the number of planted trees. The login, logout and account registration options are also available here. All registration and login forms have validation functions, and an error message is presented when inserted values don’t meet validation rules.
+
+https://github.com/matiasortizluna/reforestar/assets/64530615/9c8045f6-58c9-4e96-af71-11a258cd5e31
 
 #### ReforestAR Section
 
 The ReforestAR section holds the AR view where the main features of the application are available, or in other words, the AR camera, along with some instructions.
 ReforestAR Section in iOS was developed with SwiftUI and is compound by different buttons, labels, sliders, switchers, and pickers with each one of them with a specific function.
 
-
-![View ReforestAR5](https://github.com/matiasortizluna/reforestar/assets/64530615/a0b1a86e-0bc8-49f1-a5f4-4d78ee9d033b)
-![View ReforestAR4](https://github.com/matiasortizluna/reforestar/assets/64530615/d2df9c9e-3f76-4796-9895-7ed953ab90f4)
-![View ReforestAR3](https://github.com/matiasortizluna/reforestar/assets/64530615/a5f6a51c-fd1f-45f7-8bf4-614270694b26)
-![View ReforestAR2](https://github.com/matiasortizluna/reforestar/assets/64530615/7514635c-8863-4e6c-8d3b-079f5896c07c)
-![View ReforestAR1](https://github.com/matiasortizluna/reforestar/assets/64530615/31ac85b0-f9eb-4b22-a676-bce3f50c11d3)
+![View ReforestAR_1](https://github.com/matiasortizluna/reforestar/assets/64530615/519a426a-43eb-46a9-9294-01ebf58cc432)
+![View ReforestAR_2](https://github.com/matiasortizluna/reforestar/assets/64530615/42bbb73d-e314-419a-83f3-2a654b5f2db5)
 
 
 Some of the views have either SwiftUI, UIKit components or both. The way of communicating the changes happening in SwiftUI components to UIKit components is done with the API of the Notification Center 15 and redundancy of variables. SwiftUI components are reactive, so the variables state is kept through the app cycle and is evident in the user’s screen. Notification Center notifications are used to exchange information between the interface (as for example, the tap of a button) to the AR class and vice versa, making the user experience fluid and user friendly.
@@ -243,8 +249,11 @@ Labels that show relevant information, such as: the current number of trees that
 
 Buttons to remove the last placed tree from the current session, present a view with all available models that may be selected, and a to display or hide a right bar menu. This right bar menu contains a picker select for configuring the number of trees to be placed by a single tap (from 1 to 10), a slider that modifies the scale of future placement models, and another button to display or hide a small menu that includes features to delete all the placed trees existing in the current session, select the associated project, and save and load progress from the associated project. 
 
-![View ReforestAR_2](https://github.com/matiasortizluna/reforestar/assets/64530615/42bbb73d-e314-419a-83f3-2a654b5f2db5)
-![View ReforestAR_1](https://github.com/matiasortizluna/reforestar/assets/64530615/519a426a-43eb-46a9-9294-01ebf58cc432)
+![View ReforestAR1](https://github.com/matiasortizluna/reforestar/assets/64530615/31ac85b0-f9eb-4b22-a676-bce3f50c11d3)
+![View ReforestAR3](https://github.com/matiasortizluna/reforestar/assets/64530615/a5f6a51c-fd1f-45f7-8bf4-614270694b26)
+![View ReforestAR2](https://github.com/matiasortizluna/reforestar/assets/64530615/7514635c-8863-4e6c-8d3b-079f5896c07c)
+![View ReforestAR4](https://github.com/matiasortizluna/reforestar/assets/64530615/d2df9c9e-3f76-4796-9895-7ed953ab90f4)
+![View ReforestAR5](https://github.com/matiasortizluna/reforestar/assets/64530615/a0b1a86e-0bc8-49f1-a5f4-4d78ee9d033b)
 
 
 ##### ReforestAR Placement Algorithm
