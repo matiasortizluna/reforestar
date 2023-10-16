@@ -1,5 +1,3 @@
-
-https://github.com/matiasortizluna/reforestar/assets/64530615/5fea10a4-0805-4a71-8af9-1fbfbafd0cd4
 # Welcome to reflorestar repository
 
 Final project of the Computer Engineering Bachelor's degree: Application to simulate a reforestation plan using Artificial Reality for iOS devices. Final Score: 19/20.
