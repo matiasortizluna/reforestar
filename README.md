@@ -1,4 +1,4 @@
-# Welcome to reflorestar repository
+# Welcome to ReforestAR repository
 
 Final project of the Computer Engineering Bachelor's degree: Application to simulate a reforestation plan using Artificial Reality for iOS devices. Final Score: 19/20.
 
