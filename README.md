@@ -11,71 +11,71 @@ Along with my colleague, we wrote “ReforestAR – An Augmented Reality Mobile 
 
 # Index: 
 
-1.	Brief Summary
+Brief Summary
 
-2.	Installation Instructions
+Installation Instructions
 
-3.	Usage Examples
+Usage Examples
 
-4.	Full List of Features of the App 
+Full List of Features of the App 
 
-5.	About development of the App
+About development of the App
 
-5.1.	Hardware
+  Hardware
+    
+  Software
+    
+  3D Models
+  
+  Frameworks Used
+    
+      Foundation
+      
+      UIKit Framework
+      
+      SwiftUI
+      
+      MapKit
+      
+      CoreLocation
+      
+      AR Kit
+      
+      Reality Kit
+      
+      Scene Kit
+      
+      Firebase iOS SDK
+      
+      Combine Framework
 
-5.2.	Software
+Architecture
 
-5.3.	3D Models
+      Software Design Pattern
+      
+      Database
+      
+      Data Flow
+      
+      Seamless integration between SwiftUI and UIKit
+      
+      Views
 
-5.4.	Frameworks Used
+          Areas Section
+          
+          Projects Section
+          
+          Trees Section
+          
+          User Section
+          
+          ReforestAR Section
+          
+                ReforestAR Placement Algorithm
+                
+                Algorithm load functionality
 
-5.4.1.	Foundation
-
-5.4.2.	UIKit Framework
-
-5.4.3.	SwiftUI
-
-5.4.4.	MapKit
-
-5.4.5.	CoreLocation
-
-5.4.6.	AR Kit
-
-5.4.7.	Reality Kit
-
-5.4.8.	Scene Kit
-
-5.4.9.	Firebase iOS SDK
-
-5.4.10.	Combine Framework
-
-5.5.	Architecture
-
-5.5.1.	Software Design Pattern
-
-5.5.2.	Database
-
-5.5.3.	Data Flow
-
-5.5.4.	Seamless integration between SwiftUI and UIKit
-
-5.5.5.	Views
-
-5.5.5.1.	Areas Section
-
-5.5.5.2.	Projects Section
-
-5.5.5.3.	Trees Section
-
-5.5.5.4.	User Section
-
-5.5.5.5.	ReforestAR Section
-
-5.5.5.5.1.	ReforestAR Placement Algorithm
-
-5.5.5.5.2.	Algorithm load functionality
-
-5.6.	Limitations
+Limitations
 
 
 # Brief Summary
